@@ -1,0 +1,70 @@
+//output:SignUp.html, pretty:true
+doctype html
+html
+    head
+        link(type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css")
+        link(type="text/css" rel="stylesheet" href="SignUp.css")
+        script(type="text/javascript" src="bootstrap/js/jquery.min.js")
+        script(type="text/javascript" src="bootstrap/js/jquery.validate.min.js")
+        script(type="text/javascript" src="bootstrap/js/bootstrap.min.js")
+        script(type="text/javascript" src="SignUp.js")
+        script(type="text/javascript" src="noty/packaged/jquery.noty.packaged.min.js")
+        meta(charset="UTF-8")
+        title Twitter
+    
+    nav(class="navbar navbar-default")
+        h2(class="text-center") Welcome To EduMsg
+                
+    body
+        div(class="container")
+            div(class="row")
+                div(class="col-sm-4")
+                    img(class="center-block" src="coloured logo.png")
+                div(class="col-sm-4 col-sm-offset-4 text-center")
+                    div(class="panel no-margin panel-default")
+                        div(class="panel-body")
+
+                            form(role="form" id="login-form")
+                                div(class="form-group" id="login-username")
+                                    div(class="input-group")
+                                        div(class="input-group-addon")
+                                            span(class="glyphicon glyphicon-user" )
+                                        input(type="text" name="username-login" class="form-control" placeholder="Username" size="30")
+                                div(class="form-group" id="login-password")
+                                    div(class="input-group")
+                                        div(class="input-group-addon")
+                                            span(class="glyphicon glyphicon-lock" )
+                                        input(type="password" name="password-login" class="form-control" placeholder="Password" size="30")
+                                        
+                                button(type="submit" name="Login" class="btn btn-default" id="login")
+                                    |Login
+                      
+                    div(class="row")            
+                        div(class="col-sm-12 text-center")
+                            div(class="panel no-margin panel-default")
+                                div(class="panel-body")
+
+                                    form(role="form" id="signup-form")
+                                        div(class="form-group" id="signup-username")
+                                            div(class="input-group")
+                                                div(class="input-group-addon")
+                                                    span(class="glyphicon glyphicon-user" )
+                                                input(type="text" name="username-signup" class="form-control" placeholder="Username"  size="30")
+                                        div(class="form-group" id="signup-email")
+                                            div(class="input-group")    
+                                                div(class="input-group-addon")
+                                                    span(class="glyphicon glyphicon-envelope" )    
+                                                input(type="email" name="email-signup" class="form-control" placeholder="Email" size="30")
+                                        div(class="form-group")
+                                            div(class="input-group" id="signup-password")
+                                                div(class="input-group-addon")
+                                                    span(class="glyphicon glyphicon-lock" )
+                                                input(type="password" name="password-signup" class="form-control" placeholder="Password" size="30")
+                                        div(class="form-group" id="signup-name")
+                                            div(class="input-group")
+                                                div(class="input-group-addon")
+                                                    span(class="glyphicon glyphicon-font" )
+                                                input(type="text" name="name-signup" id="ns" class="form-control" placeholder="Name" size="30")
+                                        button(type="submit" name="Submit" class="btn btn-default" id="signup")
+                                            |Sign Up
+                                            

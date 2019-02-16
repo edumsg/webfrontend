@@ -1,0 +1,426 @@
+//output:LandingPage.html, pretty:true
+doctype html
+html
+    head
+        link(type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css")
+        link(type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.min.css")
+        link(type="text/css" rel="stylesheet" href="LandingPage.css")
+        script(type="text/javascript" src="bootstrap/js/jquery.js")
+        script(type="text/javascript" src="bootstrap/js/bootstrap.min.js")
+        script(type="text/javascript" src="LandingPage.js")
+        script(type="text/javascript" src="noty/packaged/jquery.noty.packaged.min.js")
+        meta(charset="UTF-8")
+        title Twitter
+                                   
+    body
+        nav(class="navbar navbar-default navbar-fixed-top ")
+            div(class="container-fluid")
+                div(class="navbar-header")
+                    button(type="button" class ="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false")
+                        span(class="sr-only")   
+                            |Toggle Navigation
+                        span(class="icon-bar")
+                        span(class="icon-bar")
+                        span(class="icon-bar")
+                                            
+                    a(class="navbar-brand")
+                        |Twitter
+            
+                div(class="collapse navbar-collapse")
+                    form(class="navbar-form navbar-center" role="search" method="POST")
+                        div(class="form-group")
+                            input(type="text" class="form-control" placeholder="Search" name="search")
+                            button(class="btn btn-default" id="search" data-toggle="modal" data-target=".search-box")
+                                |Submit
+                    ul(class="nav navbar-nav navbar-right")
+                        li
+                            button(id="following" type="button" data-toggle="modal" data-target=".followers-box")
+                                i(class="fa fa-check" style="font-size:2em;")
+                        li
+                            button(id="followers" type="button" data-toggle="modal" data-target=".followers-box")
+                                i(class="fa fa-users" style="font-size:2em;")
+                        li
+                            button(id="tweet" type="button" data-toggle="modal" data-target=".tweet-box")
+                                span(class="glyphicon glyphicon-pencil" style="font-size:2em;")
+                        li
+                            button(id="signout" type="button" data-toggle="modal" data-target=".signout-box")
+                                i(class="fa fa-sign-out" style="font-size:2em;")
+        
+        div(class="modal fade new-conv-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h4(class="text-title") New Conversation
+                    div(class="modal-body")
+                        form.form-horizontal
+                            .form-group
+                                label.control-label.col-sm-2 Username:
+                                .col-sm-10
+                                    input.form-control(name="conv-username")
+                                    
+                            .form-group
+                                label.control-label.col-sm-2 Message:
+                                .col-sm-10
+                                    input.form-control(name="conv-message")            
+                    div(class="modal-footer")
+                        button(class="btn btn-default" type="button" data-dismiss="modal")
+                            span(class="fa fa-close" style="font-size:2em;" class="text-center")
+                            
+                        button(class="btn btn-default button-colour" type="button" id="create-conversation")
+                            span(class="fa fa-check" style="font-size:2em;" class="text-center")
+                            
+        div(class="modal fade user-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-header")
+                        button(class="btn btn-default button-colour" type="button" id="toggle-follow")
+                            i(class="fa " style="font-size:2em;" class="text-center")
+                        button(class="btn btn-default button-colour" type="button" id="report")
+                            i(class="fa fa-warning" style="font-size:2em;" class="text-center")
+                                
+                    div(class="modal-body")
+                        .row
+                            #user-avatar.col-sm-3
+                            
+                            #user-tweets.col-sm-9
+                            
+        div(class="modal fade new-list-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h4(class="text-title") New List
+                    div(class="modal-body")
+                        form#list-users.form-horizontal
+                            .form-group
+                                label.control-label.col-sm-2 Name:
+                                .col-sm-10
+                                    input.form-control(name="list-name")
+                                    
+                            .form-group
+                                label.control-label.col-sm-2 Description:
+                                .col-sm-10
+                                    textarea.form-control(name="list-description" row="4")            
+                            
+                            .form-group
+                                label#user-1.control-label.col-sm-2 User 1:
+                                .col-sm-10
+                                    input.form-control(name="user-1") 
+                            
+                    div(class="modal-footer")
+                        button(class="btn btn-default" type="button" id="add-user")
+                            i(class="fa fa-user-plus" style="font-size:2em;" class="text-center")
+                        
+                        button(class="btn btn-default" type="button" data-dismiss="modal")
+                            span(class="fa fa-close" style="font-size:2em;" class="text-center")
+                        
+                        button(class="btn btn-default button-colour" type="button" id="create-list")
+                            span(class="fa fa-check" style="font-size:2em;" class="text-center")
+                            
+        div(class="modal fade tweet-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h4(class="text-title") New Tweet
+                    div(class="modal-body")
+                        form
+                            div(class="form-group")
+                                textarea(class="form-control" id="tweet-text")
+                    div(class="modal-footer")
+                        button(class="btn btn-default" type="button" data-dismiss="modal")
+                            span(class="fa fa-close" style="font-size:2em;" class="text-center")
+                        button(class="btn btn-default button-colour" type="button" data-toggle="modal" id="create-tweet")
+                            span(class="fa fa-send" style="font-size:2em;" class="text-center")
+                            
+        div(class="modal fade signout-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-body")
+                        h4 Signout?
+                    div(class="modal-footer")
+                        button(class="btn btn-default" type="button" data-dismiss="modal" id="cancel-signout")
+                            |Cancel
+                        button(class="btn btn-default button-colour" type="button" data-dismiss="modal" id="confirm-signout")
+                            |Confirm
+                            
+        div(class="modal fade delete-list-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-body")
+                        h4 Delete List?
+                    div(class="modal-footer")
+                        button(class="btn btn-default" type="button" data-dismiss="modal")
+                            |Cancel
+                        button(class="btn btn-default button-colour" type="button" data-dismiss="modal" id="confirm-delete-list")
+                            |Confirm
+                            
+        div(class="modal fade unsub-list-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-body")
+                        h4 Unsubscribe From List?
+                    div(class="modal-footer")
+                        button(class="btn btn-default" type="button" data-dismiss="modal")
+                            |Cancel
+                        button(class="btn btn-default button-colour" type="button" data-dismiss="modal" id="confirm-unsub-list")
+                            |Confirm
+                            
+        div(class="modal fade edit-list-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h4 Edit List
+                    div(class="modal-body")
+                        form.form-horizontal
+                            .form-group
+                                label.control-label.col-sm-2 Name:
+                                .col-sm-10
+                                    input.form-control(name="list-name-edit")
+                                    
+                            .form-group
+                                label.control-label.col-sm-2 Description:
+                                .col-sm-10
+                                    textarea.form-control(name="list-description-edit" rows='4')
+                                    
+                    div(class="modal-footer")
+                        button(class="btn btn-default" type="button" data-dismiss="modal")
+                            |Cancel
+                        button(class="btn btn-default button-colour" type="button" id="confirm-edit-list")
+                            |Confirm
+                            
+                                                
+        div(class="modal fade followers-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    .modal-body
+                        .container
+                            #followers-pane
+                    
+            
+        div(class="modal fade search-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    #search-pane.modal-body        
+                            
+        div(class="modal fade user-details" role="dialog" tabindex="-1")
+            div(class="modal-dialog")
+                div(class="modal-content")
+                    button(class="btn btn-default" type="button" id="back")
+                        i(class="fa fa-left")
+                    #user-header.modal-header
+                    
+                    div(class="modal-body" )
+                        .container
+                            .row
+                                #user-image.col-sm-2
+                                #user-body.col-sm-4
+                                
+                    div(class="modal-footer")
+                        button(class="btn btn-default" type="button" data-dismiss="modal" id="follow")
+                            |Follow
+                        button(class="btn btn-default" type="button" data-dismiss="modal" id="mention")
+                            |Mention
+                        button(class="btn btn-default" type="button" data-dismiss="modal" id="report")
+                            |Report
+                            
+        div(class="modal fade message" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-header" id="message-header")
+                        
+                    div(class="modal-body" id="message-body")
+
+                    div(class="modal-footer")
+                        form
+                            .form-group
+                                div(class="input-group")
+                                    input.form-control(type='text', name='dm')
+                                    span.input-group-btn
+                                        button.btn.btn-default(type="submit" id="send-dm") Reply
+                            
+                        
+        div(class="modal fade list" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-header" id="list-header")
+                            
+                    div(class="modal-body")
+                        .row
+                            .col-sm-6.col-sm-offset-3
+                                #list-body
+                                
+                                
+                                
+        div(class="modal fade reply-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-header" id="reply-header")
+                        
+                    div(class="modal-body")
+                        form
+                            .form-group
+                                    textarea.form-control(name="reply-text" )
+                                    
+                                
+                    div(class="modal-footer")
+                        button(class="btn btn-default" type="button" data-dismiss="modal")
+                            |Cancel
+                        button(class="btn btn-default button-colour" type="button" id="confirm-reply")
+                            |Reply
+                    //- div(class="list-footer")
+                    //-     form
+                    //-         .form-group
+                    //-             div(class="input-group")
+                    //-                 input.form-control(type='text', name='dm')
+                    //-                 span.input-group-btn
+                    //-                     button.btn.btn-default(type="button" id="send-dm") Reply                
+                    //-     
+                    
+                    
+        div(class="modal fade delete-conv-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-body")
+                        h4 Delete Conversation?
+                    div(class="modal-footer")
+                        button(class="btn btn-default" type="button" data-dismiss="modal")
+                            |Cancel
+                        button(class="btn btn-default button-colour" type="button" data-dismiss="modal" id="confirm-delete-conv")
+                            |Confirm
+                                        
+        div(class="modal fade delete-tweet-box" role="dialog" tabindex="-1")
+            div(class="modal-dialog" )
+                div(class="modal-content")
+                    div(class="modal-body")
+                        h4 Delete Tweet?
+                    div(class="modal-footer")
+                        button(class="btn btn-default" type="button" data-dismiss="modal")
+                            |Cancel
+                        button(class="btn btn-default button-colour" type="button" data-dismiss="modal" id="confirm-delete-tweet")
+                            |Confirm
+                                                            
+                    
+        div(class="tab-content")  
+            div(class="tab-pane active" id="timeline-pane" role="tabpanel")
+                #timeline-container.container
+                
+            div(class="tab-pane" id="notifications-pane" role="tabpanel")
+                #notifications-container.container
+         
+            div(class="tab-pane" id="messages-pane" role="tabpanel")
+                .container
+                    .row-fluid
+                        #messages-container.col-sm-4.col-sm-offset-4
+                        .col-sm-1
+                            button(id="new-conv" type="button" data-toggle="modal" data-target=".new-conv-box")
+                                i(class="fa fa-plus-circle" style="font-size:2em;")
+                                
+            div(class="tab-pane" id="lists-pane" role="tabpanel")
+                .container
+                    .row-fluid
+                        #lists-container.col-sm-4.col-sm-offset-4
+                        .col-sm-1.col-sm-offset-2
+                            button(class="button-transparent" id="new-list" type="button" data-toggle="modal" data-target=".new-list-box")
+                                i(class="fa fa-plus-circle" style="font-size:2em;")
+                            
+            div(class="tab-pane" id="my-tweets-pane" role="tabpanel")
+                #my-tweets-container.container
+        
+            div(class="tab-pane" id="profile-pane" role="tabpanel")
+                .container
+                    .row-fluid
+                        .col-sm-2.col-sm-offset-2
+                            img(name="profile-image" width='150' height='150')
+                        .col-sm-4
+                            form#profile-form(method='POST')
+                                .form-group
+                                    label Name
+                                    div(class="input-group" id="signup-password")
+                                        div(class="input-group-addon")
+                                            span(class="glyphicon glyphicon-font" )
+                                        input.form-control(type='text', name='name', size='30')
+                                    br
+                                    label Username
+                                    div(class="input-group" id="signup-password")
+                                        div(class="input-group-addon")
+                                            span(class="glyphicon glyphicon-user" )
+                                        input.form-control(type='text', name='username', size='30')
+                                    br
+                                    label Email
+                                    div(class="input-group" id="signup-password")
+                                        input.form-control(type='text', name='email-1', size='30')
+                                        div(class="input-group-addon")
+                                            span @
+                                        input.form-control(type='text', name='email-2', size='30')
+                                    br
+                                    label Language
+                                    div(class="input-group" id="signup-password")
+                                        div(class="input-group-addon")
+                                            i(class="fa fa-globe" )
+                                        input.form-control(type='text', name='language', size='30')
+                                    br
+                                    label Country
+                                    div(class="input-group" id="signup-password")
+                                        div(class="input-group-addon")
+                                            i(class="fa fa-map-pin" )
+                                        input.form-control(type='text', name='country', size='30')
+                                    br
+                                    label Description
+                                    div(class="input-group" id="signup-password")
+                                        div(class="input-group-addon")
+                                            i(class="fa fa-quote-left" )
+                                        textarea.form-control(type='text', name='bio', rows="4")
+                                        div(class="input-group-addon")
+                                            i(class="fa fa-quote-right" )
+                                    br
+                                    label Website
+                                    div(class="input-group" id="signup-password")
+                                        div(class="input-group-addon")
+                                            i(class="fa fa-link" )
+                                        input.form-control(type='text', name='website', size='30')
+                                    br
+                                    label Picture link
+                                    div(class="input-group" id="signup-password")
+                                        div(class="input-group-addon")
+                                            i(class="fa fa-link" )
+                                        input.form-control(type='text', name='avatar_url',  size='30')
+                                    br
+                                    label Overlay
+                                    input.form-control(type='text', name='overlay', size='30')
+                                    br
+                                    label Link_color
+                                    input.form-control(type='text', name='link_color', size='30')
+                                    br
+                                    label Background_color
+                                    input.form-control(type='text', name='background_color', size='30')
+                                    br
+                                    label Private Account?
+                                    input.form-control(type='text', name='protected_tweets', size='30')
+                                    br
+                                    button#save-profile.btn.btn-default.pull-right.button-colour(name='Submit') Save Changes
+                                         
+
+        nav(class="navbar navbar-default navbar-fixed-bottom")
+            ul(class="nav nav-pills nav-justified")
+                li(role="presentation" class="active" id="timeline")
+                    a(href="#timeline-pane" data-toggle="pill")
+                        |Timeline
+                li(role="presentation"  id="notifications")
+                    a(href="#notifications-pane" data-toggle="pill")
+                        |Notifications
+                
+                li(role="presentation" id="messages")
+                    a(href="#messages-pane" data-toggle="pill")
+                        |Messages
+                    
+                li(role="presentation" id="lists")
+                    a(href="#lists-pane" data-toggle="pill")
+                        |Lists
+                
+                li(role="presentation" id="my-tweets")
+                    a(href="#my-tweets-pane" data-toggle="pill")
+                        |My Tweets
+                        
+                li(role="presentation" id="profile")
+                    a(href="#profile-pane" data-toggle="pill")
+                        |Edit Profile
+                            

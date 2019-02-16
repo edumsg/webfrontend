@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="LandingPage.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="LandingPage.js"></script>
+    <script type="text/javascript" src="noty/packaged/jquery.noty.packaged.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Twitter</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top ">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" data-toggle="collapse" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">
+
+              Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand">Twitter</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <form role="search" method="POST" class="navbar-form navbar-center">
+            <div class="form-group">
+              <input type="text" placeholder="Search" name="search" class="form-control">
+              <button id="search" data-toggle="modal" data-target=".search-box" class="btn btn-default">Submit</button>
+            </div>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <button id="following" type="button" data-toggle="modal" data-target=".followers-box"><i style="font-size:2em;" class="fa fa-check"></i></button>
+            </li>
+            <li>
+              <button id="followers" type="button" data-toggle="modal" data-target=".followers-box"><i style="font-size:2em;" class="fa fa-users"></i></button>
+            </li>
+            <li>
+              <button id="tweet" type="button" data-toggle="modal" data-target=".tweet-box"><span style="font-size:2em;" class="glyphicon glyphicon-pencil"></span></button>
+            </li>
+            <li>
+              <button id="signout" type="button" data-toggle="modal" data-target=".signout-box"><i style="font-size:2em;" class="fa fa-sign-out"></i></button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div role="dialog" tabindex="-1" class="modal fade new-conv-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="text-title">New Conversation</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="control-label col-sm-2">Username:</label>
+                <div class="col-sm-10">
+                  <input name="conv-username" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Message:</label>
+                <div class="col-sm-10">
+                  <input name="conv-message" class="form-control">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default"><span style="font-size:2em;" class="fa fa-close text-center"></span></button>
+            <button type="button" id="create-conversation" class="btn btn-default button-colour"><span style="font-size:2em;" class="fa fa-check text-center"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade user-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" id="toggle-follow" class="btn btn-default button-colour"><i style="font-size:2em;" class="fa  text-center"></i></button>
+            <button type="button" id="report" class="btn btn-default button-colour"><i style="font-size:2em;" class="fa fa-warning text-center"></i></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div id="user-avatar" class="col-sm-3"></div>
+              <div id="user-tweets" class="col-sm-9"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade new-list-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="text-title">New List</h4>
+          </div>
+          <div class="modal-body">
+            <form id="list-users" class="form-horizontal">
+              <div class="form-group">
+                <label class="control-label col-sm-2">Name:</label>
+                <div class="col-sm-10">
+                  <input name="list-name" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Description:</label>
+                <div class="col-sm-10">
+                  <textarea name="list-description" row="4" class="form-control">           </textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label id="user-1" class="control-label col-sm-2">User 1:</label>
+                <div class="col-sm-10">
+                  <input name="user-1" class="form-control">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="add-user" class="btn btn-default"><i style="font-size:2em;" class="fa fa-user-plus text-center"></i></button>
+            <button type="button" data-dismiss="modal" class="btn btn-default"><span style="font-size:2em;" class="fa fa-close text-center"></span></button>
+            <button type="button" id="create-list" class="btn btn-default button-colour"><span style="font-size:2em;" class="fa fa-check text-center"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade tweet-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="text-title">New Tweet</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <textarea id="tweet-text" class="form-control"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default"><span style="font-size:2em;" class="fa fa-close text-center"></span></button>
+            <button type="button" data-toggle="modal" id="create-tweet" class="btn btn-default button-colour"><span style="font-size:2em;" class="fa fa-send text-center"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade signout-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h4>Signout?</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" id="cancel-signout" class="btn btn-default">Cancel</button>
+            <button type="button" data-dismiss="modal" id="confirm-signout" class="btn btn-default button-colour">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade delete-list-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h4>Delete List?</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+            <button type="button" data-dismiss="modal" id="confirm-delete-list" class="btn btn-default button-colour">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade unsub-list-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h4>Unsubscribe From List?</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+            <button type="button" data-dismiss="modal" id="confirm-unsub-list" class="btn btn-default button-colour">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade edit-list-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4>Edit List</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="control-label col-sm-2">Name:</label>
+                <div class="col-sm-10">
+                  <input name="list-name-edit" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Description:</label>
+                <div class="col-sm-10">
+                  <textarea name="list-description-edit" rows="4" class="form-control"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+            <button type="button" id="confirm-edit-list" class="btn btn-default button-colour">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade followers-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="container">
+              <div id="followers-pane"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade search-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="search-pane" class="modal-body">       </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade user-details">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <button type="button" id="back" class="btn btn-default"><i class="fa fa-left"></i></button>
+          <div id="user-header" class="modal-header"></div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div id="user-image" class="col-sm-2"></div>
+                <div id="user-body" class="col-sm-4"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" id="follow" class="btn btn-default">Follow</button>
+            <button type="button" data-dismiss="modal" id="mention" class="btn btn-default">Mention</button>
+            <button type="button" data-dismiss="modal" id="report" class="btn btn-default">Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade message">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="message-header" class="modal-header"></div>
+          <div id="message-body" class="modal-body"></div>
+          <div class="modal-footer">
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" name="dm" class="form-control"><span class="input-group-btn">
+                    <button type="submit" id="send-dm" class="btn btn-default">Reply</button></span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade list">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="list-header" class="modal-header"></div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <div id="list-body"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade reply-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="reply-header" class="modal-header"></div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <textarea name="reply-text" class="form-control"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+            <button type="button" id="confirm-reply" class="btn btn-default button-colour">Reply</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade delete-conv-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h4>Delete Conversation?</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+            <button type="button" data-dismiss="modal" id="confirm-delete-conv" class="btn btn-default button-colour">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade delete-tweet-box">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h4>Delete Tweet?</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+            <button type="button" data-dismiss="modal" id="confirm-delete-tweet" class="btn btn-default button-colour">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div id="timeline-pane" role="tabpanel" class="tab-pane active">
+        <div id="timeline-container" class="container"></div>
+      </div>
+      <div id="notifications-pane" role="tabpanel" class="tab-pane">
+        <div id="notifications-container" class="container"></div>
+      </div>
+      <div id="messages-pane" role="tabpanel" class="tab-pane">
+        <div class="container">
+          <div class="row-fluid">
+            <div id="messages-container" class="col-sm-4 col-sm-offset-4"></div>
+            <div class="col-sm-1">
+              <button id="new-conv" type="button" data-toggle="modal" data-target=".new-conv-box"><i style="font-size:2em;" class="fa fa-plus-circle"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="lists-pane" role="tabpanel" class="tab-pane">
+        <div class="container">
+          <div class="row-fluid">
+            <div id="lists-container" class="col-sm-4 col-sm-offset-4"></div>
+            <div class="col-sm-1 col-sm-offset-2">
+              <button id="new-list" type="button" data-toggle="modal" data-target=".new-list-box" class="button-transparent"><i style="font-size:2em;" class="fa fa-plus-circle"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="my-tweets-pane" role="tabpanel" class="tab-pane">
+        <div id="my-tweets-container" class="container"></div>
+      </div>
+      <div id="profile-pane" role="tabpanel" class="tab-pane">
+        <div class="container">
+          <div class="row-fluid">
+            <div class="col-sm-2 col-sm-offset-2"><img name="profile-image" width="150" height="150"></div>
+            <div class="col-sm-4">
+              <form id="profile-form" method="POST">
+                <div class="form-group">
+                  <label>Name</label>
+                  <div id="signup-password" class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-font"></span></div>
+                    <input type="text" name="name" size="30" class="form-control">
+                  </div><br>
+                  <label>Username</label>
+                  <div id="signup-password" class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                    <input type="text" name="username" size="30" class="form-control">
+                  </div><br>
+                  <label>Email</label>
+                  <div id="signup-password" class="input-group">
+                    <input type="text" name="email-1" size="30" class="form-control">
+                    <div class="input-group-addon"><span>@</span></div>
+                    <input type="text" name="email-2" size="30" class="form-control">
+                  </div><br>
+                  <label>Language</label>
+                  <div id="signup-password" class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-globe"></i></div>
+                    <input type="text" name="language" size="30" class="form-control">
+                  </div><br>
+                  <label>Country</label>
+                  <div id="signup-password" class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-map-pin"></i></div>
+                    <input type="text" name="country" size="30" class="form-control">
+                  </div><br>
+                  <label>Description</label>
+                  <div id="signup-password" class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-quote-left"></i></div>
+                    <textarea type="text" name="bio" rows="4" class="form-control"></textarea>
+                    <div class="input-group-addon"><i class="fa fa-quote-right"></i></div>
+                  </div><br>
+                  <label>Website</label>
+                  <div id="signup-password" class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-link"></i></div>
+                    <input type="text" name="website" size="30" class="form-control">
+                  </div><br>
+                  <label>Picture link</label>
+                  <div id="signup-password" class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-link"></i></div>
+                    <input type="text" name="avatar_url" size="30" class="form-control">
+                  </div><br>
+                  <label>Overlay</label>
+                  <input type="text" name="overlay" size="30" class="form-control"><br>
+                  <label>Link_color</label>
+                  <input type="text" name="link_color" size="30" class="form-control"><br>
+                  <label>Background_color</label>
+                  <input type="text" name="background_color" size="30" class="form-control"><br>
+                  <label>Private Account?</label>
+                  <input type="text" name="protected_tweets" size="30" class="form-control"><br>
+                  <button id="save-profile" name="Submit" class="btn btn-default pull-right button-colour">Save Changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+      <ul class="nav nav-pills nav-justified">
+        <li role="presentation" id="timeline" class="active"><a href="#timeline-pane" data-toggle="pill">Timeline</a></li>
+        <li role="presentation" id="notifications"><a href="#notifications-pane" data-toggle="pill">Notifications</a></li>
+        <li role="presentation" id="messages"><a href="#messages-pane" data-toggle="pill">Messages</a></li>
+        <li role="presentation" id="lists"><a href="#lists-pane" data-toggle="pill">Lists</a></li>
+        <li role="presentation" id="my-tweets"><a href="#my-tweets-pane" data-toggle="pill">My Tweets</a></li>
+        <li role="presentation" id="profile"><a href="#profile-pane" data-toggle="pill">Edit Profile</a></li>
+      </ul>
+    </nav>
+  </body>
+</html>
