@@ -24,15 +24,11 @@
 }
 
 #followers {
-  background: transparent;
-  border: none;
-  margin-top: 37%;
+
 }
 
 #following {
-  background: transparent;
-  border: none;
-  margin-top: 37%;
+
 }
 
 #new-conv {
@@ -121,7 +117,6 @@ body {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-image: url("ajax-loader.gif");
   background-position: center;
   background-repeat: no-repeat;
 }

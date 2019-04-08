@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7341b9fa-c84e-477b-90e7-28e075a851fa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LandingPage.coffee" beforeDir="false" afterPath="$PROJECT_DIR$/LandingPage.coffee" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LandingPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/LandingPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LandingPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/LandingPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LandingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/LandingPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignUp.html" beforeDir="false" afterPath="$PROJECT_DIR$/SignUp.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,11 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LandingPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="689" column="53" lean-forward="true" selection-start-line="689" selection-start-column="53" selection-end-line="689" selection-end-column="53" />
+            <state relative-caret-position="371">
+              <caret line="480" column="33" selection-start-line="480" selection-start-column="33" selection-end-line="480" selection-end-column="33" />
               <folding>
                 <element signature="n#style#0;n#i#0;n#button#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#i#0;n#button#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -67,8 +64,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LandingPage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="164" column="19" selection-start-line="164" selection-start-column="19" selection-end-line="164" selection-end-column="19" />
+            <state relative-caret-position="76">
+              <caret line="35" column="98" selection-start-line="35" selection-start-column="98" selection-end-line="35" selection-end-column="98" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#button#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#button#1;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -105,40 +102,49 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/LandingPage.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="35">
+              <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>script</find>
-      <find>script&gt;</find>
-      <find>res</find>
-      <find>result</find>
-      <find>lis</find>
-      <find>lists-container</find>
-      <find>user-se</find>
-      <find>profile</find>
-      <find>list-header</find>
-      <find>hide()</find>
       <find>search-p</find>
       <find>search-b</find>
       <find>data-target</find>
       <find>new-list-box</find>
       <find>#create</find>
-      <find>create</find>
       <find>search</find>
       <find>pro</find>
       <find>sea</find>
       <find>list</find>
       <find>sear</find>
       <find>search-box</find>
-      <find>follow</find>
       <find>ch</find>
       <find>user-d</find>
       <find>.empty</find>
-      <find>follo</find>
       <find>report</find>
       <find>des</find>
       <find>list-d</find>
+      <find>delete-l</find>
+      <find>ion_id:</find>
+      <find>dele</find>
+      <find>rep</find>
+      <find>crea</find>
+      <find>create</find>
+      <find>create-t</find>
+      <find>followers</find>
+      <find>id=&quot;followers&quot;</find>
+      <find>follo</find>
+      <find>followin</find>
+      <find>follow</find>
+      <find>follower</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -158,13 +164,13 @@
         <option value="$PROJECT_DIR$/base_forms_elements.html" />
         <option value="$PROJECT_DIR$/LandingPage.coffee" />
         <option value="$PROJECT_DIR$/base_ui_timeline.html" />
-        <option value="$PROJECT_DIR$/LandingPage.css" />
         <option value="$PROJECT_DIR$/LandingPage.html" />
         <option value="$PROJECT_DIR$/LandingPage.js" />
+        <option value="$PROJECT_DIR$/LandingPage.css" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="27" />
     <option name="width" value="571" />
     <option name="height" value="629" />
@@ -236,12 +242,12 @@
       <workItem from="1552833140602" duration="42253000" />
       <workItem from="1553894224598" duration="577000" />
       <workItem from="1553952147652" duration="4180000" />
-      <workItem from="1554339424574" duration="46912000" />
+      <workItem from="1554339424574" duration="51150000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110809000" />
+    <option name="totallyTimeSpent" value="115047000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
@@ -532,13 +538,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LandingPage.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="58" column="20" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base_pages_profile_edit.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -555,8 +554,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LandingPage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="164" column="19" selection-start-line="164" selection-start-column="19" selection-end-line="164" selection-end-column="19" />
+        <state relative-caret-position="76">
+          <caret line="35" column="98" selection-start-line="35" selection-start-column="98" selection-end-line="35" selection-end-column="98" />
           <folding>
             <element signature="n#style#0;n#span#0;n#button#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#button#1;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -576,8 +575,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LandingPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="689" column="53" lean-forward="true" selection-start-line="689" selection-start-column="53" selection-end-line="689" selection-end-column="53" />
+        <state relative-caret-position="371">
+          <caret line="480" column="33" selection-start-line="480" selection-start-column="33" selection-end-line="480" selection-end-column="33" />
           <folding>
             <element signature="n#style#0;n#i#0;n#button#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#button#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -599,6 +598,13 @@
             <element signature="n#style#0;n#i#0;n#button#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#button#2;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LandingPage.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="35">
+          <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
         </state>
       </provider>
     </entry>

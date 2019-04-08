@@ -642,7 +642,7 @@ $(document).ready(function() {
       data: JSON.stringify(details),
       success: function (result) {
         noty({
-          text: 'right',
+          text: 'followed',
           timeout: 1500,
           type: "success",
           theme: 'bootstrapTheme'
@@ -651,7 +651,7 @@ $(document).ready(function() {
       error: function (xhr, status, error) {
 
         return noty({
-          text: 'not right'+ chosen_user.name,
+          text: 'already followed'+ chosen_user.name,
           timeout: 2000,
           type: "error",
           theme: 'bootstrapTheme'
@@ -667,7 +667,7 @@ $(document).ready(function() {
     event.preventDefault();
     details = {
       reported_id: chosen_user.id,
-      creator_id: localStorage.session,
+      session_id: localStorage.session,
       method: "report_user",
       queue: "USER"
     };
@@ -678,7 +678,7 @@ $(document).ready(function() {
       data: JSON.stringify(details),
       success: function (result) {
         noty({
-          text: 'followed',
+          text: 'reported',
           timeout: 1500,
           type: "success",
           theme: 'bootstrapTheme'
@@ -687,7 +687,7 @@ $(document).ready(function() {
       error: function (xhr, status, error) {
 
         return noty({
-          text: 'already followed'+ chosen_user.name,
+          text: 'error',
           timeout: 2000,
           type: "error",
           theme: 'bootstrapTheme'
@@ -884,6 +884,7 @@ $(document).ready(function() {
     details = {
       method: "delete_list",
       queue: "LIST",
+      session_id: localStorage.session,
       list_id: list_id
     };
     return $.ajax({
