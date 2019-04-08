@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css">
-    <link type="text/css" rel="stylesheet" href="SignUp.css">
+ <head>
+   <!-- Web fonts -->
+   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+
+   <!-- Bootstrap and OneUI CSS framework -->
+   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+   <link rel="stylesheet" id="css-main" href="assets/css/oneui.css">
+
     <script type="text/javascript" src="bootstrap/js/jquery.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
@@ -11,70 +16,105 @@
     <meta charset="UTF-8">
     <title>Twitter</title>
   </head>
-  <nav class="navbar navbar-default">
-    <h2 class="text-center">Welcome To EduMsg</h2>
-  </nav>
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4"><img src="coloured logo.png" class="center-block"></div>
-        <div class="col-sm-4 col-sm-offset-4 text-center">
-          <div class="panel no-margin panel-default">
-            <div class="panel-body">
-              <form role="form" id="login-form">
-                <div id="login-username" class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                    <input type="text" name="username-login" placeholder="Username" size="30" class="form-control">
-                  </div>
-                </div>
-                <div id="login-password" class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                    <input type="password" name="password-login" placeholder="Password" size="30" class="form-control">
-                  </div>
-                </div>
-                <button type="submit" name="Login" id="login" class="btn btn-default">Login</button>
-              </form>
-            </div>
+  <main id="main-container">
+    <div class="bg-white">
+      <!-- Hero Content -->
+      <div class="bg-success">
+        <section class="content content-full content-boxed overflow-hidden">
+          <!-- Section Content -->
+          <div class="push-100-t push-50 text-center">
+            <h1 class="h2 text-white push-10 visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">Sign up for a new account.</h1>
+            <h2 class="h5 text-white-op visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">Unlimited ideas. Unlimited power. Unlimited joy. Unlimited opportunities.</h2>
           </div>
-          <div class="row">           
-            <div class="col-sm-12 text-center">
-              <div class="panel no-margin panel-default">
-                <div class="panel-body">
+          <!-- END Section Content -->
+        </section>
+      </div>
+      <!-- END Hero Content -->
+
+      <div class="row items-push push-50-t push-30">
+
+
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              <div class="panel-body">
                   <form role="form" id="signup-form">
                     <div id="signup-username" class="form-group">
-                      <div class="input-group">
-                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                        <input type="text" name="username-signup" placeholder="Username" size="30" class="form-control">
+                      <div class="col-xs-12">
+                        <div class="form-material form-material-success">
+                          <input type="text" name="username-signup" placeholder="Please inter username" size="30" class="form-control">
+                          <label >Username</label>
+                        </div>
                       </div>
                     </div>
                     <div id="signup-email" class="form-group">
-                      <div class="input-group">   
-                        <div class="input-group-addon"><span class="glyphicon glyphicon-envelope">   </span></div>
-                        <input type="email" name="email-signup" placeholder="Email" size="30" class="form-control">
+                      <div class="col-xs-12">
+                        <div class="form-material form-material-success">
+                          <input type="email" name="email-signup" placeholder="Please inter email" size="30" class="form-control">
+                          <label >Email</label>
+                        </div>
                       </div>
                     </div>
                     <div class="form-group">
                       <div id="signup-password" class="input-group">
-                        <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                        <input type="password" name="password-signup" placeholder="Password" size="30" class="form-control">
+                        <div class="col-xs-12">
+                          <div class="form-material form-material-success">
+                            <input type="password" name="password-signup" placeholder="Please inter password" size="30" class="form-control">
+                            <label >Password</label>
+                         </div>
+                        </div>
                       </div>
                     </div>
                     <div id="signup-name" class="form-group">
-                      <div class="input-group">
-                        <div class="input-group-addon"><span class="glyphicon glyphicon-font"></span></div>
-                        <input type="text" name="name-signup" id="ns" placeholder="Name" size="30" class="form-control">
+                      <div class="col-xs-12">
+                        <div class="form-material form-material-success">
+                          <input type="text" name="name-signup" id="ns" placeholder="please inter name" size="30" class="form-control">
+                          <label >Name</label>
+                        </div>
                       </div>
                     </div>
-                    <button type="submit" name="Submit" id="signup" class="btn btn-default">Sign Up</button>
+                    <div class="form-group">
+                      <div class="col-sm-6 col-sm-offset-3">
+                        <button class="btn btn-block btn-success" type="submit" name="Submit" id="signup" class="btn btn-default">Sign Up</button>
+                      </div>
+                    </div>
                   </form>
                 </div>
               </div>
-            </div>
           </div>
         </div>
-      </div>
     </div>
+    <!-- Login -->
+    <div class="bg-gray-lighter">
+      <section class="content content-full content-boxed">
+        <!-- Section Content -->
+        <div class="push-20-t push-20 text-center">
+          <h3 class="h4 push-20 visibility-hidden" data-toggle="appear">Do you already have an account?</h3>
+          <a class="btn btn-rounded btn-noborder btn-lg btn-success visibility-hidden" data-toggle="appear" data-class="animated bounceIn" href="Login.html">Log In</a>
+        </div>
+        <!-- END Section Content -->
+      </section>
+    </div>
+    <!-- END Login -->
+  </main>
+    <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+    <script src="assets/js/core/jquery.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+    <script src="assets/js/core/jquery.slimscroll.min.js"></script>
+    <script src="assets/js/core/jquery.scrollLock.min.js"></script>
+    <script src="assets/js/core/jquery.appear.min.js"></script>
+    <script src="assets/js/core/jquery.countTo.min.js"></script>
+    <script src="assets/js/core/jquery.placeholder.min.js"></script>
+    <script src="assets/js/core/js.cookie.min.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <!-- Page JS Code -->
+    <script>
+      jQuery(function () {
+        // Init page helpers (Appear plugin)
+        App.initHelpers('appear');
+      });
+    </script>
+
   </body>
 </html>

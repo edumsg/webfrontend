@@ -289,8 +289,7 @@ $(document).ready () ->
                 $('img[name=profile-image]').prop("src",result.user.avatar_url)
                 $('input[name=name]').val(result.user.name)
                 $('input[name=username]').val(result.user.username)
-                $('input[name=email-1]').val(result.user.email.split("@")[0])
-                $('input[name=email-2]').val(result.user.email.split("@")[1])
+                $('input[name=email-1]').val(result.user.email)
                 $('input[name=language]').val(result.user.language)
                 $('input[name=country]').val(result.user.country)
                 $('input[name=bio]').val(result.user.bio)
@@ -316,7 +315,7 @@ $(document).ready () ->
             method: "update_user",
             queue: "USER",
             username: $('input[name=username]').val(),
-            email: $('input[name=email-1]').val() + "@" + $('input[name=email-2]').val(),
+            email: $('input[name=email-1]').val(),
             name: $('input[name=name]').val(),
             language: $('input[name=language]').val(),
             country: $('input[name=country]').val(),
@@ -336,7 +335,7 @@ $(document).ready () ->
             datatype: "json",
             data: JSON.stringify(details),
             success: (result) ->
-                noty({text: 'Profile Saved!', timeout: 2000, type:"success", theme: 'bootstrapTheme'})
+                noty({text: 'Profile Saved!', timeout: 6000, type:"success", theme: 'bootstrapTheme'})
                 localStorage.username = $('input[name=username]').val()
 
             error: (xhr,status,error) ->

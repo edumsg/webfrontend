@@ -1,4 +1,4 @@
-var capitalize, conv_id, dm_conversation, isEmpty, list_id, user_id, username, users_added;
+var capitalize, conv_id, dm_conversation, isEmpty, list_id, user_id, username, users_added, chosen_user;
 
 dm_conversation = 0;
 
@@ -151,8 +151,7 @@ $(document).ready(function() {
         $('img[name=profile-image]').prop("src", result.user.avatar_url);
         $('input[name=name]').val(result.user.name);
         $('input[name=username]').val(result.user.username);
-        $('input[name=email-1]').val(result.user.email.split("@")[0]);
-        $('input[name=email-2]').val(result.user.email.split("@")[1]);
+        $('input[name=email-1]').val(result.user.email);
         $('input[name=language]').val(result.user.language);
         $('input[name=country]').val(result.user.country);
         $('input[name=bio]').val(result.user.bio);
@@ -184,7 +183,7 @@ $(document).ready(function() {
       method: "update_user",
       queue: "USER",
       username: $('input[name=username]').val(),
-      email: $('input[name=email-1]').val() + "@" + $('input[name=email-2]').val(),
+      email: $('input[name=email-1]').val(),
       name: $('input[name=name]').val(),
       language: $('input[name=language]').val(),
       country: $('input[name=country]').val(),
@@ -204,7 +203,7 @@ $(document).ready(function() {
       data: JSON.stringify(details),
       success: function(result) {
         noty({
-          text: 'Profile Saved!',
+          text: 'Profile Saved! '+ details.protected_tweets,
           timeout: 2000,
           type: "success",
           theme: 'bootstrapTheme'
@@ -553,13 +552,64 @@ $(document).ready(function() {
       data: JSON.stringify(details),
       success: function(result) {
         var i, _i, _len, _ref, _results;
-        $('search-pane').empty();
+        $("#search-pane").empty();
         _ref = result.users;
         _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        for (_i = 0, _len =_ref.length  ; _i < _len & _i<4; _i++) {
           i = _ref[_i];
-          _results.push($("#search-pane").append("<div class=\"media\"> <div class=\"media-left\"> <img class='media-object' src='" + i.avatar_url + "' height='64' width='64'></div> <div class=\"media-body user-search\" id='user-search-" + i.username + "'> <h4 class='user'> " + (capitalize(i.username)) + " (@" + i.username + ")</h4> </div> </div> <script> $('user-search').click(function(event) { var details; event.preventDefault(); username = $(this).attr('id').substring(11); list_name = $(this).attr('name'); details = { username: username, method: 'get_user2', queue: 'USER' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { var i, j, len, other, ref, results; $('search-box').hide(); ref = result.list_feeds; results = []; $('#list-header').empty(); $('#list-body').empty(); $('#list-header').append(\"<h4 class='media-heading'>\" + list_name + \"</h4>\"); for (j = 0, len = ref.length; j < len; j++) { i = ref[j]; results.push($('#list-body').append(\"<div class='media'> <div class='media-left'> <a href='#'> <img class='media-object' src='\" + i.creator.avatar_url +\"' alt='Profile' width='64' height='64'> </a> </div> <div class='media-body'> <h4 class='media-heading'>\" + i.creator.name + \"</h4> \" + i.tweet_text + \" </div> </div>\")); } return results; }, error: function(xhr,status,error) { noty({text: 'An error occured, please try again', timeout: 2000, type:'error', theme: 'bootstrapTheme'}); } }); }); </script>"));
+          _results.push($("#search-pane").append(
+              "<div class=\"media\"> <div class=\"media-left\">" +
+              " <img class='media-object' src='" + i.avatar_url + "' height='64' width='64'></div> " +
+              "<div class=\"media-body user-search\" data-toggle=\"modal\" data-target=\".user-details\" id='user-search-" + i.username + "'>" +
+              " <h4 class='user'> " +  " " + i.username + "</h4> " +
+              "</div> " +
+              "</div>" +
+              " <script> $('.user-search').click(function(event) { " +
+              "var details;" +
+              " event.preventDefault();" +
+              " username = $(this).attr('id').substring(11);" +
+              " list_name = $(this).attr('name'); " +
+              "details = { user_substring: username.substring(1)," +
+              " method: 'get_users'," +
+              " queue: 'USER' };" +
+              " return $.ajax({ " +
+              "url: 'http://localhost:8080'," +
+              " type: 'POST'," +
+              " datatype: 'json'," +
+              " data: JSON.stringify(details)," +
+              " success: function(result) {" +
+              " var i, j, len, other, ref, results;" +
+              " $('search-box').hide();" +
+              " ref = result.users[0];" +
+              " chosen_user=result.users[0];"+
+              " results = [];" +
+              " $('list-header').empty();" +
+              " $('list-body').empty(); " +
+              "$('#list-header').append(\"<h4 class='media-heading'>\" " +
+              "+ list_name + \"</h4>\");" +
+              " i = ref;" +
+              " results.push($('#list-body').append(\"<div class='media'> " +
+              "<div class='media-left'> <a href='#'> <img class='media-object' src='\" + " +
+              "i.avatar_url +\"' alt='Profile' width='64' height='64'> </a> " +
+              "</div> <div class='media-body'> <h4 class='media-heading'>\" " +
+              "+ i.name + \"</h4> \" + i.tweet_text + \" </div> </div>\")); " +
+              "/*noty({\n" +
+              "              text: 'search test '+ chosen_user.id," +
+              "              timeout: 2000," +
+              "              type: \"success\"," +
+              "              theme: 'bootstrapTheme'" +
+              "          });*/" +
+
+              " return results; }," +
+              " error: function(xhr,status,error) { " +
+              "noty({" +
+              "text: 'An error occured, please try again'," +
+              " timeout: 2000, type:'error'," +
+              " theme: 'bootstrapTheme'}); } }); });" +
+              " </script>"
+          ));
         }
+
         return _results;
       },
       error: function(xhr, status, error) {
@@ -573,6 +623,80 @@ $(document).ready(function() {
     });
   });
 });
+
+
+$(document).ready(function() {
+  return $('#follow').click(function (event) {
+    var details;
+    event.preventDefault();
+    details = {
+      session_id: localStorage.session,
+      followee_id: chosen_user.id,
+      method: "follow",
+      queue: "USER"
+    };
+    return $.ajax({
+      url: "http://localhost:8080",
+      type: "POST",
+      datatype: "json",
+      data: JSON.stringify(details),
+      success: function (result) {
+        noty({
+          text: 'right',
+          timeout: 1500,
+          type: "success",
+          theme: 'bootstrapTheme'
+        });
+      },
+      error: function (xhr, status, error) {
+
+        return noty({
+          text: 'not right'+ chosen_user.name,
+          timeout: 2000,
+          type: "error",
+          theme: 'bootstrapTheme'
+        });
+      }
+    });
+  });
+});
+
+$(document).ready(function() {
+  return $('#report').click(function (event) {
+    var details;
+    event.preventDefault();
+    details = {
+      reported_id: chosen_user.id,
+      creator_id: localStorage.session,
+      method: "report_user",
+      queue: "USER"
+    };
+    return $.ajax({
+      url: "http://localhost:8080",
+      type: "POST",
+      datatype: "json",
+      data: JSON.stringify(details),
+      success: function (result) {
+        noty({
+          text: 'followed',
+          timeout: 1500,
+          type: "success",
+          theme: 'bootstrapTheme'
+        });
+      },
+      error: function (xhr, status, error) {
+
+        return noty({
+          text: 'already followed'+ chosen_user.name,
+          timeout: 2000,
+          type: "error",
+          theme: 'bootstrapTheme'
+        });
+      }
+    });
+  });
+});
+
 
 $(document).ready(function() {
   return $("#create-conversation").click(function(event) {
@@ -660,7 +784,7 @@ $(document).ready(function() {
       method: "create_list_with_members",
       session_id: localStorage.session,
       name: $('input[name=list-name]').val(),
-      description: $('input[name=list-description]').val(),
+      description: $('textarea[name=list-description]').val(),
       members: JSON.stringify(users_in_list, {
         "private": false
       })
@@ -695,11 +819,6 @@ $(document).ready(function() {
             method: "get_subscribed_lists",
             queue: "USER"
           };
-          details = {
-            session_id: localStorage.session,
-            method: "get_subscribed_lists",
-            queue: "USER"
-          };
           return $.ajax({
             url: "http://localhost:8080",
             type: "POST",
@@ -716,7 +835,12 @@ $(document).ready(function() {
                 if (isEmpty(description) || (description != null)) {
                   description = "No Description";
                 }
-                output = "<div class=\"media list-" + i.id + "\"> <div class=\"media-left\"> <img class=\"media-object\" src='" + i.creator.avatar_url + "' alt='Image' width='64' height='64'> </div> <div class=\"media-body  list-entry\" data-toggle='modal' data-target='.list'  id='list-" + i.id + "' name='" + i.name + "'> <h4 class=\"media-heading\">" + (capitalize(i.name)) + " @" + i.creator.username + "</h4> " + description + " </div> <button class='pull-right button-transparent delete-list' data-toggle='modal' data-target='.delete-list-box' type='button' id='list-delete-" + i.id + "' > <i style='font-size:2em;' class='fa fa-trash'></i></button> <button class='pull-right button-transparent edit-list' data-toggle='modal' data-target='.edit-list-box' type='button' id='list-edit-" + i.id + "' > <i style='font-size:2em;' class='fa fa-pencil'></i></button> <button class='pull-right button-transparent unsub-list' data-toggle='modal' data-target='.unsub-list-box' type='button' id='list-unsub-" + i.id + "'> <i style='font-size:2em;' class='fa fa-close'></i></button> </div>";
+                output = "<div class=\"media list-" + i.id +
+                    "\"> <div class=\"media-left\"> <img class=\"media-object\" src='" + i.creator.avatar_url +
+                    "' alt='Image' width='64' height='64'> </div>" +
+                    " <div class=\"media-body  list-entry\" data-toggle='modal' data-target='.list'  id='list-" + i.id +
+                    "' name='" + i.name + "'> " +
+                    "<h4 class=\"media-heading\">" + (capitalize(i.name)) + " @" + i.creator.username + "</h4> " + description + " </div> <button class='pull-right button-transparent delete-list' data-toggle='modal' data-target='.delete-list-box' type='button' id='list-delete-" + i.id + "' > <i style='font-size:2em;' class='fa fa-trash'></i></button> <button class='pull-right button-transparent edit-list' data-toggle='modal' data-target='.edit-list-box' type='button' id='list-edit-" + i.id + "' > <i style='font-size:2em;' class='fa fa-pencil'></i></button> <button class='pull-right button-transparent unsub-list' data-toggle='modal' data-target='.unsub-list-box' type='button' id='list-unsub-" + i.id + "'> <i style='font-size:2em;' class='fa fa-close'></i></button> </div>";
                 $("#lists-container").append(output);
               }
               return $("#lists-container").append("<script> $('.list-entry').click(function(event) { var details, thread_id, list_name; event.preventDefault(); list_id = $(this).attr('id').substring(5); list_name = $(this).attr('name'); details = { list_id: list_id, method: 'get_list_feeds', queue: 'LIST' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { var i, j, len, other, ref, results; ref = result.list_feeds; results = []; $('#list-header').empty(); $('#list-body').empty(); $('#list-header').append(\"<h4 class='media-heading'>\" + list_name + \"</h4>\"); for (j = 0, len = ref.length; j < len; j++) { i = ref[j]; results.push($('#list-body').append(\"<div class='media'> <div class='media-left'> <a href='#'> <img class='media-object' src='\" + i.creator.avatar_url +\"' alt='Profile' width='64' height='64'> </a> </div> <div class='media-body'> <h4 class='media-heading'>\" + i.creator.name + \"</h4> \" + i.tweet_text + \" </div> </div>\")); } return results; }, error: function(xhr,status,error) { noty({text: 'An error occured, please try again', timeout: 2000, type:'error', theme: 'bootstrapTheme'}); } }); }); $('.delete-list').click(function(event) { event.preventDefault(); list_id = $(this).attr('id').substring(12); }); $('.edit-list').click(function(event) { var details, list_id; event.preventDefault(); list_id = $(this).attr('id').substring(10); $('input[name=list-name-edit]').val('khar'); details = { list_id: list_id, method: \"get_list\", queue: \"LIST\" }; return $.ajax({ url: \"http://localhost:8080\", type: \"POST\", datatype: \"json\", data: JSON.stringify(details), success: function(result) { $('input[name=list-name-edit]').val(result.list.name); $('textarea[name=list-description-edit]').val(result.list.description); $('edit-list-box').modal('handleUpdate'); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: \"error\", theme: 'bootstrapTheme' }); } }); }); $('.unsub-list').click(function(event) { event.preventDefault(); list_id = $(this).attr('id').substring(11); }); </script>");
@@ -867,7 +991,9 @@ $(document).ready(function() {
               description = i.description;
               if (isEmpty(description) || (description != null)) {
                 description = "No Description";
-                output = "<div class=\"media list-" + i.id + "\"> <div class=\"media-left\"> <img class=\"media-object\" src='" + i.creator.avatar_url + "' alt='Image' width='64' height='64'> </div> <div class=\"media-body  list-entry\" data-toggle='modal' data-target='.list'  id='list-" + i.id + "' name='" + i.name + "'> <h4 class=\"media-heading\">" + (capitalize(i.name)) + " @" + i.creator.username + "</h4> " + description + " </div> <button class='pull-right button-transparent delete-list' data-toggle='modal' data-target='.delete-list-box' type='button' id='list-delete-" + i.id + "' > <i style='font-size:2em;' class='fa fa-trash'></i></button> <button class='pull-right button-transparent edit-list' data-toggle='modal' data-target='.edit-list-box' type='button' id='list-edit-" + i.id + "' > <i style='font-size:2em;' class='fa fa-pencil'></i></button> <button class='pull-right button-transparent unsub-list' data-toggle='modal' data-target='.unsub-list-box' type='button' id='list-unsub-" + i.id + "'> <i style='font-size:2em;' class='fa fa-close'></i></button> </div>";
+                output = "<div class=\"media list-" + i.id + "\"> <div class=\"media-left\"> <img class=\"media-object\" src='" + i.creator.avatar_url + "' alt='Image' width='64' height='64'> </div> <div class=\"media-body  list-entry\" data-toggle='modal' data-target='.list'  id='list-" + i.id + "' name='" + i.name + "'> <h4 class=\"media-heading\">"
+                    + (capitalize(i.name)) + " @" + i.creator.username + "</h4> "
+                    + description + " </div> <button class='pull-right button-transparent delete-list' data-toggle='modal' data-target='.delete-list-box' type='button' id='list-delete-" + i.id + "' > <i style='font-size:2em;' class='fa fa-trash'></i></button> <button class='pull-right button-transparent edit-list' data-toggle='modal' data-target='.edit-list-box' type='button' id='list-edit-" + i.id + "' > <i style='font-size:2em;' class='fa fa-pencil'></i></button> <button class='pull-right button-transparent unsub-list' data-toggle='modal' data-target='.unsub-list-box' type='button' id='list-unsub-" + i.id + "'> <i style='font-size:2em;' class='fa fa-close'></i></button> </div>";
               }
               $("#lists-container").append(output);
             }

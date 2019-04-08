@@ -1,49 +1,105 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css">
-    <link type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="LandingPage.css">
+
+    <!-- Web fonts -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+
+    <!-- Bootstrap and OneUI CSS framework -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" id="css-main" href="assets/css/oneui.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/jquery.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="LandingPage.js"></script>
     <script type="text/javascript" src="noty/packaged/jquery.noty.packaged.min.js"></script>
+
     <meta charset="UTF-8">
     <title>Twitter</title>
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top ">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" data-toggle="collapse" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">
-
-              Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand">Twitter</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <form role="search" method="POST" class="navbar-form navbar-center">
-            <div class="form-group">
-              <input type="text" placeholder="Search" name="search" class="form-control">
-              <button id="search" data-toggle="modal" data-target=".search-box" class="btn btn-default">Submit</button>
+      <header id="header-navbar" class="content-mini content-mini-full">
+        <!-- Header Navigation Right -->
+        <ul class="nav-header pull-right">
+          <li>
+            <div class="btn-group">
+              <button class="btn btn-default btn-image dropdown-toggle" data-toggle="dropdown" type="button">
+                <img src="assets/img/avatars/avatar10.jpg" alt="Avatar">
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li class="dropdown-header">Profile</li>
+                <li>
+                  <a tabindex="-1" data-toggle="modal" data-target=".followers-box">
+                    <i  class="si-user-following pull-right"></i>
+                    <span class="badge badge-success pull-right"></span>following
+                  </a>
+                </li>
+                <li>
+                  <a tabindex="-1" data-toggle="modal" data-target=".followers-box">
+                    <i class="fa fa-users pull-right"></i>followers
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Actions</li>
+                <li>
+                  <a tabindex="-1" data-toggle="modal" data-target=".tweet-box">
+                    <i class="glyphicon glyphicon-pencil pull-right"></i>
+                    New post
+                  </a>
+                </li>
+                <li>
+                  <a tabindex="-1" data-toggle="modal" data-target=".signout-box">
+                    <i class="si si-logout pull-right"></i>Log out
+                  </a>
+                </li>
+              </ul>
             </div>
-          </form>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <button id="following" type="button" data-toggle="modal" data-target=".followers-box"><i style="font-size:2em;" class="fa fa-check"></i></button>
+          </li>
+          <li>
+            <!-- Layout API, functionality initialized in App() -> uiLayoutApi() -->
+            <button class="btn btn-default" data-toggle="layout" data-action="side_overlay_toggle" type="button">
+              <i class="fa fa-tasks"></i>
+            </button>
+          </li>
+        </ul>
+        <!-- END Header Navigation Right -->
+
+        <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+
+          <ul class="nav-header pull-left">
+
+            <li class="visible-xs">
+              <!-- Toggle class helper (for .js-header-search below), functionality initialized in App() -> uiToggleClass() -->
+              <button class="btn btn-default" data-toggle="class-toggle" data-target=".js-header-search" data-class="header-search-xs-visible" type="button">
+                <i class="fa fa-search"></i>
+              </button>
             </li>
-            <li>
-              <button id="followers" type="button" data-toggle="modal" data-target=".followers-box"><i style="font-size:2em;" class="fa fa-users"></i></button>
+
+            <li class="js-header-search header-search">
+
+              <form class="form-horizontal" role="search" method="POST">
+                <div class="form-material form-material-primary input-group remove-margin-t remove-margin-b">
+                  <input class="form-control" type="text" id="base-material-text" name="search" placeholder="Search..">
+                  <span class="input-group-addon">
+                      <i id="search" data-toggle="modal" data-target=".search-box" class="si si-magnifier"></i></span>
+                </div>
+              </form>
+
             </li>
-            <li>
-              <button id="tweet" type="button" data-toggle="modal" data-target=".tweet-box"><span style="font-size:2em;" class="glyphicon glyphicon-pencil"></span></button>
-            </li>
-            <li>
-              <button id="signout" type="button" data-toggle="modal" data-target=".signout-box"><i style="font-size:2em;" class="fa fa-sign-out"></i></button>
-            </li>
+
           </ul>
         </div>
       </div>
+      </header>
     </nav>
+    <main id="main-container">
+      <div class="bg-white">
+    <div class="block-content">
     <div role="dialog" tabindex="-1" class="modal fade new-conv-box">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -78,7 +134,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" id="toggle-follow" class="btn btn-default button-colour"><i style="font-size:2em;" class="fa  text-center"></i></button>
-            <button type="button" id="report" class="btn btn-default button-colour"><i style="font-size:2em;" class="fa fa-warning text-center"></i></button>
+            <button type="button"  class="btn btn-default button-colour"><i style="font-size:2em;" class="fa fa-warning text-center"></i></button>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -227,7 +283,7 @@
     <div role="dialog" tabindex="-1" class="modal fade search-box">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div id="search-pane" class="modal-body">       </div>
+          <div id="search-pane" class="modal-body">   </div>
         </div>
       </div>
     </div>
@@ -277,7 +333,9 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <div id="list-body"></div>
+                <div id="list-body">
+
+                </div>
               </div>
             </div>
           </div>
@@ -360,70 +418,104 @@
         <div id="my-tweets-container" class="container"></div>
       </div>
       <div id="profile-pane" role="tabpanel" class="tab-pane">
-        <div class="container">
-          <div class="row-fluid">
-            <div class="col-sm-2 col-sm-offset-2"><img name="profile-image" width="150" height="150"></div>
-            <div class="col-sm-4">
-              <form id="profile-form" method="POST">
-                <div class="form-group">
-                  <label>Name</label>
-                  <div id="signup-password" class="input-group">
-                    <div class="input-group-addon"><span class="glyphicon glyphicon-font"></span></div>
-                    <input type="text" name="name" size="30" class="form-control">
-                  </div><br>
-                  <label>Username</label>
-                  <div id="signup-password" class="input-group">
-                    <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                    <input type="text" name="username" size="30" class="form-control">
-                  </div><br>
-                  <label>Email</label>
-                  <div id="signup-password" class="input-group">
-                    <input type="text" name="email-1" size="30" class="form-control">
-                    <div class="input-group-addon"><span>@</span></div>
-                    <input type="text" name="email-2" size="30" class="form-control">
-                  </div><br>
-                  <label>Language</label>
-                  <div id="signup-password" class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-globe"></i></div>
-                    <input type="text" name="language" size="30" class="form-control">
-                  </div><br>
-                  <label>Country</label>
-                  <div id="signup-password" class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-map-pin"></i></div>
-                    <input type="text" name="country" size="30" class="form-control">
-                  </div><br>
-                  <label>Description</label>
-                  <div id="signup-password" class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-quote-left"></i></div>
-                    <textarea type="text" name="bio" rows="4" class="form-control"></textarea>
-                    <div class="input-group-addon"><i class="fa fa-quote-right"></i></div>
-                  </div><br>
-                  <label>Website</label>
-                  <div id="signup-password" class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-link"></i></div>
-                    <input type="text" name="website" size="30" class="form-control">
-                  </div><br>
-                  <label>Picture link</label>
-                  <div id="signup-password" class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-link"></i></div>
-                    <input type="text" name="avatar_url" size="30" class="form-control">
-                  </div><br>
-                  <label>Overlay</label>
-                  <input type="text" name="overlay" size="30" class="form-control"><br>
-                  <label>Link_color</label>
-                  <input type="text" name="link_color" size="30" class="form-control"><br>
-                  <label>Background_color</label>
-                  <input type="text" name="background_color" size="30" class="form-control"><br>
-                  <label>Private Account?</label>
-                  <input type="text" name="protected_tweets" size="30" class="form-control"><br>
-                  <button id="save-profile" name="Submit" class="btn btn-default pull-right button-colour">Save Changes</button>
+
+          <!-- Page Content -->
+          <div class="content content-boxed">
+            <!-- User Header -->
+            <div class="block">
+
+              <div class="bg-image" style="background-image: url('assets/img/photos/photo3@2x.jpg');">
+                <div class="block-content bg-primary-op text-center overflow-hidden">
+                  <div class="push-30-t push animated fadeInDown">
+                    <img class="img-avatar img-avatar96 img-avatar-thumb" name="profile-image" >
+                  </div>
+                  <div class="push-30 animated fadeInUp">
+                    <h2 class="h4 font-w600 text-white push-5" for="name">elhaag</h2>
+                    <h3 class="h5 text-white-op">Web Designer</h3>
+                  </div>
                 </div>
-              </form>
+              </div>
+
+              <div class="block-content tab-content">
+                <div class="tab-pane fade in active" id="tab-profile-personal">
+                  <div class="row items-push">
+                    <div class="col-sm-6 col-sm-offset-3 form-horizontal">
+                      <div class="form-group">
+
+
+                    <div class="input-group">
+                      <div class="form-material">
+                        <input type="text" name="name" size="30" class="form-control">
+                        <label>Name</label>
+                      </div>
+                    </div><br>
+
+                    <div  class="input-group">
+                      <div class="form-material">
+                        <input type="text" name="username" size="30" class="form-control">
+                        <label>Username</label>
+                      </div>
+                    </div><br>
+
+
+                    <div  class="input-group">
+                      <div class="form-material">
+                        <input type="text" name="email-1" size="30" class="form-control">
+                        <label>Email</label>
+                      </div>
+                    </div><br>
+
+                    <div id="signup-password" class="input-group">
+                      <div class="form-material">
+                        <input type="text" name="language" size="30" class="form-control">
+                        <label>Language</label>
+                      </div>
+                    </div><br>
+
+                    <div  class="input-group">
+                      <div class="form-material">
+                      <input type="text" name="country" size="30" class="form-control">
+                      <label>Country</label>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <div class="form-material">
+                          <textarea type="text" name="bio" rows="4" class="form-control"></textarea>
+                          <label>Description</label>
+                       </div>
+                      </div>
+                    <br>
+                    <label>Website</label>
+                    <div  class="input-group">
+                      <div class="input-group-addon"><i class="fa fa-link"></i></div>
+                      <input type="text" name="website" size="30" class="form-control">
+                    </div><br>
+                    <label>Picture link</label>
+                   <div  class="input-group">
+                     <div class="input-group-addon"><i class="fa fa-link"></i></div>
+                      <input type="text" name="avatar_url" size="30" class="form-control">
+                    </div><br>
+                    <label>Overlay</label>
+                    <input type="text" name="overlay" size="30" class="form-control"><br>
+                    <label>Link_color</label>
+                    <input type="text" name="link_color" size="30" class="form-control"><br>
+                    <label>Background_color</label>
+                    <input type="text" name="background_color" size="30" class="form-control"><br>
+                    <label>Private Account?</label>
+                    <input type="text" name="protected_tweets" size="30" class="form-control"><br>
+                    <button id="save-profile" name="Submit" class="btn btn-default pull-right button-colour">Save Changes</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+      </div></div></div>
+      </div>
+    </main>
     <nav class="navbar navbar-default navbar-fixed-bottom">
       <ul class="nav nav-pills nav-justified">
         <li role="presentation" id="timeline" class="active"><a href="#timeline-pane" data-toggle="pill">Timeline</a></li>
