@@ -9,12 +9,16 @@
     <!-- Bootstrap and OneUI CSS framework -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" id="css-main" href="assets/css/oneui.css">
+    <!-- Page JS Plugins CSS -->
+    <link rel="stylesheet" href="assets/js/plugins/slick/slick.min.css">
+    <link rel="stylesheet" href="assets/js/plugins/slick/slick-theme.min.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/jquery.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="LandingPage.js"></script>
     <script type="text/javascript" src="noty/packaged/jquery.noty.packaged.min.js"></script>
+
 
     <meta charset="UTF-8">
     <title>Twitter</title>
@@ -33,22 +37,15 @@
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li class="dropdown-header">Profile</li>
                         <li>
-                            <a tabindex="-1"  data-toggle="modal" data-target=".followers-box" id="following">
-                                <i  class="si-user-following pull-right"></i>
-                                <span class="badge badge-success pull-right"></span>following
-                            </a>
-                        </li>
-                        <li>
-                            <a tabindex="-1"  data-toggle="modal" data-target=".followers-box" id="followers">
-                                <i  class="fa fa-users pull-right"></i>followers
-                            </a>
-                        </li>
-                        <li>
                             <a tabindex="-1"  data-toggle="modal" data-target=".followers-box" id="fav">
                                 <i  class="fa fa-users pull-right"></i>FAV
                             </a>
                         </li>
-
+                        <li>
+                            <a id="edit-profile" tabindex="-1"  href="edit-profile.html" >
+                                <i  class="fa fa-users pull-right" ></i>Edit info
+                            </a>
+                        </li>
                         <li class="divider"></li>
                         <li class="dropdown-header">Actions</li>
                         <li>
@@ -347,8 +344,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" data-dismiss="modal" id="follow" class="btn btn-default">Follow</button>
-                            <button type="button" data-dismiss="modal" id="unfollow" class="btn btn-default">Unfollow</button>
-                        </div>
+                            </div>
                         <button type="button" data-dismiss="modal" id="report" class="btn btn-default">Report</button>
                     </div>
                 </div>
@@ -475,10 +471,147 @@
                                         <img class="img-avatar img-avatar96 img-avatar-thumb" name="profile-image" >
                                     </div>
                                     <div class="push-30 animated fadeInUp">
-                                        <h2 class="h4 font-w600 text-white push-5" for="name">elhaag</h2>
-                                        <h3 class="h5 text-white-op">Web Designer</h3>
+                                        <h2 class="h4 font-w600 text-white push-5" name="name"></h2>
+                                        <h3 class="h5 text-white-op"name="username"></h3>
                                     </div>
                                 </div>
+                            </div>
+
+                            <!-- Stats -->
+                            <div class="content bg-white border-b">
+                                <div class="row items-push text-uppercase">
+                                    <div class="col-xs-6 col-sm-3">
+                                        <div class="text-muted animated fadeIn"><small><i class="si si-users fa-2x"></i> Followers</small></div>
+                                        <a id="followers" class="h2 font-w300 text-primary animated flipInX" tabindex="-1" data-toggle="modal" data-target=".followers-box">30</a>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3">
+                                        <div class="text-muted animated fadeIn"><small><i class="si si-user-following fa-2x"></i> Following</small></div>
+                                        <a id="following" class="h2 font-w300 text-primary animated flipInX" tabindex="-1" data-toggle="modal" data-target=".followers-box" >8</a>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3">
+                                        <div class="text-muted animated fadeIn"><small><i class="si si-bubble fa-2x"></i> Posts</small></div>
+                                        <a class="h2 font-w300 text-primary animated flipInX" href="base_comp_charts.html"> 93</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <!-- News -->
+                                <div class="block">
+                                    <div class="block-header">
+                                        <ul class="block-options">
+                                            <li>
+                                                <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                                            </li>
+                                        </ul>
+                                        <h3 class="block-title"> Posts</h3>
+                                    </div>
+                                    <div class="block-content bg-gray-lighter">
+                                        <!-- Slick slider (.js-slider class is initialized in App() -> uiHelperSlick()) -->
+                                        <!-- For more info and examples you can check out http://kenwheeler.github.io/slick/ -->
+                                        <div class="js-slider remove-margin-b" data-slider-autoplay="true" data-slider-autoplay-speed="4000">
+                                            <div id="user-posts">
+                                                <blockquote>
+                                                    <p>Be yourself; everyone else is already taken.</p>
+                                                    <footer>Oscar Wilde</footer>
+                                                </blockquote>
+                                            </div>
+
+                                        </div>
+                                        <!-- END Slick slider -->
+                                    </div>
+                                    <div class="block-content">
+                                        <ul class="list list-timeline pull-t">
+                                            <!-- Twitter Notification -->
+                                            <li>
+                                                <div class="list-timeline-time">12 hrs ago</div>
+                                                <i class="fa fa-twitter list-timeline-icon bg-info"></i>
+                                                <div class="list-timeline-content">
+                                                    <p class="font-w600">+ 1150 Followers</p>
+                                                    <p class="font-s13">You’re getting more and more followers, keep it up!</p>
+                                                </div>
+                                            </li>
+                                            <!-- END Twitter Notification -->
+
+                                            <!-- Generic Notification -->
+                                            <li>
+                                                <div class="list-timeline-time">4 hrs ago</div>
+                                                <i class="fa fa-briefcase list-timeline-icon bg-city"></i>
+                                                <div class="list-timeline-content">
+                                                    <p class="font-w600">+ 3 New Products were added!</p>
+                                                    <p class="font-s13">Congratulations!</p>
+                                                </div>
+                                            </li>
+                                            <!-- END Generic Notification -->
+
+                                            <!-- System Notification -->
+                                            <li>
+                                                <div class="list-timeline-time">1 day ago</div>
+                                                <i class="fa fa-check list-timeline-icon bg-success"></i>
+                                                <div class="list-timeline-content">
+                                                    <p class="font-w600">Database backup completed!</p>
+                                                    <p class="font-s13">Download the <a href="javascript:void(0)">latest backup</a>.</p>
+                                                </div>
+                                            </li>
+                                            <!-- END System Notification -->
+
+                                            <!-- Facebook Notification -->
+                                            <li>
+                                                <div class="list-timeline-time">3 hrs ago</div>
+                                                <i class="fa fa-facebook list-timeline-icon bg-default"></i>
+                                                <div class="list-timeline-content">
+                                                    <p class="font-w600">+ 290 Page Likes</p>
+                                                    <p class="font-s13">This is great, keep it up!</p>
+                                                </div>
+                                            </li>
+                                            <!-- END Facebook Notification -->
+
+                                            <!-- Social Notification -->
+                                            <li>
+                                                <div class="list-timeline-time">2 days ago</div>
+                                                <i class="fa fa-user-plus list-timeline-icon bg-modern"></i>
+                                                <div class="list-timeline-content">
+                                                    <p class="font-w600">+ 3 Friend Requests</p>
+                                                    <ul class="nav-users push-10-t push">
+                                                        <li>
+                                                            <a href="base_pages_profile.html">
+                                                                <img class="img-avatar" src="assets/img/avatars/avatar14.jpg" alt="">
+                                                                <i class="fa fa-circle text-success"></i> Jack Greene
+                                                                <div class="font-w400 text-muted"><small>Graphic Designer</small></div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="base_pages_profile.html">
+                                                                <img class="img-avatar" src="assets/img/avatars/avatar2.jpg" alt="">
+                                                                <i class="fa fa-circle text-warning"></i> Judy Alvarez
+                                                                <div class="font-w400 text-muted"><small>Photographer</small></div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="base_pages_profile.html">
+                                                                <img class="img-avatar" src="assets/img/avatars/avatar11.jpg" alt="">
+                                                                <i class="fa fa-circle text-danger"></i> Ethan Howard
+                                                                <div class="font-w400 text-muted"><small>UI Designer</small></div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <!-- END Social Notification -->
+
+                                            <!-- System Notification -->
+                                            <li class="push-5">
+                                                <div class="list-timeline-time">1 week ago</div>
+                                                <i class="fa fa-cog list-timeline-icon bg-primary-dark"></i>
+                                                <div class="list-timeline-content">
+                                                    <p class="font-w600">System updated to v2.02</p>
+                                                    <p class="font-s13">Check the complete changelog at the <a href="javascript:void(0)">activity page</a>.</p>
+                                                </div>
+                                            </li>
+                                            <!-- END System Notification -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- END News -->
                             </div>
 
                             <div class="block-content tab-content">
@@ -487,71 +620,6 @@
                                         <div class="col-sm-6 col-sm-offset-3 form-horizontal">
                                             <div class="form-group">
 
-
-                                                <div class="input-group">
-                                                    <div class="form-material">
-                                                        <input type="text" name="name" size="30" class="form-control">
-                                                        <label>Name</label>
-                                                    </div>
-                                                </div><br>
-
-                                                <div  class="input-group">
-                                                    <div class="form-material">
-                                                        <input type="text" name="username" size="30" class="form-control">
-                                                        <label>Username</label>
-                                                    </div>
-                                                </div><br>
-
-
-                                                <div  class="input-group">
-                                                    <div class="form-material">
-                                                        <input type="text" name="email-1" size="30" class="form-control">
-                                                        <label>Email</label>
-                                                    </div>
-                                                </div><br>
-
-                                                <div id="signup-password" class="input-group">
-                                                    <div class="form-material">
-                                                        <input type="text" name="language" size="30" class="form-control">
-                                                        <label>Language</label>
-                                                    </div>
-                                                </div><br>
-
-                                                <div  class="input-group">
-                                                    <div class="form-material">
-                                                        <input type="text" name="country" size="30" class="form-control">
-                                                        <label>Country</label>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="input-group">
-                                                    <div class="form-material">
-                                                        <textarea type="text" name="bio" rows="4" class="form-control"></textarea>
-                                                        <label>bio</label>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <label>Website</label>
-                                                <div  class="input-group">
-                                                    <div class="input-group-addon"><i class="fa fa-link"></i></div>
-                                                    <input type="text" name="website" size="30" class="form-control">
-                                                </div><br>
-                                                <label>Picture link</label>
-                                                <div  class="input-group">
-                                                    <div class="input-group-addon"><i class="fa fa-link"></i></div>
-                                                    <input type="text" name="avatar_url" size="30" class="form-control">
-                                                </div><br>
-                                                <label>Overlay</label>
-                                                <input type="text" name="overlay" size="30" class="form-control"><br>
-                                                <label>Link_color</label>
-                                                <input type="text" name="link_color" size="30" class="form-control"><br>
-                                                <label>Background_color</label>
-                                                <input type="text" name="background_color" size="30" class="form-control"><br>
-                                                <label>Private Account?</label>
-                                                <input type="text" name="protected_tweets" size="30" class="form-control"><br>
-                                                <button id="save-profile" name="Submit" class="btn btn-default pull-right button-colour">Save Changes</button>
-                                            </div>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -559,6 +627,7 @@
                         </div>
                     </div>
                 </div></div></div>
+    </div>
     </div>
 </main>
 <div class="modal fade" id="apps-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -577,33 +646,33 @@
                 <div class="block-content">
                     <div class="row text-center">
                         <div class="col-xs-6">
-                            <a class="block block-rounded" id="rt">
-                                <div class="block-content text-white bg-default">
-                                    <i class="si si-speedometer fa-2x"></i>
+                            <a data-dismiss="modal" class="block block-rounded"  id="rt">
+                                <div class="block-content text-white bg-smooth-light">
+                                    <i class="fa fa-commenting-o fa-2x"></i>
                                     <div class="font-w600 push-15-t push-15">Random thoughts</div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-xs-6">
-                            <a class="block block-rounded" id="va">
-                                <div class="block-content text-white bg-modern">
-                                    <i class="si si-rocket fa-2x"></i>
+                            <a data-dismiss="modal" class="block block-rounded" id="va">
+                                <div class="block-content text-white bg-success ">
+                                    <i class="si si-bulb fa-2x"></i>
                                     <div class="font-w600 push-15-t push-15">Value adding</div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-xs-6">
-                            <a class="block block-rounded" id="d">
-                                <div class="block-content text-white bg-default">
-                                    <i class="si si-speedometer fa-2x"></i>
+                            <a data-dismiss="modal" class="block block-rounded" id="d">
+                                <div class="block-content text-white bg-info">
+                                    <i class="si si-directions fa-2x"></i>
                                     <div class="font-w600 push-15-t push-15">Debatable</div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-xs-6">
-                            <a class="block block-rounded" id="n">
-                                <div class="block-content text-white bg-modern">
-                                    <i class="si si-rocket fa-2x"></i>
+                            <a data-dismiss="modal" class="block block-rounded" id="n">
+                                <div class="block-content text-white bg-danger">
+                                    <i class="fa fa-newspaper-o fa-2x"></i>
                                     <div class="font-w600 push-15-t push-15">News</div>
                                 </div>
                             </a>
@@ -624,7 +693,7 @@
         <li role="presentation" id="messages"><a href="#messages-pane" data-toggle="pill">Messages</a></li>
         <li role="presentation" id="lists"><a href="#lists-pane" data-toggle="pill">Lists</a></li>
         <li role="presentation" id="my-tweets"><a href="#my-tweets-pane" data-toggle="pill">My Tweets</a></li>
-        <li role="presentation" id="profile"><a href="#profile-pane" data-toggle="pill">Edit Profile</a></li>
+        <li role="presentation" id="profile"><a href="#profile-pane" data-toggle="pill">Profile</a></li>
     </ul>
 </nav>
 </body>
