@@ -19,8 +19,51 @@
         <meta charset="UTF-8">
         <title>Twitter</title>
     </head>
-<body onload="editprofile();">
+<body onload="edit_profile();">
+<nav class="navbar navbar-default navbar-fixed-top ">
+
+
+    <header id="header-navbar" class="content-mini content-mini-full">
+        <!-- Header Navigation Right -->
+        <ul class="nav-header pull-right">
+            <li>
+                <div class="btn-group">
+                    <a href="LandingPage.html">
+                    <button  class="btn btn-minw  btn-primary"  type="button" >
+                        Go home
+                    </button>
+                    </a>
+                </div>
+            </li>
+
+        </ul>
+        <!-- END Header Navigation Right -->
+
+
+    </header>
+</nav>
 <!-- Page Content -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+    <!-- User Header -->
+    <div class="block">
+
+        <div class="bg-image" style="background-image: url('assets/img/photos/photo3@2x.jpg');">
+            <div class="block-content bg-primary-op text-center overflow-hidden">
+                <div class="push-30-t push animated fadeInDown">
+                    <img class="img-avatar img-avatar96 img-avatar-thumb" name="profile-image" >
+                </div>
+                <div class="push-30 animated fadeInUp">
+                    <h2 class="h4 font-w600 text-white push-5" name="name"></h2>
+                    <h3 class="h5 text-white-op"name="username"></h3>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Page Content -->
+
 <div class="content content-boxed">
     <!-- User Header -->
     <div class="block">
@@ -82,15 +125,17 @@
                                 <div class="input-group-addon"><i class="fa fa-link"></i></div>
                                 <input type="text" name="avatar_url" size="30" class="form-control">
                             </div><br>
-                            <label>Overlay</label>
-                            <input type="text" name="overlay" size="30" class="form-control"><br>
+                            <label class="css-input switch switch-sm switch-primary">
+                                <input type="checkbox" name="overlay" id="overlay" ><span></span> Overlay
+                            </label><br>
                             <label>Link_color</label>
                             <input type="text" name="link_color" size="30" class="form-control"><br>
                             <label>Background_color</label>
                             <input type="text" name="background_color" size="30" class="form-control"><br>
-                            <label>Private Account?</label>
-                            <input type="text" name="protected_tweets" size="30" class="form-control"><br>
-                            <button id="save-profile" name="Submit" class="btn btn-default pull-right button-colour">Save Changes</button>
+                            <label class="css-input switch switch-sm switch-primary">
+                                <input type="checkbox" name="overlay" id="protected" ><span></span> Private account
+                            </label><br><br>
+                            <button  id="save-profile" name="Submit" class="btn btn-minw btn-primary" >Save Changes</button>
                         </div>
                         </form>
                     </div>

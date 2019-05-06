@@ -23,7 +23,7 @@
     <meta charset="UTF-8">
     <title>Twitter</title>
 </head>
-<body>
+<body onload="profileload();">
 <nav class="navbar navbar-default navbar-fixed-top ">
     <header id="header-navbar" class="content-mini content-mini-full">
         <!-- Header Navigation Right -->
@@ -35,39 +35,37 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li class="dropdown-header">Profile</li>
-                        <li>
-                            <a tabindex="-1"  data-toggle="modal" data-target=".followers-box" id="fav">
-                                <i  class="fa fa-users pull-right"></i>FAV
-                            </a>
-                        </li>
-                        <li>
-                            <a id="edit-profile" tabindex="-1"  href="edit-profile.html" >
-                                <i  class="fa fa-users pull-right" ></i>Edit info
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="dropdown-header">Actions</li>
                         <li>
                             <a tabindex="-1" data-toggle="modal" data-target=".tweet-box">
-                                <i class="glyphicon glyphicon-pencil pull-right"></i>
+                                <i class="fa fa-edit fa-2x"></i>
                                 New post
                             </a>
                         </li>
                         <li>
+                            <a id="edit-profile" tabindex="-1"  href="edit-profile.html" >
+                                <i  class="si si-user fa-2x" ></i> Edit personal info
+                            </a>
+                        </li>
+                        <li>
+                            <a tabindex="-1"  data-toggle="modal" data-target=".followers-box" id="fav">
+                                <i  class="fa fa-heart-o fa-2x"></i> Favourites
+                            </a>
+                        </li>
+                        <li>
                             <a tabindex="-1" data-toggle="modal" data-target=".signout-box">
-                                <i class="si si-logout pull-right"></i>Log out
+                                <i class="si si-logout fa-2x"></i> Log out
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
             <li>
-                <!-- Layout API, functionality initialized in App() -> uiLayoutApi() -->
-                <button class="btn btn-default" data-toggle="layout" data-action="side_overlay_toggle" type="button">
-                    <i class="fa fa-tasks"></i>
-                </button>
+                <a   data-placement="bottom" title="GO HOME" href="timeline.html" >
+                    <i class="si si-home fa-2x"></i>
+                </a>
+
             </li>
+
         </ul>
         <!-- END Header Navigation Right -->
 
@@ -108,8 +106,36 @@
     </header>
 </nav>
 <main id="main-container">
-    <div class="bg-white">
-        <div class="block-content">
+    <div class="content content-boxed">
+    <div class="bg-image" style="background-image: url('assets/img/photos/photo3@2x.jpg');">
+        <div class="block-content bg-primary-op text-center overflow-hidden">
+            <div class="push-30-t push animated fadeInDown">
+                <img class="img-avatar img-avatar96 img-avatar-thumb" name="profile-image" >
+            </div>
+            <div class="push-30 animated fadeInUp">
+                <h2 class="h4 font-w600 text-white push-5" name="name"></h2>
+                <h3 class="h5 text-white-op"name="bio"></h3>
+            </div>
+        </div>
+    </div>
+    <div class="content bg-white border-b">
+        <div class="row items-push text-uppercase">
+            <div class="col-xs-6 col-sm-3">
+                <div  class="text-muted animated fadeIn"><small><a id="followers" tabindex="-1" data-toggle="modal" data-target=".followers-box"><i class="si si-users fa-2x"></i> Followers</a></small></div>
+                <h2 name="numberOfFollowers" class="h2 font-w300 text-primary animated flipInX" ></h2>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+                <div class="text-muted animated fadeIn"><small><a id="following" tabindex="-1" data-toggle="modal" data-target=".followers-box"><i class="si si-user-following fa-2x"></i> Following</a></small></div>
+                <h2 name="numberOfFollowing" class="h2 font-w300 text-primary animated flipInX" ></h2>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+                <div class="text-muted animated fadeIn"><small><a id="my-posts" ><i class="si si-bubble fa-2x"></i> Posts</a></small></div>
+                <h2 name="numberOfPosts" class="h2 font-w300 text-primary animated flipInX" ></h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="block-content">
             <div role="dialog" tabindex="-1" class="modal fade new-conv-box">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -274,53 +300,87 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-                            <button type="button" id="confirm-edit-list" class="btn btn-default button-colour">Confirm</button>
+                            <button type="button" id="confirm-edit-list" class="btn btn-default button-colour" data-dismiss="modal">Confirm</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div role="dialog" tabindex="-1" class="modal fade subscribers-box">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div id="subscribers-header" class="modal-header">
-                            <div  class="form-group">
-                                <div class="col-sm-10">
-                                    <div class="form-material form-material-success">
-                                        <input name="user" class="form-control">
-                                        <label >Add member</label>
-                                        <button type="button" id="add-new-user" class="btn btn-default"><i style="font-size:2em;" class="fa fa-user-plus text-center"></i></button>
-                                    </div>
+
+        <div role="dialog" tabindex="-1" class="modal fade members-box">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="block-header bg-primary-lighter">
+                        <h3 class="block-title">List Members</h3>
+                    </div>
+                </br>
+                    <div id="members-pane" data-toggle="slimscroll" data-always-visible="true" data-size="10px">
+                    </div>
+                    <div class="modal-footer">
+                        <form>
+                            <div class="form-group">
+                                <input name="new-member" class="form-control">
+                            </div>
+                        </form>
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                        <button type="button" id="add-new-user" class="btn btn-default" data-toggle="block-option" data-action="refresh_toggle"><i style="font-size:2em;" class="fa fa-user-plus text-center"></i></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div role="dialog" tabindex="-1" class="modal fade list">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+
+                    <div class="container">
+                        <div class="col-sm-6 col-lg-5">
+                            <div class="block block-themed">
+
+                                <p id="list-header" class="font-w600 block-header bg-primary-op"></p>
+                                <div class="block-content block-content-full" id="list-body" data-toggle="slimscroll" data-always-visible="true" data-size="10px"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="dialog" tabindex="-1" class="modal fade followers-box">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <ul class="block-options">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                            </li>
+                        </ul>
+                        <div class="container">
+                            <div class="col-sm-6 col-lg-5">
+                                <div class="block block-themed">
+
+                                    <p id="box-name" class="font-w600 block-header bg-primary-op"></p>
+                                    <div class="block-content block-content-full" id="followers-pane" data-toggle="slimscroll" data-always-visible="true" data-size="10px"></div>
                                 </div>
-                            </div>
 
-
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-sm-6 col-sm-offset-3">
-                                    <div id="subscribers-pane">
-                                    </div>
-
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div role="dialog" tabindex="-1" class="modal fade followers-box">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div class="container">
-                                <div id="followers-pane"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div role="dialog" tabindex="-1" class="modal fade search-box">
+
+        <div role="dialog" tabindex="-1" class="modal fade search-box">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div id="search-pane" class="modal-body">   </div>
@@ -334,18 +394,18 @@
                         <div id="user-header" class="modal-header">
                         </div>
                         <div class="modal-body">
-                            <div class="container">
-                                <div class="row">
-                                    <div id="user-body" class="col-sm-4"></div>
-                                </div>
-                                <div><button type="button" data-dismiss="modal" id="posts" class="btn btn-default">show user posts</button></div>
-
+                            <div class="block-content bg-gray-lighter">
+                                <!-- Slick slider (.js-slider class is initialized in App() -> uiHelperSlick()) -->
+                                <!-- For more info and examples you can check out http://kenwheeler.github.io/slick/ -->
+                                    <div id="user-body" class="col-sm-4" class="col-sm-4" data-toggle="slimscroll" data-always-visible="true" data-size="10px"></div>
+                                <!-- END Slick slider -->
                             </div>
+
                         </div>
                         <div class="modal-footer">
-                            <button type="button" data-dismiss="modal" id="follow" class="btn btn-default">Follow</button>
-                            </div>
-                        <button type="button" data-dismiss="modal" id="report" class="btn btn-default">Report</button>
+                            <button type="button" data-dismiss="modal" id="report" class="btn btn-minw btn-info"  style="visibility: hidden">Report</button>
+                            <button type="button" data-toggle="block-option" data-action="refresh_toggle" id="follow" class="btn btn-minw btn-info">Follow</button>
+             </div>
                     </div>
                 </div>
             </div>
@@ -367,22 +427,8 @@
                     </div>
                 </div>
             </div>
-            <div role="dialog" tabindex="-1" class="modal fade list">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div id="list-header" class="modal-header"></div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-sm-6 col-sm-offset-3">
-                                    <div id="list-body">
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <div role="dialog" tabindex="-1" class="modal fade reply-box">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -429,12 +475,6 @@
                 </div>
             </div>
             <div class="tab-content">
-                <div id="timeline-pane" role="tabpanel" class="tab-pane active">
-                    <div id="timeline-container" class="container"></div>
-                </div>
-                <div id="notifications-pane" role="tabpanel" class="tab-pane">
-                    <div id="notifications-container" class="container"></div>
-                </div>
                 <div id="messages-pane" role="tabpanel" class="tab-pane">
                     <div class="container">
                         <div class="row-fluid">
@@ -445,174 +485,59 @@
                         </div>
                     </div>
                 </div>
-                <div id="lists-pane" role="tabpanel" class="tab-pane">
-                    <div class="container">
-                        <div class="row-fluid">
-                            <div id="lists-container" class="col-sm-4 col-sm-offset-4"></div>
-                            <div class="col-sm-1 col-sm-offset-2">
-                                <button id="new-list" type="button" data-toggle="modal" data-target=".new-list-box" class="button-transparent"><i style="font-size:2em;" class="fa fa-plus-circle"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="my-tweets-pane" role="tabpanel" class="tab-pane">
-                    <div id="my-tweets-container" class="container"></div>
-                </div>
-                <div id="profile-pane" role="tabpanel" class="tab-pane">
 
-                    <!-- Page Content -->
-                    <div class="content content-boxed">
-                        <!-- User Header -->
-                        <div class="block">
+                <div id="profile-pane" >
 
-                            <div class="bg-image" style="background-image: url('assets/img/photos/photo3@2x.jpg');">
-                                <div class="block-content bg-primary-op text-center overflow-hidden">
-                                    <div class="push-30-t push animated fadeInDown">
-                                        <img class="img-avatar img-avatar96 img-avatar-thumb" name="profile-image" >
-                                    </div>
-                                    <div class="push-30 animated fadeInUp">
-                                        <h2 class="h4 font-w600 text-white push-5" name="name"></h2>
-                                        <h3 class="h5 text-white-op"name="username"></h3>
-                                    </div>
-                                </div>
-                            </div>
 
                             <!-- Stats -->
-                            <div class="content bg-white border-b">
-                                <div class="row items-push text-uppercase">
-                                    <div class="col-xs-6 col-sm-3">
-                                        <div class="text-muted animated fadeIn"><small><i class="si si-users fa-2x"></i> Followers</small></div>
-                                        <a id="followers" class="h2 font-w300 text-primary animated flipInX" tabindex="-1" data-toggle="modal" data-target=".followers-box">30</a>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-3">
-                                        <div class="text-muted animated fadeIn"><small><i class="si si-user-following fa-2x"></i> Following</small></div>
-                                        <a id="following" class="h2 font-w300 text-primary animated flipInX" tabindex="-1" data-toggle="modal" data-target=".followers-box" >8</a>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-3">
-                                        <div class="text-muted animated fadeIn"><small><i class="si si-bubble fa-2x"></i> Posts</small></div>
-                                        <a class="h2 font-w300 text-primary animated flipInX" href="base_comp_charts.html"> 93</a>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="col-lg-8">
                                 <!-- News -->
                                 <div class="block">
-                                    <div class="block-header">
-                                        <ul class="block-options">
-                                            <li>
-                                                <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
-                                            </li>
-                                        </ul>
-                                        <h3 class="block-title"> Posts</h3>
-                                    </div>
-                                    <div class="block-content bg-gray-lighter">
+                                        <div class="block-header bg-gray-lighter">
+                                            <ul class="block-options">
+                                                <li>
+                                                    <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                                                </li>
+                                            </ul>
+                                            <h3 class="block-title">My Posts</h3>
+                                        </div>
+                                    <div class="block-content">
                                         <!-- Slick slider (.js-slider class is initialized in App() -> uiHelperSlick()) -->
                                         <!-- For more info and examples you can check out http://kenwheeler.github.io/slick/ -->
                                         <div class="js-slider remove-margin-b" data-slider-autoplay="true" data-slider-autoplay-speed="4000">
                                             <div id="user-posts">
-                                                <blockquote>
-                                                    <p>Be yourself; everyone else is already taken.</p>
-                                                    <footer>Oscar Wilde</footer>
-                                                </blockquote>
                                             </div>
 
                                         </div>
                                         <!-- END Slick slider -->
                                     </div>
-                                    <div class="block-content">
-                                        <ul class="list list-timeline pull-t">
-                                            <!-- Twitter Notification -->
-                                            <li>
-                                                <div class="list-timeline-time">12 hrs ago</div>
-                                                <i class="fa fa-twitter list-timeline-icon bg-info"></i>
-                                                <div class="list-timeline-content">
-                                                    <p class="font-w600">+ 1150 Followers</p>
-                                                    <p class="font-s13">You’re getting more and more followers, keep it up!</p>
-                                                </div>
-                                            </li>
-                                            <!-- END Twitter Notification -->
 
-                                            <!-- Generic Notification -->
-                                            <li>
-                                                <div class="list-timeline-time">4 hrs ago</div>
-                                                <i class="fa fa-briefcase list-timeline-icon bg-city"></i>
-                                                <div class="list-timeline-content">
-                                                    <p class="font-w600">+ 3 New Products were added!</p>
-                                                    <p class="font-s13">Congratulations!</p>
-                                                </div>
-                                            </li>
-                                            <!-- END Generic Notification -->
-
-                                            <!-- System Notification -->
-                                            <li>
-                                                <div class="list-timeline-time">1 day ago</div>
-                                                <i class="fa fa-check list-timeline-icon bg-success"></i>
-                                                <div class="list-timeline-content">
-                                                    <p class="font-w600">Database backup completed!</p>
-                                                    <p class="font-s13">Download the <a href="javascript:void(0)">latest backup</a>.</p>
-                                                </div>
-                                            </li>
-                                            <!-- END System Notification -->
-
-                                            <!-- Facebook Notification -->
-                                            <li>
-                                                <div class="list-timeline-time">3 hrs ago</div>
-                                                <i class="fa fa-facebook list-timeline-icon bg-default"></i>
-                                                <div class="list-timeline-content">
-                                                    <p class="font-w600">+ 290 Page Likes</p>
-                                                    <p class="font-s13">This is great, keep it up!</p>
-                                                </div>
-                                            </li>
-                                            <!-- END Facebook Notification -->
-
-                                            <!-- Social Notification -->
-                                            <li>
-                                                <div class="list-timeline-time">2 days ago</div>
-                                                <i class="fa fa-user-plus list-timeline-icon bg-modern"></i>
-                                                <div class="list-timeline-content">
-                                                    <p class="font-w600">+ 3 Friend Requests</p>
-                                                    <ul class="nav-users push-10-t push">
-                                                        <li>
-                                                            <a href="base_pages_profile.html">
-                                                                <img class="img-avatar" src="assets/img/avatars/avatar14.jpg" alt="">
-                                                                <i class="fa fa-circle text-success"></i> Jack Greene
-                                                                <div class="font-w400 text-muted"><small>Graphic Designer</small></div>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="base_pages_profile.html">
-                                                                <img class="img-avatar" src="assets/img/avatars/avatar2.jpg" alt="">
-                                                                <i class="fa fa-circle text-warning"></i> Judy Alvarez
-                                                                <div class="font-w400 text-muted"><small>Photographer</small></div>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="base_pages_profile.html">
-                                                                <img class="img-avatar" src="assets/img/avatars/avatar11.jpg" alt="">
-                                                                <i class="fa fa-circle text-danger"></i> Ethan Howard
-                                                                <div class="font-w400 text-muted"><small>UI Designer</small></div>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <!-- END Social Notification -->
-
-                                            <!-- System Notification -->
-                                            <li class="push-5">
-                                                <div class="list-timeline-time">1 week ago</div>
-                                                <i class="fa fa-cog list-timeline-icon bg-primary-dark"></i>
-                                                <div class="list-timeline-content">
-                                                    <p class="font-w600">System updated to v2.02</p>
-                                                    <p class="font-s13">Check the complete changelog at the <a href="javascript:void(0)">activity page</a>.</p>
-                                                </div>
-                                            </li>
-                                            <!-- END System Notification -->
                                         </ul>
                                     </div>
                                 </div>
-                                <!-- END News -->
-                            </div>
+                            <!-- END News -->
+                            <div class="col-lg-4">
+                                    <!-- Products -->
+                                    <div class="block">
+                                        <div class="block-header bg-gray-lighter">
+                                            <ul class="block-options">
+                                                <li>
+                                                <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                                            </li>
+                                                <li>
+                                                <button id="new-list" type="button" data-toggle="modal" data-target=".new-list-box" class="button-transparent"><i style="font-size:2em;" class="fa fa-plus-circle"></i></button>
+                                                </li>
+                                            </ul>
+                                            <h3 class="block-title"><i class="si si-list fa-1x"></i>  Lists </h3>
+                                        </div>
+                                        <div class="block-content">
+                                            <div id="lists1" ></div>
+                                            <div class="text-center push">
+                                                <small><a id="view_more_lists">View All..</a></small>
+                                            </div>
+                                        </div>
+
+                                </div>
 
                             <div class="block-content tab-content">
                                 <div class="tab-pane fade in active" id="tab-profile-personal">
@@ -626,7 +551,8 @@
                             </div>
                         </div>
                     </div>
-                </div></div></div>
+    </div>
+    </div>
     </div>
     </div>
 </main>
@@ -688,13 +614,23 @@
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <ul class="nav nav-pills nav-justified">
-        <li role="presentation" id="timeline" class="active"><a href="#timeline-pane" data-toggle="pill">Timeline</a></li>
-        <li role="presentation" id="notifications"><a href="#notifications-pane" data-toggle="pill">Notifications</a></li>
         <li role="presentation" id="messages"><a href="#messages-pane" data-toggle="pill">Messages</a></li>
         <li role="presentation" id="lists"><a href="#lists-pane" data-toggle="pill">Lists</a></li>
-        <li role="presentation" id="my-tweets"><a href="#my-tweets-pane" data-toggle="pill">My Tweets</a></li>
         <li role="presentation" id="profile"><a href="#profile-pane" data-toggle="pill">Profile</a></li>
     </ul>
 </nav>
+<script src="assets/js/core/jquery.slimscroll.min.js"></script>
+<script src="assets/js/core/jquery.scrollLock.min.js"></script>
+<script src="assets/js/core/jquery.placeholder.min.js"></script>
+<script src="assets/js/app.js"></script>
+
+<!-- Page JS Code -->
+<script>
+    jQuery(function () {
+        // Init page helpers (SlimScroll plugin)
+        App.initHelpers('slimscroll');
+    });
+</script>
+
 </body>
 </html>

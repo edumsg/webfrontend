@@ -117,7 +117,7 @@ $(document).ready(function() {
             theme: 'bootstrapTheme'
           });
           return window.setTimeout(function() {
-            return window.location.href = "LandingPage.html";
+            return window.location.href = "timeline.html";
           }, 3000);
         },
         error: function(xhr, status, error) {

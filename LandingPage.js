@@ -1,6 +1,6 @@
 var capitalize, conv_id, dm_conversation, isEmpty, list_id, user_id, username, users_added, chosen_user,chosen_list , isFollowing;
 
-mood = "news";
+mood = {'mood':'rt', 'long_mood':'Random Thoughts' , 'mood_logo' :'<i class=\"fa fa-commenting fa-3x\"></i>' };
 
 dm_conversation = 0;
 
@@ -28,9 +28,12 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     return $("#rt").click(function(event) {
-        mood="random thoughts";
+        mood.mood="rt";
+        mood.long_mood="Random Thoughts";
+        mood.mood_logo="<i class=\"fa fa-commenting-o fa-3x\"></i>";
+        timeline();
         noty({
-            text: mood,
+            text: mood.long_mood,
             timeout: 2000,
             type: "success",
             theme: 'bootstrapTheme'
@@ -39,9 +42,12 @@ $(document).ready(function() {
 });
 $(document).ready(function() {
     return $("#va").click(function(event) {
-        mood="value adding";
+        mood.mood="va";
+        mood.long_mood="Value Adding";
+        mood.mood_logo="<i class=\"si si-bulb fa-3x\"></i>";
+        timeline();
         noty({
-            text: mood,
+            text: mood.long_mood,
             timeout: 2000,
             type: "success",
             theme: 'bootstrapTheme'
@@ -50,9 +56,12 @@ $(document).ready(function() {
 });
 $(document).ready(function() {
     return $("#d").click(function(event) {
-        mood="debatable";
+        mood.mood="dbt";
+        mood.long_mood="Debatable"
+        mood.mood_logo="<i class=\"si si-directions fa-3x\"></i>";
+        timeline();
         noty({
-            text: mood,
+            text: mood.long_mood,
             timeout: 2000,
             type: "success",
             theme: 'bootstrapTheme'
@@ -61,9 +70,12 @@ $(document).ready(function() {
 });
 $(document).ready(function() {
     return $("#n").click(function(event) {
-        mood="news";
+        mood.mood="nw";
+        mood.long_mood="News";
+        mood.mood_logo="<i class=\"fa fa-newspaper-o fa-3x\"></i>";
+        timeline();
         noty({
-            text: mood,
+            text: mood.long_mood,
             timeout: 2000,
             type: "success",
             theme: 'bootstrapTheme'
@@ -72,7 +84,7 @@ $(document).ready(function() {
 });
 
 
-     function editprofile() {
+     function edit_profile() {
 
         var details = {
             session_id: localStorage.session,
@@ -85,6 +97,9 @@ $(document).ready(function() {
             datatype: "json",
             data: JSON.stringify(details),
             success: function(result) {
+                document.getElementById("overlay").checked = result.user.overlay ;
+                document.getElementById("protected").checked = result.user.protected_tweets ;
+                $('img[name=profile-image]').prop("src", result.user.avatar_url);
                 $('input[name=name]').val(result.user.name);
                 $('input[name=username]').val(result.user.username);
                 $('input[name=email-1]').val(result.user.email);
@@ -96,7 +111,7 @@ $(document).ready(function() {
                 $('input[name=link_color]').val(result.user.link_color);
                 $('input[name=avatar_url]').val(result.user.avatar_url);
                 $('input[name=background_color]').val(result.user.background_color);
-                return $('input[name=protected_tweets]').val(result.user.protected_tweets);
+
             },
             error: function(xhr, status, error) {
                 return noty({
@@ -110,14 +125,79 @@ $(document).ready(function() {
 }
 
 
+function timeline() {
+    var details;
+    event.preventDefault();
+    details = {
+        session_id: localStorage.session,
+        type:mood.mood,
+        method: "timeline",
+        queue: "USER"
+    };
+    return $.ajax({
+        url: "http://localhost:8080",
+        type: "POST",
+        datatype: "json",
+        data: JSON.stringify(details),
+        success: function(result) {
+            mentions();
+            $('h2[name=mood]').empty();
+            $('h2[name=mood]').append(mood.long_mood);
+            $('div[name=mood-image]').empty()
+            $('div[name=mood-image]').append(mood.mood_logo)
+            var favorited, i, output, _i, _len, _ref;
+            $("#timeline-container").empty();
+            favorited = "fav";
+            _ref = result.feeds;
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                i = _ref[_i];
+                if (i.is_favorited) {
+                    favorited = "unfav";
+                } else {
+                    favorited = "fav";
+                }
 
-$(document).ready(function() {
-    return $("#profile").click(function(event) {
+                output = "<blockquote>" +
+                    "                        <div class=\"clearfix\">\n" +
+                    "                      <div id=\"my-post-profile-pic\" class=\"pull-left push-15-r\"> " +
+                    "<img class='img-avatar img-avatar48' src='" + i.creator.avatar_url + "'  alt=''>" +
+                    "</div>"+
+                    "<div id=\"my-post-username\" class=\"push-5-t\">" +
+                    "<a class='font-w600' > "+i.creator.username+"</a><br> <span class='font-s12 text-muted'>"+  i.created_at.substring(0,11) +"</span>" +
+                    "</div> </div>"+
+                    "<p>"+i.tweet_text +" </p>" +
+                    " <footer>" +
+                    "<button class='pull-right button-transparent " + favorited + "-tweet' type='button' id='tweet-fav-" + i.id + "' >" +
+                    " <i style='font-size:1.5em;' class='fa fa-star'></i></button> " +
+                    "<button class='pull-right button-transparent retweet-tweet' type='button' id='tweet-retweet-" + i.id + "' >" +
+                    " <i style='font-size:1.5em;' class='fa fa-retweet'></i></button> " +
+                    "<button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box' type='button' id='tweet-reply-" + i.id + "'> " +
+                    "<i style='font-size:1.5em;' class='fa fa-reply'></i></button>"+
+                    " </div> </div> </div>"+
+                    "</footer> </blockquote>" ;
+                $("#timeline-container").append(output);
+            }
+
+        },
+        error: function(xhr, status, error) {
+            return noty({
+                text: 'An error occured, please try again',
+                timeout: 2000,
+                type: "error",
+                theme: 'bootstrapTheme'
+            });
+        }
+    });
+}
+
+function user_posts(){
+
         var details;
         event.preventDefault();
         details = {
-            session_id: localStorage.session,
-            method: "my_profile",
+            username: chosen_user.username,
+            type:mood.mood ,
+            method: "user_tweets2",
             queue: "USER"
         };
         return $.ajax({
@@ -125,62 +205,32 @@ $(document).ready(function() {
             type: "POST",
             datatype: "json",
             data: JSON.stringify(details),
-            success: function(result) {
-                $('h2[name=name]').empty();
-                $('h3[name=username]').empty();
-                $('img[name=profile-image]').prop("src", result.user.avatar_url);
-                $('h2[name=name]').append(result.user.name);
-                $('h3[name=username]').append('@'+result.user.username);
-                $('input[name=protected_tweets]').val(result.user.protected_tweets);
-                var details;
-                event.preventDefault();
-                details = {
-                    session_id: localStorage.session,
-                    type: mood,
-                    method: "user_tweets",
-                    queue: "USER"
-                };
-                return $.ajax({
-                    url: "http://localhost:8080",
-                    type: "POST",
-                    datatype: "json",
-                    data: JSON.stringify(details),
-                    success: function(result) {
-                        var favorited, i, output, _i, _len, _ref;
-                        $("#user-posts").empty();
+            success: function (result) {
+
+                var favorited, i, output, _i, _len, _ref;
+                $("#user-body").empty();
+                favorited = "fav";
+                _ref = result.tweets;
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    i = _ref[_i];
+                    if (i.is_favorited) {
+                        favorited = "unfav";
+                    } else {
                         favorited = "fav";
-                        _ref = result.tweets;
-                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                            i = _ref[_i];
-                            if (i.is_favorited) {
-                                favorited = "unfav";
-                            } else {
-                                favorited = "fav";}
-                                output = "<blockquote>" +
-                                    "<p>i.tweet_text</p>" +
-                                    " <footer>" +
-                                    " <button class='pull-right button-transparent delete-tweet' data-toggle='modal' data-target='.delete-tweet-box'" +
-                                    " type='button' id='tweet-delete-" + i.id + "' >" +
-                                    " <i style='font-size:1.5em;' class='fa fa-trash'></i></button>" +
-                                    " <button class='pull-right button-transparent " + favorited + "-tweet' type='button' id='tweet-fav-" + i.id + "' >" +
-                                    " <i style='font-size:1.5em;' class='fa fa-star'></i></button> " +
-                                    "<button class='pull-right button-transparent retweet-tweet' type='button' id='tweet-retweet-" + i.id + "' >" +
-                                    " <i style='font-size:1.5em;' class='fa fa-retweet'></i></button> </div> </div> </div>"+
-                                    "</footer> </blockquote>" ;
-                            $("#user-posts").append(output);
-                        }
-                        return $("#my-tweets-container").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Tweet already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.delete-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(13); }); </script>");
-                    },
-                    error: function(xhr, status, error) {
-                        return noty({
-                            text: 'An error occured, please try again',
-                            timeout: 2000,
-                            type: "error",
-                            theme: 'bootstrapTheme'
-                        });
                     }
-                });
-            },
+                    output = "<blockquote>" +
+                        "                        <div class=\"clearfix\">\n" +
+                        "                      <div id=\"my-post-profile-pic\" class=\"pull-left push-15-r\"> " +
+                        "<img class='img-avatar img-avatar48' src='" + i.creator.avatar_url + "'  alt=''>" +
+                        "</div>"+
+                        "<div id=\"my-post-username\" class=\"push-5-t\">" +
+                        "<a class='font-w600' >"+i.creator.username+"</a><br> <span class='font-s12 text-muted'>"+  i.created_at.substring(0,11) +"</span>" +
+                        "</div> </div>"+
+                        "<p>"+i.tweet_text +" </p>" +
+                        "</blockquote>";
+                    $("#user-body").append(output);
+                }
+                   },
             error: function(xhr, status, error) {
                 return noty({
                     text: 'An error occured, please try again',
@@ -190,8 +240,377 @@ $(document).ready(function() {
                 });
             }
         });
+    }
+
+    function replies(tweet_id){
+         var details;
+        event.preventDefault();
+        details = {
+            tweet_id: tweet_id,
+            method: "get_replies",
+            queue: "USER"
+        };
+        return $.ajax({
+            url: "http://localhost:8080",
+            type: "POST",
+            datatype: "json",
+            data: JSON.stringify(details),
+            success: function (result) {
+                noty({
+                    text:'ho'+ result.replies,
+                    timeout: 2000,
+                    type: "error",
+                    theme: 'bootstrapTheme'
+                });
+
+                var favorited, i, output, _i, _len, _ref;
+                $("#replies").empty();
+                favorited = "fav";
+                _ref = result.tweets;
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    i = _ref[_i];
+                    if (i.is_favorited) {
+                    favorited = "unfav";
+                    } else {
+                        favorited = "fav";
+                    }
+                    output = "<blockquote>" +
+                        "                        <div class=\"clearfix\">\n" +
+                        "                      <div id=\"my-post-profile-pic\" class=\"pull-left push-15-r\"> " +
+                        "<img class='img-avatar img-avatar48' src='" + i.creator.avatar_url + "'  alt=''>" +
+                        "</div>"+
+                        "<div id=\"my-post-username\" class=\"push-5-t\">" +
+                        "<a class='font-w600' >"+i.creator.username+"</a><br> <span class='font-s12 text-muted'>"+  i.created_at.substring(0,11) +"</span>" +
+                        "</div> </div>"+
+                        "<p>"+i.tweet_text +" </p>" +
+                        "</blockquote>";
+                    $("#replies").append(output);
+            }
+        },
+        error: function(xhr, status, error) {
+            return noty({
+                text: 'An error occured, please try again',
+                timeout: 2000,
+                type: "error",
+                theme: 'bootstrapTheme'
+            });
+        }
     });
-});
+}
+
+    function mentions(){
+
+    var details;
+    event.preventDefault();
+    details = {
+        session_id: localStorage.session,
+        method: "get_mentions",
+        queue: "USER"
+    };
+    return $.ajax({
+        url: "http://localhost:8080",
+        type: "POST",
+        datatype: "json",
+        data: JSON.stringify(details),
+        success: function(result) {
+            var i, output, _i, _len, _ref;
+            $("#notifications").empty();
+            _ref = result.mentions;
+            for (_i = 0, _len = _ref.length; _i < _len ; _i++) {
+                i = _ref[_i];
+                output = "<ul class=\"list list-simple list-li-clearfix\">\n" +
+                    "                                        <li>\n" +
+                    "                                            <div class=\"item  pull-left push-10-r \" >\n" +
+                    "                                                <img  src='" + i.creator.avatar_url + "' height='64' width='64'> </div> <div class=\"media-body\"> "+
+                    "                                            </div>\n" +
+                    "                                            <h5 class=\"push-10-t\">" + (capitalize(i.creator.username)) + " </h5>\n" +
+                    "                                            <div class=\"font-s13\">"+ i.tweet_text  +"</div>\n" +
+                    "<button class='pull-right button-transparent fav-tweet' type='button' id='tweet-fav-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-star'></i></button> <button class='pull-right button-transparent retweet-tweet' type='button' id='tweet-retweet-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-retweet'></i></button> <button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box' type='button' id='tweet-reply-" + i.id + "'> <i style='font-size:1.5em;' class='fa fa-reply'></i></button> </div>"+
+                    "                                        </li></ul>";
+                $("#notifications").append(output);
+            }
+            return $("#notifications").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Tweet already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.reply-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12); }); </script>");
+        },
+        error: function(xhr, status, error) {
+            return noty({
+                text: 'An error occured, please try again',
+                timeout: 2000,
+                type: "error",
+                theme: 'bootstrapTheme'
+            });
+        }
+    });
+}
+
+function messages(){
+
+    var details;
+    event.preventDefault();
+    details = {
+        session_id: localStorage.session,
+        method: "get_convs",
+        queue: "DM"
+    };
+    return $.ajax({
+        url: "http://localhost:8080",
+        type: "POST",
+        datatype: "json",
+        data: JSON.stringify(details),
+        success: function(result) {
+            var i, other, output, _i, _len, _ref;
+            $("#messages").empty();
+            other = '';
+            _ref = result.convs;
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                i = _ref[_i];
+                if (i.lastDM.sender.name === localStorage.name) {
+                    other = i.lastDM.reciever.name;
+                } else {
+                    other = i.lastDM.sender.name;
+                }
+                output = "<div class=\"media thread-" + i.id + "\" > <div class=\"media-left\"> <img class=\"media-object\" src='" + i.lastDM.sender.avatar_url + "' alt='DM Image' width='64' height='64'> </div> <div class=\"media-body thread\" id='thread-" + i.id + "' data-toggle='modal' data-target='.message' > <h4 class=\"media-heading\">" + other + "</h4> " + i.lastDM.dm_text + " </div> <button class='pull-right button-transparent delete-conversation' data-toggle='modal' data-target='.delete-conv-box' type='button' id='conv-delete-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-trash'></i></button> </div>";
+                $("#messages").append(output);
+            }
+            return $("#messages").append("<script> $('.thread').click(function(event) { var details, thread_id; event.preventDefault(); thread_id = $(this).attr('id').substring(7); dm_conversation = thread_id; details = { conv_id: thread_id, method: 'get_conv', queue: 'DM' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { var i, j, len, other, ref, results; other = ''; if (result.conv.dms[0].sender.name === localStorage.name) { $('#message-header').empty(); $('#message-header').append(\"<h3>\" + result.conv.dms[0].reciever.name + \"</h3>\"); other = result.conv.dms[0].reciever.name; } else { $('#message-header').empty(); $('#message-header').append(\"<h3>\" + result.conv.dms[0].sender.name + \"</h3>\"); other = result.conv.dms[0].sender.name; } ref = result.conv.dms; results = []; $('#message-body').empty(); for (j = 0, len = ref.length; j < len; j++) { i = ref[j]; results.push($('#message-body').append(\"<div class='media'> <div class='media-left'> <a href='#'> <img class='media-object' src='\" + i.sender.avatar_url +\"' alt='Profile' width='42' height='42'> </a> </div> <div class='media-body'> <h4 class='media-heading'>\" + i.sender.name + \"</h4> \" + i.dm_text + \" </div> </div>\")); } return results; }, error: function(xhr,status,result) { noty({text: 'An error occured, please try again', timeout: 2000, type:'error', theme: 'bootstrapTheme'}); } }); }); $('.delete-conversation').click(function(event) { var details; event.preventDefault(); conv_id = $(this).attr('id').substring(12); }); </script>");
+        },
+        error: function(xhr, status, error) {
+            return noty({
+                text: 'An error occured, please try again',
+                timeout: 2000,
+                type: "error",
+                theme: 'bootstrapTheme'
+            });
+        }
+    });
+}
+
+function profileload() {
+
+    var details;
+    event.preventDefault();
+    details = {
+        session_id: localStorage.session,
+        method: "my_profile",
+        queue: "USER"
+    };
+    return $.ajax({
+        url: "http://localhost:8080",
+        type: "POST",
+        datatype: "json",
+        data: JSON.stringify(details),
+        success: function (result) {
+            profile_lists();
+            $('h2[name=name]').empty();
+            $('h3[name=bio]').empty();
+            $('h2[name=numberOfFollowers]').empty();
+            $('h2[name=numberOfFollowing]').empty();
+            $('h2[name=numberOfPosts]').empty();
+            $('img[name=profile-image]').prop("src", result.user.avatar_url);
+            $('h2[name=name]').append(result.user.name);
+            $('h3[name=bio]').append(result.user.bio);
+            $('h2[name=numberOfFollowers]').append(result.user.followers_count);
+            $('h2[name=numberOfFollowing]').append(result.user.followings_count);
+            $('h2[name=numberOfPosts]').append(result.user.tweets_count);
+
+            var details;
+            var current_time = new Date();
+            event.preventDefault();
+            details = {
+                session_id: localStorage.session,
+                type: mood.mood,
+                method: "user_tweets",
+                queue: "USER"
+            };
+            return $.ajax({
+                url: "http://localhost:8080",
+                type: "POST",
+                datatype: "json",
+                data: JSON.stringify(details),
+                success: function (result) {
+                    var favorited, i, output, _i, _len, _ref;
+                    $("#user-posts").empty();
+                    favorited = "fav";
+                    _ref = result.tweets;
+                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                        i = _ref[_i];
+
+                        if (i.is_favorited) {
+                            favorited = "unfav";
+                        } else {
+                            favorited = "fav";
+                        }
+                        output = "<blockquote>" +
+                            "                        <div class=\"clearfix\">\n" +
+                            "                      <div id=\"my-post-profile-pic\" class=\"pull-left push-15-r\"> " +
+                            "<img class='img-avatar img-avatar48' src='" + i.creator.avatar_url + "'  alt=''>" +
+                            "</div>" +
+                            "<div id=\"my-post-username\" class=\"push-5-t\">" +
+                            "<a class='font-w600' >" + i.creator.username + "</a><br> <span class='font-s12 text-muted'>" + i.created_at.substring(0, 11) + "</span>" +
+                            "</div> </div>" +
+                            "<p>" + i.tweet_text + " </p>" +
+                            " " +
+                            " <button class='pull-right button-transparent delete-tweet' data-toggle='modal' data-target='.delete-tweet-box'" +
+                            " type='button' id='tweet-delete-" + i.id + "' >" +
+                            " <i style='font-size:1.5em;' class='si si-trash fa-2x'></i></button>" +
+                            " <button class='pull-right button-transparent " + favorited + "-tweet' type='button' id='tweet-fav-" + i.id + "' >" +
+                            " <i style='font-size:1.5em;' class='fa fa-star'></i></button> " +
+                            " </div> </div> </div>" +
+                            " </blockquote>";
+                        $("#user-posts").append(output);
+                    }
+                    return $("#my-tweets-container").append("<script> $('.fav-tweet').click(function(event) { " +
+                        "var details;" +
+                        " event.preventDefault();" +
+                        " tweet_id = $(this).attr('id').substring(10);" +
+                        " details = { session_id: localStorage.session," +
+                        " tweet_id: tweet_id" +
+                        ", method: 'favorite'," +
+                        " queue: 'TWEET' };" +
+                        " return $.ajax({" +
+                        " url: 'http://localhost:8080'," +
+                        " type: 'POST'," +
+                        " datatype: 'json'," +
+                        " data: JSON.stringify(details), " +
+                        "success: function(result) { " +
+                        "$(this).removeClass('fav-tweet');" +
+                        " $(this).addClass('unfav-tweet');" +
+                        " $(this).text(0); " +
+                        "return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }," +
+                        " error: function(xhr, status, error) { " +
+                        "if(error.includes('tweet')){ " +
+                        "return noty({ text: 'Tweet already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } " +
+                        "else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.delete-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(13); }); </script>");
+                },
+                error: function (xhr, status, error) {
+                    return noty({
+                        text: 'An error occured, please try again',
+                        timeout: 2000,
+                        type: "error",
+                        theme: 'bootstrapTheme'
+                    });
+                }
+            });
+        },
+        error: function (xhr, status, error) {
+            return noty({
+                text: 'An error occured, please try again',
+                timeout: 2000,
+                type: "error",
+                theme: 'bootstrapTheme'
+            });
+        }
+    });
+}
+
+function profile_lists() {
+    var details;
+    event.preventDefault();
+    details = {
+        session_id: localStorage.session,
+        method: "get_subscribed_lists",
+        queue: "USER"
+    };
+    return $.ajax({
+        url: "http://localhost:8080",
+        type: "POST",
+        datatype: "json",
+        data: JSON.stringify(details),
+        success: function(result) {
+            var description, i, output, _i, _len, _ref;
+            $("#lists1").empty();
+            description = "";
+            _ref = result.subscribed_lists;
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                i = _ref[_i];
+                description = i.description;
+                if (isEmpty(description) && (description != null)) {
+                    description = "No Description";
+                };
+                output = "<ul class=\"list list-simple list-li-clearfix\">\n" +
+                    "                                        <li>\n" +
+                    "<a class=\"media list-" + i.id + "\"> <div class=\"media-left\"> " +
+                    "<img class=\"media-object\" src='" + i.creator.avatar_url + "' alt='Image' width='64' height='64'> " +
+                    "</div> <div class=\"media-body  list-entry\" data-toggle='modal' data-target='.followers-box' " +
+                    " id='list-" + i.id + "' name='" + i.name + "'> "+
+                    " <h5 class=\"push-10-t\">" + i.name+"</h5><div class=\"font-s13\">" +'@'+i.creator.username + " </div></a> \n" +
+                    " <div class=\"font-s13\">"+ i.description  +"</div></div>\n" +
+                    "<button class='pull-right button-transparent delete-list' data-toggle='modal' data-target='.delete-list-box'" +
+                    " type='button' id='list-delete-" + i.id + "' > <i style='font-size:1em;' class='fa fa-trash'></i>" +
+                    "</button> <button class='pull-right button-transparent edit-list' data-toggle='modal'" +
+                    " data-target='.edit-list-box' type='button' id='list-edit-" + i.id + "' > <i style='font-size:1em;'" +
+                    " class='fa fa-pencil'></i></button> <button class='pull-right button-transparent unsub-list' data-toggle='modal' data-target='.unsub-list-box' " +
+                    "type='button' id='list-unsub-" + i.id + "'> <i style='font-size:1em;' class='fa fa-close'></i></button> " +
+                    "<button class='pull-right button-transparent list-members' data-toggle='modal'\" +\n" +
+                    " data-target='.members-box' type='button' id='list-members-" + i.id + "' >" +
+                    " <i style='font-size:1em;' class='fa fa-users pull-right'></i>"+
+                    "                                        </li></ul>";
+                $("#lists1").append(output);
+            }
+            return $("#lists1").append("<script> $('.list-entry').click(function(event) {" +
+                " var details, thread_id, list_name;" +
+                " event.preventDefault(); " +
+                " list_id = $(this).attr('id').substring(5);" +
+                " list_name = $(this).attr('name'); " +
+                " chosen_list=list_id;"+
+                " details = { list_id: list_id, type: mood.mood , method: 'get_list_feeds', queue: 'LIST' };" +
+                " return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details)," +
+                " success: function(result) { var i, j, len, other, ref, results;" +
+                " ref = result.list_feeds; results = [];" +
+                " $('#box-name').empty();" +
+                " $('#followers-pane').empty();" +
+                " $('#box-name').append(\"<h4 class='media-heading'>\" + list_name + \"</h4>\");" +
+                " for (j = 0, len = ref.length; j < len; j++)" +
+                " { i = ref[j];" +
+                " results.push($('#followers-pane').append(\"<div class='media'> <div class='media-left'> <a href='#'> <img class='media-object' src='\" + i.creator.avatar_url +\"' alt='Profile' width='64' height='64'> </a> </div> <div class='media-body'> <h4 class='media-heading'>\" + i.creator.name + \"</h4> \" + i.tweet_text + \" </div> </div>\")); " +
+                "}" +
+                " return results; }," +
+                " error: function(xhr,status,error) { noty({text: 'An error occured, please try again', timeout: 2000, type:'error', theme: 'bootstrapTheme'}); } }); }); " +
+                "$('.delete-list').click(function(event) { event.preventDefault(); list_id = $(this).attr('id').substring(12); });" +
+                "$('.edit-list').click(function(event) { var details, list_id; event.preventDefault();" +
+                " list_id = $(this).attr('id').substring(10);" +
+                " $('input[name=list-name-edit]').val();" +
+                " details = { list_id: list_id, method: \"get_list\", queue: \"LIST\" };" +
+                " return $.ajax({ url: \"http://localhost:8080\", type: \"POST\", datatype: \"json\", data: JSON.stringify(details)," +
+                " success: function(result) { $('input[name=list-name-edit]').val(result.list.name);" +
+                " $('textarea[name=list-description-edit]').val(result.list.description);" +
+                " $('edit-list-box').modal('handleUpdate'); }," +
+                " error: function(xhr, status, error) { " +
+                "return noty({ text: 'An error occured, please try again', timeout: 2000, type: \"error\", theme: 'bootstrapTheme' }); } }); });" +
+                "$('.list-members').click(function(event) { var details, list_id; event.preventDefault();" +
+                " list_id = $(this).attr('id').substring(13);" +
+                "chosen_list=list_id;"+
+                " details = { list_id: list_id, method: \"list_members\", queue: \"LIST\" };" +
+                " return $.ajax({ url: \"http://localhost:8080\", type: \"POST\", datatype: \"json\", data: JSON.stringify(details)," +
+                " success: function(result) {  "+
+                "var i, _i, _len, _ref, _results;"+
+                "$('#members-pane').empty();"+
+                "_ref = result.members;"+
+                "_results = [];"+
+                "_len =_ref.length;"+
+                "for (_i = 0 ; _i < _len ; _i++) {"+
+                "i = _ref[_i];"+
+                " _results.push($('#members-pane').append(" +
+                "\"<div class='media'> <div class='media-left'> <a href='#'> " +
+                "<img class='media-object' src='\" + i.avatar_url +\"' alt='Profile' width='64' height='64'>" +
+                " </a> </div> <div class='media-body'> <h4 class='media-heading'>\" + i.username + \"</h4> \" " +
+                "+ i.name + \" </div> </div>\"));}" +
+                "return _results"+
+                "}, " +
+                " error: function(xhr, status, error) { " +
+                "return noty({ text: 'An error occured, please try again', timeout: 2000, type: \"error\", theme: 'bootstrapTheme' }); } }); });"+
+                " $('.unsub-list').click(function(event) {" +
+                " event.preventDefault(); list_id = $(this).attr('id').substring(11); }); </script>");
+        },
+        error: function(xhr, status, error) {
+            return noty({
+                text: 'An error occured, please try again',
+                timeout: 2000,
+                type: 'error',
+                theme: 'bootstrapTheme'
+            });
+        }
+    });
+}
 
 
 $(document).ready(function() {
@@ -296,7 +715,7 @@ $(document).ready(function() {
                     _results.push($("#search-pane").append(
                         "<div class=\"media\"> <div class=\"media-left\">" +
                         " <img class='media-object' src='" + i.avatar_url + "' height='64' width='64'></div> " +
-                        "<div class=\"media-body user-search\" data-toggle=\"modal\" data-target=\".user-details\" id='user-search-" + i.username + "'>" +
+                        "<div class=\"media-body user-search\" data-toggle=\"modal\" data-target=\".user-details\" id='user-search-" + i.username + "' data-dismiss=\"modal\">" +
                         " <h4 class='user'> " +  " " + i.username + "</h4> " +
                         "</div> " +
                         "</div>" +
@@ -319,24 +738,15 @@ $(document).ready(function() {
                         " $('search-box').hide();" +
                         " chosen_user=result.user;"+
                         "is_following.following();"+
-
-                        "if (isFollowing=='false') {"+
-                        " document.getElementById('follow').innerHTML='follow';"+
-                        "}"+
-                        "else {"+
-                        " document.getElementById('follow').innerHTML='unfollow';" +
-                        "}"+
                         " results = [];" +
                         "$('#user-image').empty();"+
-                        "$('#user-body').empty();"+
                         "$('#user-header').empty();"+
-                        "$('#user-header').append(\"<div class='media'> " +
-                        "<div class='media-left'> <a href='#'> <img class='media-object' src='\" + " +
-                        "chosen_user.avatar_url +\"' alt='Profile' width='64' height='64'> </a> " +
-                        "</div> <div class='media-body'> <h4 class='media-heading'>\" " +
-                        "+ chosen_user.name + \"</h4> \"  + \" </div> </div>\");"+
-                        "results.push($('#user-body').append(\"<h4 class='media-heading'>\" " +
-                        "+ chosen_user.bio + \"</h4> \"  )) ;"+
+                        "user_posts();"+
+                        "results.push($('#user-header').append(\"<div class=\\\"media\\\"> <div class=\\\"media-left\\\"> <img class='media-object' src='\" + chosen_user.avatar_url + \"' height='64' width='64'></div> <div class=\\\"media-body\\\"> " +
+                        "<h4> \" + (capitalize(chosen_user.username)) + \" (@\" + chosen_user.username + \")</h4>  " +
+                        "<p> \" + chosen_user.bio + \"</p> " +
+                        "</div> "+
+                        "</div>\"));"+
                         " return results; }," +
                         " error: function(xhr,status,error) { " +
                         "return noty({" +
@@ -603,9 +1013,10 @@ $(document).ready(function() {
         details = {
             session_id: localStorage.session,
             tweet_id: tweet_id,
+            type:mood.mood,
             tweet_text: $('textarea[name=reply-text]').val(),
-            method: "logout",
-            queue: "USER"
+            method: "reply",
+            queue: "TWEET"
         };
         return $.ajax({
             url: "http://localhost:8080",
@@ -647,44 +1058,7 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     return $("#timeline").click(function(event) {
-        var details;
-        event.preventDefault();
-        details = {
-            session_id: localStorage.session,
-            method: "timeline",
-            queue: "USER"
-        };
-        return $.ajax({
-            url: "http://localhost:8080",
-            type: "POST",
-            datatype: "json",
-            data: JSON.stringify(details),
-            success: function(result) {
-                var favorited, i, output, _i, _len, _ref;
-                $("#timeline-container").empty();
-                favorited = "fav";
-                _ref = result.feeds;
-                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                    i = _ref[_i];
-                    if (i.is_favorited) {
-                        favorited = "unfav";
-                    } else {
-                        favorited = "fav";
-                    }
-                    output = "<div class=\"row-fluid\"> <div class=\"col-sm-4 col-sm-offset-4\"> <div class=\"media timeline\"> <div class=\"media-left\"> <img class='media-object' src='" + i.creator.avatar_url + "' height='64' width='64'> </div> <div class=\"media-body\"> <h4 class='media-heading user-entry' id='user-" + i.creator.id + "' > " + (capitalize(i.creator.username)) + " (@" + i.creator.username + ")</h4> " + i.tweet_text + " </div> <button class='pull-right button-transparent " + favorited + "-tweet' type='button' id='tweet-fav-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-star'></i></button> <button class='pull-right button-transparent retweet-tweet' type='button' id='tweet-retweet-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-retweet'></i></button> <button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box' type='button' id='tweet-reply-" + i.id + "'> <i style='font-size:1.5em;' class='fa fa-reply'></i></button> </div> </div> </div>";
-                    $("#timeline-container").append(output);
-                }
-                return $("#timeline-container").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Tweet already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.reply-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12); }); </script>");
-            },
-            error: function(xhr, status, error) {
-                return noty({
-                    text: 'An error occured, please try again',
-                    timeout: 2000,
-                    type: "error",
-                    theme: 'bootstrapTheme'
-                });
-            }
-        });
+        timeline();
     });
 });
 
@@ -724,7 +1098,7 @@ $(document).ready(function() {
         event.preventDefault();
         details = {
             session_id: localStorage.session,
-            type: mood ,
+            type: mood.mood ,
             tweet_text: $("#tweet-text").val(),
             method: "tweet",
             queue: "TWEET"
@@ -774,10 +1148,10 @@ $(document).ready(function() {
             website: $('input[name=website]').val(),
             created_at: $('input[name=created_at]').val(),
             avatar_url: $('input[name=avatar_url]').val(),
-            overlay: $('input[name=overlay]').val(),
+            overlay: document.getElementById("overlay").checked,
             link_color: $('input[name=link_color]').val(),
             background_color: $('input[name=background_color]').val(),
-            protected_tweets: $('input[name=protected_tweets]').val()
+            protected_tweets: document.getElementById("protected").checked
         };
         return $.ajax({
             url: "http://localhost:8080",
@@ -791,7 +1165,8 @@ $(document).ready(function() {
                     type: "success",
                     theme: 'bootstrapTheme'
                 });
-                return localStorage.username = $('input[name=username]').val();
+                 localStorage.username = $('input[name=username]').val();
+                return window.location.href = "LandingPage.html";
             },
             error: function(xhr, status, error) {
                 return noty({
@@ -811,7 +1186,7 @@ $(document).ready(function() {
         event.preventDefault();
         details = {
             session_id: localStorage.session,
-            type: mood,
+            type: mood.mood,
             method: "user_tweets",
             queue: "USER"
         };
@@ -823,6 +1198,8 @@ $(document).ready(function() {
             success: function(result) {
                 var favorited, i, output, _i, _len, _ref;
                 $("#my-tweets-container").empty();
+                $("#my-post").empty();
+
                 favorited = "fav";
                 _ref = result.tweets;
                 for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -834,7 +1211,45 @@ $(document).ready(function() {
                         output = "<div class=\"row-fluid my-tweet-" + i.id + "\"> <div class=\"col-sm-4 col-sm-offset-4\"> <div class=\"media my-tweet\"> <div class=\"media-left\"> <img class='media-object' src='" + i.creator.avatar_url + "' height='64' width='64'> </div> <div class=\"media-body\"> <h4 class=\"media-heading\"> " + (capitalize(i.creator.username)) + " (@" + i.creator.username + ") </h4> " + i.tweet_text + " </div> <button class='pull-right button-transparent delete-tweet' data-toggle='modal' data-target='.delete-tweet-box' type='button' id='tweet-delete-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-trash'></i></button> <button class='pull-right button-transparent " + favorited + "-tweet' type='button' id='tweet-fav-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-star'></i></button> <button class='pull-right button-transparent retweet-tweet' type='button' id='tweet-retweet-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-retweet'></i></button> </div> </div> </div>";
                     }
                     $("#my-tweets-container").append(output);
+
+                    $("#my-post-profile-pic").append();
+                    $("#my-post").append("  <div class=\"block\">\n" +
+                        "                        <div class=\"clearfix\">\n" +
+                        "                      <div id=\"my-post-profile-pic\" class=\"pull-left push-15-r\"> " +
+                        "<img class='img-avatar img-avatar48' src='" + i.creator.avatar_url + "'  alt=''>" +
+                        "</div>"+
+                        "<div id=\"my-post-username\" class=\"push-5-t\">" +
+                        "<a class='font-w600' >"+i.creator.username+"</a><br> <span class='font-s12 text-muted'>5 hours ago</span>" +
+                        "</div> </div></div>" +
+                        "<p class=\"push-10 pull-t\">"+i.tweet_text+"</p><hr><br>"+
+                        "<div id=\"my-post-appendix\" class=\"row text-center font-s13\">\n" +
+                        "                        <div class=\"col-xs-4\">\n" +
+                        "                            <a class=\"font-w600 text-gray-dark\" href=\"javascript:void(0)\">\n" +
+                        "                                <i class=\"fa fa-thumbs-up push-5-r\"></i>\n" +
+                        "                                <span class=\"hidden-xs\">Like!</span>\n" +
+                        "                            </a>\n" +
+                        "                        </div>\n" +
+                        "                        <div class=\"col-xs-4\">\n" +
+                        "                            <a class=\"font-w600 text-gray-dark\" href=\"javascript:void(0)\">\n" +
+                        "                                <i class=\"fa fa-comment push-5-r\"></i>\n" +
+                        "                                <span class=\"hidden-xs\">Comment</span>\n" +
+                        "                            </a>\n" +
+                        "                        </div>\n" +
+                        "                        <div class=\"col-xs-4\">\n" +
+                        "                            <a class=\"font-w600 text-gray-dark\" href=\"javascript:void(0)\">\n" +
+                        "                                <i class=\"fa fa-share-alt push-5-r\"></i>\n" +
+                        "                                <span class=\"hidden-xs\">Share</span>\n" +
+                        "                            </a>\n" +
+                        "                        </div>\n" +
+                        "                    </div>"+
+                        "    <div class=\"block-content block-content-full bg-gray-lighter\">\n" +
+                        "                                </div>"
+                    )
+
+
                 }
+                ;
+
                 return $("#my-tweets-container").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Tweet already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.delete-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(13); }); </script>");
             },
             error: function(xhr, status, error) {
@@ -978,7 +1393,7 @@ $(document).ready(function() {
                     " list_id = $(this).attr('id').substring(5);" +
                     " list_name = $(this).attr('name'); " +
                     " chosen_list=list_id;"+
-                    " details = { list_id: list_id, type: mood , method: 'get_list_feeds', queue: 'LIST' };" +
+                    " details = { list_id: list_id, type: mood.mood , method: 'get_list_feeds', queue: 'LIST' };" +
                     " return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details)," +
                     " success: function(result) { var i, j, len, other, ref, results;" +
                     " ref = result.list_feeds; results = [];" +
@@ -1047,7 +1462,7 @@ $(document).ready(function() {
 
         _len = 0;
         details = {
-            username: $('input[name=user]').val(),
+            username: $('input[name=new-member]').val(),
             method: "get_user2",
             queue: "USER"
         };
@@ -1121,9 +1536,15 @@ $(document).ready(function() {
                 _ref = result.followers;
                 _results = [];
                 $("#followers-pane").empty();
+                $("#box-name").empty();
+                $("#box-name").append("people following you");
+
                 for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                     i = _ref[_i];
-                    _results.push($("#followers-pane").append("<div class=\"media\"> <div class=\"media-left\"> <img class='media-object' src='" + i.avatar_url + "' height='64' width='64'></div> <div class=\"media-body\"> <h4> " + (capitalize(i.username)) + " (@" + i.username + ")</h4> </div> </div>"));
+                    _results.push($("#followers-pane").append("<li> "+
+                        "<img class='img-avatar' src=' " + i.avatar_url + " ' alt=''>"+
+                        " "+(capitalize(i.name))+" <div class='font-w400 text-muted'><small> '@"+ i.username + "'</small></div>  </li>"));
+
                 }
                 return _results;
             },
@@ -1156,10 +1577,16 @@ $(document).ready(function() {
             success: function(result) {
                 var i, _i, _len, _ref, _results;
                 _ref = result.following;
+                $("#followers-pane").empty();
+                $("#box-name").empty();
+                $("#box-name").append("people you follow");
                 _results = [];
                 for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                     i = _ref[_i];
-                    _results.push($("#followers-pane").append("<div class=\"row\"> <div class=\"col-sm-6 col-sm-offset-1\"> <div class=\"media\"> <div class=\"media-left\"> <img class='media-object' src='" + i.avatar_url + "' height='64' width='64'></div> <div class=\"media-body\"> <h4> " + (capitalize(i.username)) + " (@" + i.username + ")</h4> </div> </div> </div> </div>"));
+                    _results.push($("#followers-pane").append("<li> "+
+                        "<img class='img-avatar' src=' " + i.avatar_url + " ' alt=''>"+
+                        " "+(capitalize(i.name))+" <div class='font-w400 text-muted'><small> '@"+ i.username + "'</small></div>  </li>"));
+                        /*$("#followers-pane").append("<div class=\"row\"> <div class=\"col-sm-6 col-sm-offset-1\"> <div class=\"media\"> <div class=\"media-left\"> <img class='media-object' src='" + i.avatar_url + "' height='64' width='64'></div> <div class=\"media-body\"> <h4> " + (capitalize(i.username)) + " (@" + i.username + ")</h4> </div> </div> </div> </div>"));*/
                 }
                 return _results;
             },
@@ -1182,7 +1609,7 @@ var is_following = {
         details =
             { session_id: localStorage.session,
                 username: chosen_user.username,
-                method: 'is_following',
+                method: 'is_following_user',
                 queue: 'USER' };
         return $.ajax({
             url: "http://localhost:8080",
@@ -1191,7 +1618,15 @@ var is_following = {
             data: JSON.stringify(details),
             success: function(result) {
                 isFollowing = result.following;
-                return isFollowing; },
+
+                if (isFollowing) {
+                 document.getElementById('follow').innerHTML='unfollow';
+                }
+                else {
+                 document.getElementById('follow').innerHTML='follow';
+                }
+                return isFollowing;
+                },
             error: function(xhr,status,error) {
                 return noty({
                     text: "An error occured, please try again",
@@ -1217,17 +1652,27 @@ $(document).ready(function() {
             datatype: "json",
             data: JSON.stringify(details),
             success: function (result) {
+               is_following.following();
+                if(!isFollowing){
                 noty({
                     text: 'followed ' ,
                     timeout: 1500,
                     type: "success",
                     theme: 'bootstrapTheme'
-                });
+                });}
+               else{
+                   noty({
+                       text: 'unfollowed ' ,
+                       timeout: 1500,
+                       type: "success",
+                       theme: 'bootstrapTheme'
+                   });
+               }
             },
             error: function (xhr, status, error) {
 
                 return noty({
-                    text: 'already followed ',
+                    text: 'An error occured, please try again',
                     timeout: 2000,
                     type: "error",
                     theme: 'bootstrapTheme'
@@ -1263,7 +1708,7 @@ $(document).ready(function() {
             error: function (xhr, status, error) {
 
                 return noty({
-                    text: 'error',
+                    text: 'An error occured, please try again',
                     timeout: 2000,
                     type: "error",
                     theme: 'bootstrapTheme'
@@ -1272,8 +1717,15 @@ $(document).ready(function() {
         });
     });
 });
-
-
+//2.1.1 microb + massivly sclable
+//2.1.2 evaluatuon
+//2,2.1 walk through
+//portlets
+//viewlets
+//massivly sclable apps
+//back-end arch
+//2.2.2implication in user interface design
+//massivly sclabl issues
 $(document).ready(function() {
     return $("#fav").click(function(event) {
         var details;
@@ -1292,10 +1744,22 @@ $(document).ready(function() {
                 var i, _i, _len, _ref, _results;
                 _ref = result.favorites;
                 _results = [];
-
+                $("#box-name").empty();
+                $("#box-name").append("<h2>Favourites</h2>");
+                $("#followers-pane").empty();
                 for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                     i = _ref[_i];
-                    _results.push($("#followers-pane").append("<div class=\"media\"> <div class=\"media-left\"> <img class='media-object' src='" + i.creator.avatar_url + "' height='64' width='64'></div> <div class=\"media-body\"> <h4> " + (capitalize(i.creator.username)) + " (@" + i.creator.username + ")</h4>"+i.tweet_text + " </div> </div>"));
+                    var output = "<blockquote>" +
+                        "                        <div class=\"clearfix\">\n" +
+                        "                      <div id=\"my-post-profile-pic\" class=\"pull-left push-15-r\"> " +
+                        "<img class='img-avatar img-avatar48' src='" + i.creator.avatar_url + "'  alt=''>" +
+                        "</div>"+
+                        "<div id=\"my-post-username\" class=\"push-5-t\">" +
+                        "<a class='font-w600' >"+i.creator.username+"</a><br> <span class='font-s12 text-muted'>"+  i.created_at.substring(0,11) +"</span>" +
+                        "</div> </div>"+
+                        "<p>"+i.tweet_text +" </p>" +
+                        " </blockquote>" ;
+                    _results.push($("#followers-pane").append(output));
                 }
                 return _results;
                 noty({
@@ -1344,6 +1808,7 @@ $(document).ready(function() {
                         favorited = "fav";
                     }
                     output = "<div class=\"row-fluid\"> <div class=\"col-sm-4 col-sm-offset-4\"> <div class=\"media timeline\"> <div class=\"media-left\"> <img class='media-object' src='" + i.creator.avatar_url + "' height='64' width='64'> </div> <div class=\"media-body\"> <h4 class='media-heading user-entry' id='user-" + i.creator.id + "' > " + (capitalize(i.creator.username)) + " (@" + i.creator.username + ")</h4> " + i.tweet_text + " </div> <button class='pull-right button-transparent " + favorited + "-tweet' type='button' id='tweet-fav-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-star'></i></button> <button class='pull-right button-transparent retweet-tweet' type='button' id='tweet-retweet-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-retweet'></i></button> <button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box' type='button' id='tweet-reply-" + i.id + "'> <i style='font-size:1.5em;' class='fa fa-reply'></i></button> </div> </div> </div>";
+
                     $("#timeline-container").append(output);
                 }
                 return $("#timeline-container").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Tweet already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: 'http://localhost:8080', type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.reply-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12); }); </script>");
@@ -1580,6 +2045,7 @@ $(document).ready(function() {
         var details;
         event.preventDefault();
         details = {
+            session_id:localStorage.session,
             tweet_id: tweet_id,
             method: "delete_tweet",
             queue: "TWEET"
