@@ -232,7 +232,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" data-dismiss="modal" class="btn btn-default"><span style="font-size:2em;" class="fa fa-close text-center"></span></button>
-                            <button type="button" data-toggle="modal" id="create-tweet" class="btn btn-default button-colour"><span style="font-size:2em;" class="fa fa-send text-center"></span></button>
+                            <button  type="button" data-toggle="modal" id="create-tweet" class="btn btn-default button-colour"><span style="font-size:2em;" class="fa fa-send text-center"></span></button>
                         </div>
                     </div>
                 </div>
@@ -499,7 +499,7 @@
                                                     <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
                                                 </li>
                                             </ul>
-                                            <h3 class="block-title">My Posts</h3>
+                                            <h3 name="post-mood" class="block-title"></h3>
                                         </div>
                                     <div class="block-content">
                                         <!-- Slick slider (.js-slider class is initialized in App() -> uiHelperSlick()) -->
@@ -612,13 +612,6 @@
     </div>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <ul class="nav nav-pills nav-justified">
-        <li role="presentation" id="messages"><a href="#messages-pane" data-toggle="pill">Messages</a></li>
-        <li role="presentation" id="lists"><a href="#lists-pane" data-toggle="pill">Lists</a></li>
-        <li role="presentation" id="profile"><a href="#profile-pane" data-toggle="pill">Profile</a></li>
-    </ul>
-</nav>
 <script src="assets/js/core/jquery.slimscroll.min.js"></script>
 <script src="assets/js/core/jquery.scrollLock.min.js"></script>
 <script src="assets/js/core/jquery.placeholder.min.js"></script>

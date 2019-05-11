@@ -180,10 +180,14 @@
                                             <ul class="block-options">                <li>
                                                 <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
                                             </li>
+                                                <li>
+                                                    <button id="new-conv" type="button" data-toggle="modal" data-target=".new-conv-box"><i style="font-size:2em;" class="fa fa-plus-circle"></i></button>
+                                                </li>
+
                                             </ul>
                                             <h3 class="block-title"><i class="si si-envelope fa"></i> Messages</h3>
                                         </div>
-                                        <div class="block-content">
+                                        <div class="block-content" data-toggle="slimscroll" data-always-visible="true" data-size="10px">
                                             <div id="messages" ></div>
                                             <div class="text-center push">
                                                 <small><a id="view_more_messages">View All..</a></small>
@@ -331,10 +335,58 @@
     </div>
     </div>
 
-    <div role="dialog" tabindex="-1" class="modal fade reply-box">
+    <div role="dialog" tabindex="-1" class="modal fade message">
+        <div class="modal-dialog">
+            <div class="js-chat-container content content-narrow" data-chat-mode="fixed" data-chat-height="400">
+
+            <div class="modal-content">
+                <div class="block-header bg-primary-light">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="h4"><span class="text-white"><div id="message-header">
+                    </div></span></h3>
+
+                </div>
+                <div class="js-chat-talk overflow-y-auto block-content block-content-full" >
+                    <div id="message-body" class="modal-body"></div>
+                </div>
+                <div class="js-chat-form block-content block-content-full block-content-mini">
+                    <div class="modal-footer">
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" name="dm" class="js-chat-input form-control"   placeholder="Type a message and hit enter..">
+                                    <span class="input-group-btn">
+                                    <button type="submit" id="send-dm" class="btn bg-primary">Reply</button></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade delete-conv-box">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="block-header bg-primary-lighter">
+                <div class="modal-body">
+                    <h4>Delete Conversation?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                    <button type="button" data-dismiss="modal" id="confirm-delete-conv" class="btn btn-default button-colour">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade reply-box" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="block-header bg-gray-light">
                     <ul class="block-options">
                         <li>
                             <button type="button"><i class="si si-settings"></i></button>
@@ -350,8 +402,8 @@
                             <textarea name="reply-text" class="form-control"></textarea>
                         </div>
                     </form>
-                    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-                    <button type="button" id="confirm-reply" class="btn btn-default button-colour">Reply</button>
+                    <button type="button" data-dismiss="modal" class="btn  bg-gray-light">Cancel</button>
+                    <button type="button" id="confirm-reply" class="btn bg-gray-light">Reply</button>
                 </div>
             </div>
         </div>
@@ -418,6 +470,7 @@
 <script src="assets/js/core/jquery.slimscroll.min.js"></script>
 <script src="assets/js/core/jquery.scrollLock.min.js"></script>
 <script src="assets/js/core/jquery.placeholder.min.js"></script>
+<script src="assets/js/core/jquery.appear.min.js"></script>
 <script src="assets/js/app.js"></script>
 
 <!-- Page JS Code -->
@@ -427,6 +480,7 @@
         App.initHelpers('slimscroll');
     });
 </script>
+<script src="assets/js/pages/base_ui_chat.js"></script>
 
 </body>
 </html>
