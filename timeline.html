@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link type="text/css" rel="stylesheet" href="LandingPage.css">
+
+    <!-- Web fonts -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+
+    <!-- Bootstrap and OneUI CSS framework -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" id="css-main" href="assets/css/oneui.css">
+    <!-- Page JS Plugins CSS -->
+    <link rel="stylesheet" href="assets/js/plugins/slick/slick.min.css">
+    <link rel="stylesheet" href="assets/js/plugins/slick/slick-theme.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="LandingPage.js"></script>
+    <script type="text/javascript" src="noty/packaged/jquery.noty.packaged.min.js"></script>
+
+
+    <meta charset="UTF-8">
+    <title>4mood</title>
+</head>
+<body  onload="timeline();">
+<nav class="navbar navbar-default navbar-fixed-top ">
+    <header id="header-navbar" class="content-mini content-mini-full">
+        <!-- Header Navigation Right -->
+        <ul class="nav-header pull-right">
+
+
+            <li>
+                <a data-placement="bottom" title="ALL MOODS" href="MoodsPage.html" >
+                    <i class="si si-grid fa-2x"></i>
+                </a>
+
+            </li>
+
+            <li>
+                <a   data-placement="bottom" title="TIMELINE" href="timeline.html" >
+                    <i class="si si-home fa-2x"></i>
+                </a>
+
+            </li>
+
+            <li>
+                <a data-placement="bottom" title="PROFILE" href="LandingPage.html" >
+                    <i class="si si-user fa-2x"></i>
+                </a>
+
+            </li>
+
+            <li>
+                <div class="btn-group">
+                    <button class="btn btn-default btn-image dropdown-toggle" data-toggle="dropdown" type="button">
+                        <img src="assets/img/avatars/avatar10.jpg" alt="Avatar">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a tabindex="-1" data-toggle="modal" data-target=".tweet-box">
+                                <i class="fa fa-edit fa-2x"></i>
+                                New post
+                            </a>
+                        </li>
+                        <li>
+                            <a id="edit-profile" tabindex="-1"  href="edit-profile.html" >
+                                <i  class="si si-user fa-2x" ></i> Edit personal info
+                            </a>
+                        </li>
+                        <li>
+                            <a tabindex="-1"  data-toggle="modal" data-target=".followers-box" id="fav">
+                                <i  class="fa fa-heart-o fa-2x"></i> Favourites
+                            </a>
+                        </li>
+                        <li>
+                            <a name="followers" tabindex="-1" data-toggle="modal" data-target=".followers-box">
+                                <i class="si si-users fa-2x"></i> Followers
+                            </a>
+                        </li>
+                        <li>
+                            <a name="following" tabindex="-1" data-toggle="modal" data-target=".followers-box">
+                                <i class="si si-user-following fa-2x"></i> Following
+                            </a>
+                        </li>
+                        <li>
+                            <a tabindex="-1" data-toggle="modal" data-target=".signout-box">
+                                <i class="si si-logout fa-2x"></i> Log out
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+        </ul>
+        <!-- END Header Navigation Right -->
+
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+
+                <ul class="nav-header pull-left">
+
+                    <li>
+                        <!-- Opens the Apps modal found at the bottom of the page, before including JS code -->
+                        <button class="btn btn-default pull-right" data-toggle="modal" data-target="#apps-modal"  data-placement="bottom" title="SELECT MOOD" type="button">
+                            <i class="si si-grid"></i>
+                        </button>
+                    </li>
+
+                    <li class="visible-xs">
+                        <!-- Toggle class helper (for .js-header-search below), functionality initialized in App() -> uiToggleClass() -->
+                        <button class="btn btn-default" data-toggle="class-toggle" data-target=".js-header-search" data-class="header-search-xs-visible" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </li>
+
+                    <li class="js-header-search header-search">
+
+                        <form class="form-horizontal" role="search" method="POST">
+                            <div class="form-material form-material-primary input-group remove-margin-t remove-margin-b">
+                                <input class="form-control" type="text" id="base-material-text" name="search" placeholder="Search..">
+                                <span class="input-group-addon">
+                      <i id="search" data-toggle="modal" data-target=".search-box" class="si si-magnifier"></i></span>
+                            </div>
+                        </form>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </header>
+</nav>
+
+<div id="main-container">
+    <div class="content content-boxed">
+<a data-toggle="modal" data-target="#apps-modal"  data-placement="bottom" title="CHANGE MOOD" type="button">
+    <div class="bg-image" style="background-image: url('assets/img/photos/photo3@2x.jpg');">
+        <div class="block-content bg-primary-op overflow-hidden" >
+            <div class="push-50-t push-15 clearfix">
+                <div class="pull-left push animated fadeInRight">
+                    <div  name="mood-image" ></div>
+                </div>
+                <div class="pull-left push-5-t push-5-l animated fadeInRight">
+                    <h2 class="h3 text-white-op animated zoomIn" name="mood"><em></em></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+    <!-- END Basic Info -->
+    <div id="timeline" >
+
+                        <div class="content content-boxed">
+                            <div class="block">
+                                <div class="col-lg-7">
+                                    <div class="block">
+                                        <div class="block-header bg-gray-lighter">
+                                            <ul class="block-options">
+                                                <li>
+                                                    <button type="button" tabindex="-1" data-toggle="modal" data-target=".tweet-box" data-placement="bottom" title="CREATE POST">
+                                                        <i class="fa fa-edit fa-2x"></i></button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                                                </li>
+                                            </ul>
+                                            <h3 class="block-title"> Posts</h3>
+                                        </div>
+                                        <div class="block-content ">
+                                                <div id="timeline-container">
+
+                                            </div>
+                                            <!-- END Slick slider -->
+                                        </div>
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-5">
+                                    <div class="block">
+                                        <div class="block-header bg-gray-lighter">
+                                            <ul class="block-options">
+                                                <li>
+                                                    <button id="new-list" type="button" data-toggle="modal" data-target=".new-list-box" data-placement="bottom" title="CREATE LIST" class="button-transparent"><i style="font-size:2em;" class="fa fa-plus-circle"></i></button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                                                </li>
+                                            </ul>
+                                            <h3 class="block-title"><i class="si si-list fa-1x"></i>  Lists </h3>
+                                        </div>
+                                        <div class="block-content">
+                                            <div id="lists1" ></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="block-content tab-content">
+                                        <div class="tab-pane fade in active" id="tab-profile-personal">
+                                            <div class="row items-push">
+                                                <div class="col-sm-6 col-sm-offset-3 form-horizontal">
+                                                    <div class="form-group">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                </div>
+    <div role="dialog" tabindex="-1" class="modal fade new-conv-box">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="text-title">New Conversation</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Username:</label>
+                            <div class="col-sm-10">
+                                <input name="conv-username" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Message:</label>
+                            <div class="col-sm-10">
+                                <input name="conv-message" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default"><span style="font-size:2em;" class="fa fa-close text-center"></span></button>
+                    <button type="button" id="create-conversation" class="btn btn-default button-colour"><span style="font-size:2em;" class="fa fa-check text-center"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div role="dialog" tabindex="-1" class="modal fade new-list-box">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="text-title">New List</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="list-users" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Name:</label>
+                                <div class="col-sm-10">
+                                    <input name="list-name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Description:</label>
+                                <div class="col-sm-10">
+                                    <textarea name="list-description" row="4" class="form-control">           </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label id="user-1" class="control-label col-sm-2">User 1:</label>
+                                <div class="col-sm-10">
+                                    <input name="user-1" class="form-control">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" id="add-user" class="btn btn-default"><i style="font-size:2em;" class="fa fa-user-plus text-center"></i></button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default"><span style="font-size:2em;" class="fa fa-close text-center"></span></button>
+                        <button type="button" id="create-list" class="btn btn-default button-colour"><span style="font-size:2em;" class="fa fa-check text-center"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div role="dialog" tabindex="-1" class="modal fade edit-list-box">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Edit List</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Name:</label>
+                                <div class="col-sm-10">
+                                    <input name="list-name-edit" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Description:</label>
+                                <div class="col-sm-10">
+                                    <textarea name="list-description-edit" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                        <button type="button" id="confirm-edit-list" class="btn btn-default button-colour" data-dismiss="modal">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div role="dialog" tabindex="-1" class="modal fade members-box">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="block-header bg-primary-lighter">
+                        <h3 class="block-title">List Members</h3>
+                    </div>
+                    </br>
+                    <div id="members-pane" data-toggle="slimscroll" data-always-visible="true" data-size="10px">
+                    </div>
+                    <div class="modal-footer">
+                        <form>
+                            <div class="form-group">
+                                <input name="new-member" class="form-control">
+                            </div>
+                        </form>
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                        <button type="button" id="add-new-user" class="btn btn-default" data-toggle="block-option" data-action="refresh_toggle"><i style="font-size:2em;" class="fa fa-user-plus text-center"></i></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div role="dialog" tabindex="-1" class="modal fade delete-list-box">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4>Delete List?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                        <button type="button" data-dismiss="modal" id="confirm-delete-list" class="btn btn-default button-colour">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="dialog" tabindex="-1" class="modal fade unsub-list-box">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4>Unsubscribe From List?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                        <button type="button" data-dismiss="modal" id="confirm-unsub-list" class="btn btn-default button-colour">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div role="dialog" tabindex="-1" class="modal fade user-box">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" id="toggle-follow" class="btn btn-default button-colour"><i style="font-size:2em;" class="fa  text-center"></i></button>
+                    <button type="button"  class="btn btn-default button-colour"><i style="font-size:2em;" class="fa fa-warning text-center"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="user-avatar" class="col-sm-3"></div>
+                        <div id="user-tweets" class="col-sm-9"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade tweet-box">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="text-title">New Tweet</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <textarea id="tweet-text" class="form-control"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default"><span style="font-size:2em;" class="fa fa-close text-center"></span></button>
+                    <button type="button" data-toggle="modal" id="create-tweet" class="btn btn-default button-colour"><span style="font-size:2em;" class="fa fa-send text-center"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade signout-box">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4>Signout?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" id="cancel-signout" class="btn btn-default">Cancel</button>
+                    <button type="button" data-dismiss="modal" id="confirm-signout" class="btn btn-default button-colour">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div role="dialog" tabindex="-1" class="modal fade followers-box">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <div class="container">
+                        <div class="col-sm-6 col-lg-5">
+                            <div class="block block-themed">
+
+                                    <p id="box-name" class="font-w600 block-header bg-primary-op"></p>
+                                <div class="block-content block-content-narrow" id="followers-pane" data-toggle="slimscroll" data-always-visible="true" data-size="10px"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div role="dialog" tabindex="-1" class="modal fade search-box">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="search-pane" class="modal-body">   </div>
+            </div>
+        </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade user-details">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <button type="button" data-dismiss="modal" class="btn btn-default"><span style="font-size:2em;" class="fa fa-close text-center"></span></button>
+                <div id="user-header" class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <div class="block-content bg-gray-lighter">
+                        <!-- Slick slider (.js-slider class is initialized in App() -> uiHelperSlick()) -->
+                        <!-- For more info and examples you can check out http://kenwheeler.github.io/slick/ -->
+                        <div class="js-slider remove-margin-b" data-slider-autoplay="true" data-slider-autoplay-speed="4000">
+                            <div id="user-body" class="col-sm-4" data-toggle="slimscroll" data-always-visible="true" data-size="10px"></div>
+                        </div>
+                        <!-- END Slick slider -->
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" id="report" class="btn btn-minw btn-info"  style="visibility: hidden">Report</button>
+                    <button type="button" data-dismiss="modal" id="follow" class="btn btn-minw btn-info">Follow</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div role="dialog" tabindex="-1" class="modal fade message">
+        <div class="modal-dialog">
+            <div class="js-chat-container content content-narrow" data-chat-mode="fixed" data-chat-height="400">
+
+            <div class="modal-content">
+                <div class="block-header bg-primary-light">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="h4"><span class="text-white"><div id="message-header">
+                    </div></span></h3>
+
+                </div>
+                <div class="js-chat-talk overflow-y-auto block-content block-content-full" >
+                    <div id="message-body" class="modal-body"></div>
+                </div>
+                <div class="js-chat-form block-content block-content-full block-content-mini">
+                    <div class="modal-footer">
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" name="dm" class="js-chat-input form-control"   placeholder="Type a message and hit enter..">
+                                    <span class="input-group-btn">
+                                    <button type="submit" id="send-dm" class="btn bg-primary">Reply</button></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade delete-conv-box">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4>Delete Conversation?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                    <button type="button" data-dismiss="modal" id="confirm-delete-conv" class="btn btn-default button-colour">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="dialog" tabindex="-1" class="modal fade reply-box" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="block-header bg-gray-light">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button"><i class="si si-settings"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Replies</h3>
+                </div>
+                <div id="replies" class="modal-body" data-toggle="slimscroll" data-always-visible="true" data-size="10px">
+                </div>
+                <div class="modal-footer">
+                    <form>
+                        <div class="form-group">
+                            <textarea name="reply-text" class="form-control"></textarea>
+                        </div>
+                    </form>
+                    <button type="button" data-dismiss="modal" class="btn  bg-gray-light">Cancel</button>
+                    <button type="button" id="confirm-reply" class="btn bg-gray-light">Reply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</main>
+
+<div class="modal fade" id="apps-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-sm modal-dialog modal-dialog-top">
+        <div class="modal-content">
+            <!-- Apps Block -->
+            <div class="block block-themed block-transparent">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">MOOD!</h3>
+                </div>
+                <div class="block-content">
+                    <div class="row text-center">
+                        <div class="col-xs-6">
+                            <a data-dismiss="modal" class="block block-rounded"  id="rt">
+                                <div class="block-content text-white bg-smooth-light">
+                                    <i class="fa fa-commenting-o fa-2x"></i>
+                                    <div class="font-w600 push-15-t push-15">Random thoughts</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a data-dismiss="modal" class="block block-rounded" id="va">
+                                <div class="block-content text-white bg-success ">
+                                    <i class="si si-bulb fa-2x"></i>
+                                    <div class="font-w600 push-15-t push-15">Value adding</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a data-dismiss="modal" class="block block-rounded" id="d">
+                                <div class="block-content text-white bg-info">
+                                    <i class="si si-directions fa-2x"></i>
+                                    <div class="font-w600 push-15-t push-15">Debatable</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a data-dismiss="modal" class="block block-rounded" id="n">
+                                <div class="block-content text-white bg-danger">
+                                    <i class="fa fa-newspaper-o fa-2x"></i>
+                                    <div class="font-w600 push-15-t push-15">News</div>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- END Apps Block -->
+        </div>
+    </div>
+</div>
+<script src="assets/js/core/jquery.slimscroll.min.js"></script>
+<script src="assets/js/core/jquery.scrollLock.min.js"></script>
+<script src="assets/js/core/jquery.placeholder.min.js"></script>
+<script src="assets/js/core/jquery.appear.min.js"></script>
+<script src="assets/js/app.js"></script>
+
+<!-- Page JS Code -->
+<script>
+    jQuery(function () {
+        // Init page helpers (SlimScroll plugin)
+        App.initHelpers('slimscroll');
+    });
+</script>
+<script src="assets/js/pages/base_ui_chat.js"></script>
+
+</body>
+</html>
