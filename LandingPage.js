@@ -1,5 +1,5 @@
 var capitalize, conv_id, dm_conversation, isEmpty, list_id, user_id, username, users_added, chosen_user,chosen_list , isFollowing;
-urlVar =  "http://68.183.215.190:8080/";
+urlVar =  "http://localhost:8080";
 mood = {'mood':'rt', 'long_mood':'Random Thoughts' , 'mood_logo' :'<i class=\"fa fa-commenting fa-3x\"></i>' };
 
 dm_conversation = 0;
