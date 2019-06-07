@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7341b9fa-c84e-477b-90e7-28e075a851fa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/LandingPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/LandingPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LandingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/LandingPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MoodsPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/MoodsPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignUp.html" beforeDir="false" afterPath="$PROJECT_DIR$/SignUp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeline.html" beforeDir="false" afterPath="$PROJECT_DIR$/timeline.html" afterDir="false" />
-    </list>
+    <list default="true" id="7341b9fa-c84e-477b-90e7-28e075a851fa" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +212,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="y" value="27" />
     <option name="width" value="551" />
     <option name="height" value="625" />
@@ -265,7 +258,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559914711021" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559932099112" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -319,15 +312,15 @@
       <workItem from="1556472305162" duration="115102000" />
       <workItem from="1557888626673" duration="5357000" />
       <workItem from="1559632925839" duration="599000" />
-      <workItem from="1559788161650" duration="44672000" />
+      <workItem from="1559788161650" duration="45272000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="378969000" />
+    <option name="totallyTimeSpent" value="379569000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1366" height="741" extended-state="6" />
+    <frame x="0" y="27" width="1366" height="741" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49837133" visible="true" weight="0.24621212" />
