@@ -491,7 +491,7 @@ function timeline() {
                 " else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); });" +
                 " $('.reply-tweet').click(function(event) {" +
                 " var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12);replies(tweet_id); }); </script>");
-            profile_lists();
+            timline_lists();
         },
         error: function(xhr, status, error) {
             return noty({
@@ -793,8 +793,8 @@ function profileload() {
                             " </div> </div> </div>" +
                             " </blockquote>";
                         $("#user-posts").append(output);
-                        mentions();
                     }
+                    mentions();
                     return $("#user-posts").append("<script> $('.fav-tweet').click(function(event) { " +
                         "var details;" +
                         " event.preventDefault();" +
@@ -841,7 +841,7 @@ function profileload() {
     });
 }
 
-function profile_lists() {
+function timline_lists() {
     var details;
     event.preventDefault();
     details = {
@@ -1155,6 +1155,9 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     return $("#create-list").click(function(event) {
+        $('input[name=list-name]').empty();
+        $('input[name=list-description]').empty();
+
         var details, i, users_in_list, _i;
         event.preventDefault();
         users_in_list = [];
@@ -1828,13 +1831,13 @@ $(document).ready(function() {
                     datatype: "json",
                     data: JSON.stringify(details),
                     success: function (result) {
+                        $('members-box').hide();
                         return noty({
                             text: 'added successfully',
                             timeout: 2000,
                             type: "success",
                             theme: 'bootstrapTheme'
                         });
-
                     },
                     error: function (xhr, status, error) {
                         return noty({
@@ -2210,6 +2213,7 @@ $(document).ready(function() {
                     });
                     $('input[name=conv-username]').val("");
                     $('input[name=conv-message]').val("");
+                    reload();
                     return $(".new-conv-box").modal('hide');
                 },
                 error: function(xhr, status, error) {

@@ -117,7 +117,7 @@ $(document).ready(function() {
             theme: 'bootstrapTheme'
           });
           return window.setTimeout(function() {
-            return window.location.href = "timeline.html";
+            return window.location.href = "MoodsPage.html";
           }, 3000);
         },
         error: function(xhr, status, error) {

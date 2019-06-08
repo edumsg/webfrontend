@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7341b9fa-c84e-477b-90e7-28e075a851fa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/LandingPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/LandingPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LandingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/LandingPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MoodsPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/MoodsPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeline.html" beforeDir="false" afterPath="$PROJECT_DIR$/timeline.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/LandingPage.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="500">
-              <caret line="422" selection-start-line="422" selection-end-line="422" />
+              <caret line="819" column="20" selection-start-line="819" selection-start-column="20" selection-end-line="819" selection-end-column="20" />
               <folding>
                 <element signature="n#style#0;n#i#0;n#button#0;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#i#0;n#button#1;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
@@ -48,6 +49,7 @@
                 <element signature="n#style#0;n#i#0;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#i#0;n#button#0;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#i#0;n#button#1;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i#0;n#button#2;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#i#0;n#button#0;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#i#0;n#button#1;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#i#0;n#button#2;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
@@ -88,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timeline.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="539" lean-forward="true" selection-start-line="514" selection-start-column="3" selection-end-line="539" />
+            <state relative-caret-position="500">
+              <caret line="541" lean-forward="true" selection-start-line="541" selection-end-line="541" />
               <folding>
                 <element signature="n#style#0;n#i#0;n#button#1;n#div#2;n#div#0;n#div#0;n#div#5;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -100,8 +102,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MoodsPage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="315" selection-start-line="315" selection-end-line="315" />
+            <state relative-caret-position="60">
+              <caret line="303" lean-forward="true" selection-start-line="303" selection-end-line="328" />
             </state>
           </provider>
         </entry>
@@ -109,8 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LandingPage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="224" column="206" selection-start-line="224" selection-start-column="206" selection-end-line="224" selection-end-column="206" />
+            <state relative-caret-position="221">
+              <caret line="280" column="29" selection-start-line="280" selection-start-column="29" selection-end-line="280" selection-end-column="41" />
               <folding>
                 <element signature="n#style#0;n#i#0;n#button#1;n#div#2;n#div#0;n#div#0;n#div#5;n#div#2;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -121,8 +123,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SignUp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="36" selection-start-line="1" selection-start-column="36" selection-end-line="1" selection-end-column="36" />
+            <state relative-caret-position="176">
+              <caret line="123" column="38" selection-start-line="123" selection-start-column="36" selection-end-line="123" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -143,36 +145,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>user</find>
-      <find>news</find>
-      <find>80</find>
-      <find>is_following.following();</find>
-      <find>user_posts()</find>
-      <find>grid</find>
-      <find>user-p</find>
-      <find>mess</find>
-      <find>refres</find>
-      <find>rand</find>
-      <find>img-avatar img-avatar96 img-avatar-thumb</find>
-      <find>mood</find>
-      <find>lis</find>
-      <find>profileload()</find>
-      <find>pos</find>
       <find>create p</find>
       <find>is_following.following()</find>
       <find>following();</find>
       <find>following()</find>
       <find>is_following</find>
-      <find>crea</find>
       <find>create-c</find>
       <find>is_fo</find>
       <find>tweet s</find>
       <find>dbt</find>
       <find>timeline</find>
-      <find>timeline()</find>
       <find>moodd</find>
       <find>News</find>
       <find>repl</find>
+      <find>update</find>
+      <find>$('edit-list-box')</find>
+      <find>create_l</find>
+      <find>me</find>
+      <find>timeline()</find>
+      <find>lis</find>
+      <find>crea</find>
+      <find>list</find>
+      <find>lists</find>
+      <find>add</find>
+      <find>list mem</find>
+      <find>members-box</find>
+      <find>,</find>
+      <find>rep</find>
+      <find>reply</find>
+      <find>list me</find>
+      <find>profilel</find>
     </findStrings>
     <replaceStrings>
       <replace>subscribers</replace>
@@ -184,6 +186,8 @@
       <replace />
       <replace>reload();</replace>
       <replace>'post</replace>
+      <replace>timline_lists</replace>
+      <replace>timline_lists</replace>
       <replace>urlVar</replace>
     </replaceStrings>
   </component>
@@ -209,15 +213,15 @@
         <option value="$PROJECT_DIR$/base_ui_timeline.html" />
         <option value="$PROJECT_DIR$/edit-profile.html" />
         <option value="$PROJECT_DIR$/SignUp.html" />
-        <option value="$PROJECT_DIR$/timeline.html" />
-        <option value="$PROJECT_DIR$/SignUp.js" />
         <option value="$PROJECT_DIR$/LandingPage.html" />
         <option value="$PROJECT_DIR$/MoodsPage.html" />
+        <option value="$PROJECT_DIR$/SignUp.js" />
+        <option value="$PROJECT_DIR$/timeline.html" />
         <option value="$PROJECT_DIR$/LandingPage.js" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="27" />
     <option name="width" value="551" />
     <option name="height" value="625" />
@@ -263,7 +267,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559981055482" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559989583075" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -317,18 +321,18 @@
       <workItem from="1556472305162" duration="115102000" />
       <workItem from="1557888626673" duration="5357000" />
       <workItem from="1559632925839" duration="599000" />
-      <workItem from="1559788161650" duration="48547000" />
+      <workItem from="1559788161650" duration="52735000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="382844000" />
+    <option name="totallyTimeSpent" value="387032000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49837133" visible="true" weight="0.24621212" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49837133" weight="0.24621212" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -645,34 +649,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SignUp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="36" selection-start-line="1" selection-start-column="36" selection-end-line="1" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LandingPage.html">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
-          <caret line="224" column="206" selection-start-line="224" selection-start-column="206" selection-end-line="224" selection-end-column="206" />
-          <folding>
-            <element signature="n#style#0;n#i#0;n#button#1;n#div#2;n#div#0;n#div#0;n#div#5;n#div#2;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+          <caret line="123" column="38" selection-start-line="123" selection-start-column="36" selection-end-line="123" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MoodsPage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="315" selection-start-line="315" selection-end-line="315" />
+        <state relative-caret-position="60">
+          <caret line="303" lean-forward="true" selection-start-line="303" selection-end-line="328" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/timeline.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="539" lean-forward="true" selection-start-line="514" selection-start-column="3" selection-end-line="539" />
+        <state relative-caret-position="500">
+          <caret line="541" lean-forward="true" selection-start-line="541" selection-end-line="541" />
           <folding>
             <element signature="n#style#0;n#i#0;n#button#1;n#div#2;n#div#0;n#div#0;n#div#5;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LandingPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="280" column="29" selection-start-line="280" selection-start-column="29" selection-end-line="280" selection-end-column="41" />
+          <folding>
+            <element signature="n#style#0;n#i#0;n#button#1;n#div#2;n#div#0;n#div#0;n#div#5;n#div#2;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -680,7 +684,7 @@
     <entry file="file://$PROJECT_DIR$/LandingPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
-          <caret line="422" selection-start-line="422" selection-end-line="422" />
+          <caret line="819" column="20" selection-start-line="819" selection-start-column="20" selection-end-line="819" selection-end-column="20" />
           <folding>
             <element signature="n#style#0;n#i#0;n#button#0;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#button#1;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
@@ -693,6 +697,7 @@
             <element signature="n#style#0;n#i#0;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#button#0;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#button#1;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#button#2;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#button#0;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#button#1;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#button#2;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
