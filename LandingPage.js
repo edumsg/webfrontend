@@ -32,10 +32,9 @@ $(document).ready(function() {
         mood.long_mood="Random Thoughts";
         mood.mood_logo="<i class=\"fa fa-commenting-o fa-3x\"></i>";
         var pathname = window.location.pathname.substring(40,48);
-        if(pathname.includes("timeline"))
-            timeline();
-        else
-            profileload();
+
+        reload();
+
         noty({
             text: mood.long_mood,
             timeout: 2000,
@@ -49,11 +48,7 @@ $(document).ready(function() {
         mood.mood="va";
         mood.long_mood="Value Adding";
         mood.mood_logo="<i class=\"si si-bulb fa-3x\"></i>";
-        var pathname = window.location.pathname.substring(40,48);
-        if(pathname.includes("timeline"))
-            timeline();
-        else
-            profileload();
+        reload();
         noty({
             text: mood.long_mood,
             timeout: 2000,
@@ -67,12 +62,7 @@ $(document).ready(function() {
         mood.mood="dbt";
         mood.long_mood="Debatable"
         mood.mood_logo="<i class=\"si si-directions fa-3x\"></i>";
-        var pathname = window.location.pathname.substring(40,48);
-        if(pathname.includes("timeline"))
-            timeline();
-        else
-            profileload();
-
+        reload();
         noty({
             text: mood.long_mood ,
             timeout: 2000,
@@ -86,12 +76,7 @@ $(document).ready(function() {
         mood.mood="nw";
         mood.long_mood="News";
         mood.mood_logo="<i class=\"fa fa-newspaper-o fa-3x\"></i>";
-        var pathname = window.location.pathname.substring(40,48);
-        if(pathname.includes("timeline"))
-            timeline();
-        else
-            profileload();
-        noty({
+        reload();noty({
             text: mood.long_mood,
             timeout: 2000,
             type: "success",
@@ -183,13 +168,37 @@ function moodDbt() {
                     " <i style='font-size:1.5em;' class='fa fa-star'></i></button> " +
                     "<button class='pull-right button-transparent retweet-tweet' type='button' data-placement=\"bottom\" title=\"REPOST\" id='tweet-retweet-" + i.id + "' >" +
                     " <i style='font-size:1.5em;' class='fa fa-retweet'></i></button> " +
-                    "<button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box' type='button' data-placement=\"bottom\" title=\"REPLY\" id='tweet-reply-" + i.id + "'> " +
+                    "<button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box'" +
+                    " type='button' data-placement=\"bottom\" title=\"REPLY\" id='tweet-reply-" + i.id + "'> " +
                     "<i style='font-size:1.5em;' class='fa fa-reply'></i></button>"+
                     " </div> </div> </div>"+
                     "</footer> </blockquote>" ;
                 $("#debate").append(output);
-                return $("#debate").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.reply-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12); }); </script>");
             }
+            $("#debate").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault();" +
+                " tweet_id = $(this).attr('id').substring(10); " +
+                "details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; " +
+                "return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), " +
+                "success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet');" +
+                " $(this).text(0); return noty({ text: 'post favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }," +
+                " error: function(xhr, status, error) { if(error.includes('tweet'))" +
+                "{ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } " +
+                "else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); });" +
+                " $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10);" +
+                " details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' };" +
+                " return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { " +
+                "$(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0);" +
+                " return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }," +
+                " error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); });" +
+                " $('.retweet-tweet').click(function(event) {" +
+                " var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); " +
+                "details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' };" +
+                " return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details)," +
+                " success: function(result) { return noty({ text: 'Repost successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }," +
+                " error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This post, is already reposted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }" +
+                " else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); });" +
+                " $('.reply-tweet').click(function(event) {" +
+                " var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12);replies(tweet_id); }); </script>");
 
         },
         error: function(xhr, status, error) {
@@ -244,15 +253,16 @@ function moodVa() {
                     " <i style='font-size:1.5em;' class='fa fa-star'></i></button> " +
                     "<button class='pull-right button-transparent retweet-tweet' type='button' data-placement=\"bottom\" title=\"REPOST\" id='tweet-retweet-" + i.id + "' >" +
                     " <i style='font-size:1.5em;' class='fa fa-retweet'></i></button> " +
-                    "<button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box' type='button' data-placement=\"bottom\" title=\"REPLY\" id='tweet-reply-" + i.id + "'> " +
+                    "<button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box'" +
+                    " type='button' data-placement=\"bottom\" title=\"REPLY\" id='tweet-reply-" + i.id + "'> " +
                     "<i style='font-size:1.5em;' class='fa fa-reply'></i></button>"+
                     " </div> </div> </div>"+
                     "</footer> </blockquote>" ;
                 $("#value").append(output);
-                moodNw();
-
 
             }
+            moodNw();
+
 
         },
         error: function(xhr, status, error) {
@@ -307,16 +317,15 @@ function moodNw() {
                     " <i style='font-size:1.5em;' class='fa fa-star'></i></button> " +
                     "<button class='pull-right button-transparent retweet-tweet' type='button' data-placement=\"bottom\" title=\"REPOST\" id='tweet-retweet-" + i.id + "' >" +
                     " <i style='font-size:1.5em;' class='fa fa-retweet'></i></button> " +
-                    "<button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box' type='button' data-placement=\"bottom\" title=\"REPLY\" id='tweet-reply-" + i.id + "'> " +
+                    "<button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box'" +
+                    " type='button' data-placement=\"bottom\" title=\"REPLY\" id='tweet-reply-" + i.id + "'> " +
                     "<i style='font-size:1.5em;' class='fa fa-reply'></i></button>"+
                     " </div> </div> </div>"+
                     "</footer> </blockquote>" ;
+
                 $("#news").append(output);
-                return $("#news").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.reply-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12); }); </script>");
-
-                moodDbt();
-
             }
+            moodDbt();
 
         },
         error: function(xhr, status, error) {
@@ -371,14 +380,15 @@ function moodRt() {
                     " <i style='font-size:1.5em;' class='fa fa-star'></i></button> " +
                     "<button class='pull-right button-transparent retweet-tweet' type='button' data-placement=\"bottom\" title=\"REPOST\" id='tweet-retweet-" + i.id + "' >" +
                     " <i style='font-size:1.5em;' class='fa fa-retweet'></i></button> " +
-                    "<button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box' type='button' data-placement=\"bottom\" title=\"REPLY\" id='tweet-reply-" + i.id + "'> " +
+                    "<button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box'" +
+                    " type='button' data-placement=\"bottom\" title=\"REPLY\" id='tweet-reply-" + i.id + "'> " +
                     "<i style='font-size:1.5em;' class='fa fa-reply'></i></button>"+
                     " </div> </div> </div>"+
                     "</footer> </blockquote>" ;
                 $("#random").append(output);
-                moodVa();
 
             }
+            moodVa();
 
         },
         error: function(xhr, status, error) {
@@ -392,7 +402,19 @@ function moodRt() {
     });
 
 }
+function reload() {
+    var pathname = window.location.pathname.substring(40,48);
+    if(pathname.includes("timeline"))
+        timeline();
 
+    else
+    if(pathname.includes("Moods"))
+        moodRt();
+
+    else
+        profileload();
+
+}
 function timeline() {
     var details;
     event.preventDefault();
@@ -450,7 +472,7 @@ function timeline() {
                 "details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; " +
                 "return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), " +
                 "success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet');" +
-                " $(this).text(0); return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }," +
+                " $(this).text(0); return noty({ text: 'post favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }," +
                 " error: function(xhr, status, error) { if(error.includes('tweet'))" +
                 "{ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } " +
                 "else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); });" +
@@ -464,8 +486,8 @@ function timeline() {
                 " var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); " +
                 "details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' };" +
                 " return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details)," +
-                " success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }," +
-                " error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }" +
+                " success: function(result) { return noty({ text: 'Repost successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }," +
+                " error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This post, is already reposted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }" +
                 " else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); });" +
                 " $('.reply-tweet').click(function(event) {" +
                 " var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12);replies(tweet_id); }); </script>");
@@ -615,7 +637,7 @@ function user_posts(){
                     "                                        </li></ul>";
                 $("#notifications").append(output);
             }
-            $("#notifications").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.reply-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12); }); </script>");
+            $("#notifications").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'post favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Repost successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This post, is already reposted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.reply-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12); }); </script>");
             messages();
             },
         error: function(xhr, status, error) {
@@ -790,11 +812,11 @@ function profileload() {
                         "$(this).removeClass('fav-tweet');" +
                         " $(this).addClass('unfav-tweet');" +
                         " $(this).text(0); " +
-                        "return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }," +
+                        "return noty({ text: 'post favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }," +
                         " error: function(xhr, status, error) { " +
                         "if(error.includes('tweet')){ " +
                         "return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } " +
-                        "else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); });" +
+                        "else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Repost successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This post, is already reposted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); });" +
                         " $('.delete-tweet').click(function(event) { " +
                         "var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(13); }); </script>");
                 },
@@ -1431,12 +1453,13 @@ $(document).ready(function() {
             success: function(result) {
                 $("#tweet-text").val("");
                 noty({
-                    text: 'Tweet Sent!',
+                    text: 'Posted!',
                     timeout: 1500,
                     type: "success",
                     theme: 'bootstrapTheme'
                 });
-                return $(".tweet-box").modal('hide');
+
+                reload();return $(".tweet-box").modal('hide');
             },
             error: function(xhr, status, error) {
                 return noty({
@@ -1570,7 +1593,7 @@ $(document).ready(function() {
                 }
                 ;
 
-                return $("#my-tweets-container").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.delete-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(13); }); </script>");
+                return $("#my-tweets-container").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'post favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Repost successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This post, is already reposted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.delete-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(13); }); </script>");
             },
             error: function(xhr, status, error) {
                 return noty({
@@ -1607,7 +1630,7 @@ $(document).ready(function() {
                     output = "<div class=\"row-fluid\"> <div class=\"col-sm-4 col-sm-offset-4\"> <div class=\"media timeline\"> <div class=\"media-left\"> <img class='media-object' src='" + i.creator.avatar_url + "' height='64' width='64'> </div> <div class=\"media-body\"> <h4 class=\"media-heading\"> " + (capitalize(i.creator.username)) + " (@" + i.creator.username + ") </h4> " + i.tweet_text + " </div> </div> <button class='pull-right button-transparent fav-tweet' type='button' id='tweet-fav-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-star'></i></button> <button class='pull-right button-transparent retweet-tweet' type='button' id='tweet-retweet-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-retweet'></i></button> <button class='pull-right button-transparent reply-tweet' data-toggle='modal' data-target='.reply-box' type='button' id='tweet-reply-" + i.id + "'> <i style='font-size:1.5em;' class='fa fa-reply'></i></button> </div> </div>";
                     $("#notifications-container").append(output);
                 }
-                return $("#notifications-container").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.reply-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12);replies(tweet_id); }); </script>");
+                return $("#notifications-container").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'post favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Repost successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This post, is already reposted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.reply-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12);replies(tweet_id); }); </script>");
             },
             error: function(xhr, status, error) {
                 return noty({
@@ -1945,7 +1968,8 @@ var is_following = {
                 else {
                  document.getElementById('follow').innerHTML='follow';
                 }
-                return isFollowing;
+
+                reload();return isFollowing;
                 },
             error: function(xhr,status,error) {
                 return noty({
@@ -1988,7 +2012,7 @@ $(document).ready(function() {
                        theme: 'bootstrapTheme'
                    });
                }
-            },
+               },
             error: function (xhr, status, error) {
 
                 return noty({
@@ -2131,7 +2155,7 @@ $(document).ready(function() {
 
                     $("#timeline-container").append(output);
                 }
-                return $("#timeline-container").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'Tweet favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Retweet successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This tweet, is already retweeted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.reply-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12); }); </script>");
+                return $("#timeline-container").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'post favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Repost successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This post, is already reposted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.reply-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12); }); </script>");
             },
             error: function(xhr, status, error) {
                 return noty({
@@ -2196,7 +2220,17 @@ $(document).ready(function() {
                             type: "error",
                             theme: 'bootstrapTheme'
                         });
-                    } else {
+                    }
+                    else
+                        if (error.includes("must")) {
+                            return noty({
+                                text: 'User must be following you first',
+                                timeout: 2000,
+                                type: "error",
+                                theme: 'bootstrapTheme'
+                            });
+                        }
+                    else {
                         return noty({
                             text: 'An error occured, please try again',
                             timeout: 2000,
@@ -2379,7 +2413,7 @@ $(document).ready(function() {
             success: function(result) {
                 $(".my-tweet-" + tweet_id).hide();
                 return noty({
-                    text: 'Tweet Deleted!',
+                    text: 'post Deleted!',
                     timeout: 2000,
                     type: "success",
                     theme: 'bootstrapTheme'
