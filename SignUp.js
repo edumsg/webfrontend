@@ -1,5 +1,5 @@
 var capitalize;
-urlVar= "http://127.0.1.1:8080/"
+urlVar= "http://68.183.215.190:8080/"
 $(document).ready(function() {
   return $("#signup").click(function(event) {
     var check, details;
