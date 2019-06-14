@@ -1,5 +1,5 @@
 var capitalize, conv_id, dm_conversation, isEmpty, list_id, user_id, username, users_added, chosen_user,chosen_list , isFollowing;
-urlVar =  "http://68.183.215.190:8080/";
+urlVar =  "http://127.0.1.1:8080/";
 mood = {'mood':'rt', 'long_mood':'Random Thoughts' , 'mood_logo' :'<i class=\"fa fa-commenting fa-3x\"></i>' };
 
 dm_conversation = 0;
@@ -650,7 +650,8 @@ function user_posts(){
 }
 
 function messages(CurName){
-    var details;
+    chosen_user=CurName;
+         var details;
     event.preventDefault();
     details = {
         session_id: localStorage.session,
@@ -684,7 +685,7 @@ function messages(CurName){
             }
             mentions();
             return $("#messages").append("<script> $('.thread').click(function(event) { " +
-                "var CurName = localStorage.username;" +
+                "var CurName = chosen_user;" +
                 "var details, thread_id; event.preventDefault(); " +
                 "thread_id = $(this).attr('id').substring(7); dm_conversation = thread_id;" +
                 " details = { conv_id: thread_id, method: 'get_conv', queue: 'DM' }; " +
