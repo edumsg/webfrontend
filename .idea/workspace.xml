@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7341b9fa-c84e-477b-90e7-28e075a851fa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LandingPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/LandingPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LandingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/LandingPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MoodsPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/MoodsPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignUp.html" beforeDir="false" afterPath="$PROJECT_DIR$/SignUp.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeline.html" beforeDir="false" afterPath="$PROJECT_DIR$/timeline.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LandingPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="684" column="23" selection-start-line="684" selection-start-column="23" selection-end-line="684" selection-end-column="23" />
+            <state relative-caret-position="15">
+              <caret line="1" column="38" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
               <folding>
                 <element signature="n#style#0;n#i#0;n#button#0;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#i#0;n#button#1;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
@@ -112,8 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SignUp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="17" column="14" lean-forward="true" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+            <state relative-caret-position="15">
+              <caret line="1" column="9" lean-forward="true" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -185,10 +180,10 @@
       <find>conf</find>
       <find>confirm</find>
       <find>mes</find>
-      <find>messa</find>
       <find>tit</find>
       <find>4m</find>
       <find>4mo</find>
+      <find>messa</find>
     </findStrings>
     <replaceStrings>
       <replace>subscribers</replace>
@@ -234,7 +229,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="27" />
     <option name="width" value="551" />
     <option name="height" value="625" />
@@ -338,12 +333,12 @@
       <workItem from="1559992537787" duration="163000" />
       <workItem from="1560236048072" duration="4480000" />
       <workItem from="1560405480832" duration="1428000" />
-      <workItem from="1560517973931" duration="2100000" />
+      <workItem from="1560517973931" duration="2584000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="395203000" />
+    <option name="totallyTimeSpent" value="395687000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
@@ -619,15 +614,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SignUp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="17" column="14" lean-forward="true" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+        <state relative-caret-position="15">
+          <caret line="1" column="9" lean-forward="true" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LandingPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="684" column="23" selection-start-line="684" selection-start-column="23" selection-end-line="684" selection-end-column="23" />
+        <state relative-caret-position="15">
+          <caret line="1" column="38" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
           <folding>
             <element signature="n#style#0;n#i#0;n#button#0;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#button#1;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
