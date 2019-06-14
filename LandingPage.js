@@ -1,5 +1,5 @@
 var capitalize, conv_id, dm_conversation, isEmpty, list_id, user_id, username, users_added, chosen_user,chosen_list , isFollowing;
-urlVar =  "http://68.183.215.190:8080/";
+urlVar =  "http://127.0.1.1:8080/";
 mood = {'mood':'rt', 'long_mood':'Random Thoughts' , 'mood_logo' :'<i class=\"fa fa-commenting fa-3x\"></i>' };
 
 dm_conversation = 0;
@@ -607,7 +607,6 @@ function user_posts(){
 }
 
     function mentions(){
-
     var details;
     event.preventDefault();
     details = {
@@ -638,7 +637,6 @@ function user_posts(){
                 $("#notifications").append(output);
             }
             $("#notifications").append("<script> $('.fav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'favorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('fav-tweet'); $(this).addClass('unfav-tweet'); $(this).text(0); return noty({ text: 'post favorited!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if(error.includes('tweet')){ return noty({ text: 'Post already favorited', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.unfav-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(10); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'unfavorite', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { $(this).removeClass('unfav-tweet'); $(this).addClass('fav-tweet'); $(this).text(0); return noty({ text: 'Unfavorite successful!', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } }); }); $('.retweet-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(14); details = { session_id: localStorage.session, tweet_id: tweet_id, method: 'retweet', queue: 'TWEET' }; return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details), success: function(result) { return noty({ text: 'Repost successful!', timeout: 2000, type: 'success', theme: 'bootstrapTheme' }); }, error: function(xhr, status, error) { if (error.includes(\"retweet\")) { return noty({ text: 'This post, is already reposted', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } else { return noty({ text: 'An error occured, please try again', timeout: 2000, type: 'error', theme: 'bootstrapTheme' }); } } }); }); $('.reply-tweet').click(function(event) { var details; event.preventDefault(); tweet_id = $(this).attr('id').substring(12); }); </script>");
-            messages();
             },
         error: function(xhr, status, error) {
             return noty({
@@ -651,7 +649,7 @@ function user_posts(){
     });
 }
 
-function messages(){
+function messages(CurName){
     var details;
     event.preventDefault();
     details = {
@@ -671,26 +669,29 @@ function messages(){
             _ref = result.convs;
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                 i = _ref[_i];
-                if (i.lastDM.sender.name === localStorage.username) {
-                    other = i.lastDM.reciever.name;
+                if (i.lastDM.sender.username.includes(CurName)) {
+                    other = i.lastDM.reciever;
                 } else {
-                    other = i.lastDM.sender.name;
+                    other = i.lastDM.sender;
                 }
                 output = "<div class=\"media thread-" + i.id + "\" >" +
                     " <div class=\"media-left\">" +
-                    " <img class=\"media-object\" src='" + i.lastDM.sender.avatar_url + "' alt='DM Image' width='64' height='64'> </div> " +
+                    " <img class=\"media-object\" src='" + other.avatar_url + "' alt='DM Image' width='64' height='64'> </div> " +
                     "<div class=\"media-body thread\" id='thread-" + i.id + "' data-toggle='modal' data-target='.message' >" +
-                    " <h4 class=\"media-heading\">" + other + "</h4> " + i.lastDM.dm_text + " </div>" +
+                    " <h4 class=\"media-heading\">" + other.name + "</h4> " + i.lastDM.dm_text + " </div>" +
                     " <button class='pull-right button-transparent delete-conversation' data-toggle='modal' data-target='.delete-conv-box' type='button' id='conv-delete-" + i.id + "' > <i style='font-size:1.5em;' class='fa fa-trash'></i></button> </div>";
                 $("#messages").append(output);
             }
-            return $("#messages").append("<script> $('.thread').click(function(event) { var details, thread_id; event.preventDefault(); " +
+            mentions();
+            return $("#messages").append("<script> $('.thread').click(function(event) { " +
+                "var CurName = localStorage.username;" +
+                "var details, thread_id; event.preventDefault(); " +
                 "thread_id = $(this).attr('id').substring(7); dm_conversation = thread_id;" +
                 " details = { conv_id: thread_id, method: 'get_conv', queue: 'DM' }; " +
                 "return $.ajax({ url: urlVar, type: 'POST', datatype: 'json', data: JSON.stringify(details)," +
                 " success: function(result) { var i, j, len, other, ref, results; other = ''; " +
                 " $('#message-header').empty(); " +
-                "if (!result.conv.dms[0].sender.username.includes(localStorage.username)) {"+
+                "if (result.conv.dms[0].sender.username.includes(CurName)) {"+
                 "$('#message-header').append(result.conv.dms[0].reciever.name ); " +
                 "other = result.conv.dms[0].reciever.name;} " +
                 "else {"+
@@ -717,10 +718,11 @@ function messages(){
             });
         }
     });
+
 }
 
 function profileload() {
-
+    var username;
     var details;
     event.preventDefault();
     details = {
@@ -748,6 +750,7 @@ function profileload() {
             $('h2[name=numberOfFollowing]').append(result.user.followings_count);
             $('h2[name=numberOfPosts]').append(result.user.tweets_count);
 
+            username = result.user.username;
             var details;
             var current_time = new Date();
             event.preventDefault();
@@ -794,7 +797,7 @@ function profileload() {
                             " </blockquote>";
                         $("#user-posts").append(output);
                     }
-                    mentions();
+                    messages(username);
                     return $("#user-posts").append("<script> $('.fav-tweet').click(function(event) { " +
                         "var details;" +
                         " event.preventDefault();" +

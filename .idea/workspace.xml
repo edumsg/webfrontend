@@ -3,8 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="7341b9fa-c84e-477b-90e7-28e075a851fa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LandingPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/LandingPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LandingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/LandingPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MoodsPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/MoodsPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SignUp.html" beforeDir="false" afterPath="$PROJECT_DIR$/SignUp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeline.html" beforeDir="false" afterPath="$PROJECT_DIR$/timeline.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,11 +36,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LandingPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="819" column="20" selection-start-line="819" selection-start-column="20" selection-end-line="819" selection-end-column="20" />
+            <state relative-caret-position="425">
+              <caret line="684" column="23" selection-start-line="684" selection-start-column="23" selection-end-line="684" selection-end-column="23" />
               <folding>
                 <element signature="n#style#0;n#i#0;n#button#0;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#i#0;n#button#1;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
@@ -89,8 +94,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timeline.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8115">
-              <caret line="541" selection-start-line="541" selection-end-line="541" />
+            <state relative-caret-position="300">
+              <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -98,20 +103,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MoodsPage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4545">
-              <caret line="303" selection-start-line="303" selection-end-line="328" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LandingPage.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4200">
-              <caret line="280" column="29" selection-start-line="280" selection-start-column="29" selection-end-line="280" selection-end-column="41" />
-              <folding>
-                <element signature="n#style#0;n#i#0;n#button#1;n#div#2;n#div#0;n#div#0;n#div#5;n#div#2;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="315">
+              <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -119,8 +112,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SignUp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="60" column="47" selection-start-line="60" selection-start-column="41" selection-end-line="60" selection-end-column="47" />
+            <state>
+              <caret line="17" column="14" lean-forward="true" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -128,17 +121,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SignUp.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="70" column="46" lean-forward="true" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
+            <state relative-caret-position="225">
+              <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="74">
-              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="240">
+              <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LandingPage.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+              <folding>
+                <element signature="n#style#0;n#i#0;n#button#1;n#div#2;n#div#0;n#div#0;n#div#5;n#div#2;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -154,24 +159,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>following()</find>
-      <find>is_following</find>
-      <find>create-c</find>
-      <find>is_fo</find>
-      <find>tweet s</find>
-      <find>dbt</find>
-      <find>timeline</find>
-      <find>moodd</find>
-      <find>News</find>
-      <find>repl</find>
-      <find>update</find>
-      <find>$('edit-list-box')</find>
-      <find>create_l</find>
-      <find>me</find>
-      <find>timeline()</find>
-      <find>lis</find>
-      <find>crea</find>
-      <find>list</find>
       <find>lists</find>
       <find>add</find>
       <find>list mem</find>
@@ -183,7 +170,25 @@
       <find>profilel</find>
       <find>inter</find>
       <find>please</find>
-      <find>inter</find>
+      <find>cre</find>
+      <find>mem</find>
+      <find>follow</find>
+      <find>crea</find>
+      <find>fav</find>
+      <find>favou</find>
+      <find>delete</find>
+      <find>delete-tweet-box</find>
+      <find>delete-</find>
+      <find>confirm-de</find>
+      <find>unfav</find>
+      <find>unfavorit</find>
+      <find>conf</find>
+      <find>confirm</find>
+      <find>mes</find>
+      <find>messa</find>
+      <find>tit</find>
+      <find>4m</find>
+      <find>4mo</find>
     </findStrings>
     <replaceStrings>
       <replace>subscribers</replace>
@@ -219,17 +224,17 @@
         <option value="$PROJECT_DIR$/LandingPage.css" />
         <option value="$PROJECT_DIR$/base_ui_timeline.html" />
         <option value="$PROJECT_DIR$/edit-profile.html" />
-        <option value="$PROJECT_DIR$/LandingPage.html" />
-        <option value="$PROJECT_DIR$/MoodsPage.html" />
-        <option value="$PROJECT_DIR$/SignUp.js" />
-        <option value="$PROJECT_DIR$/timeline.html" />
-        <option value="$PROJECT_DIR$/LandingPage.js" />
-        <option value="$PROJECT_DIR$/SignUp.html" />
         <option value="$PROJECT_DIR$/Login.html" />
+        <option value="$PROJECT_DIR$/MoodsPage.html" />
+        <option value="$PROJECT_DIR$/timeline.html" />
+        <option value="$PROJECT_DIR$/SignUp.html" />
+        <option value="$PROJECT_DIR$/LandingPage.html" />
+        <option value="$PROJECT_DIR$/SignUp.js" />
+        <option value="$PROJECT_DIR$/LandingPage.js" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="y" value="27" />
     <option name="width" value="551" />
     <option name="height" value="625" />
@@ -331,14 +336,18 @@
       <workItem from="1559632925839" duration="599000" />
       <workItem from="1559788161650" duration="52735000" />
       <workItem from="1559992537787" duration="163000" />
+      <workItem from="1560236048072" duration="4480000" />
+      <workItem from="1560405480832" duration="1428000" />
+      <workItem from="1560517973931" duration="2100000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="387195000" />
+    <option name="totallyTimeSpent" value="395203000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49837133" weight="0.24621212" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -570,10 +579,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/timeline.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MoodsPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SignUp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LandingPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+          <folding>
+            <element signature="n#style#0;n#i#0;n#button#1;n#div#2;n#div#0;n#div#0;n#div#5;n#div#2;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SignUp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="17" column="14" lean-forward="true" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/LandingPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="819" column="20" selection-start-line="819" selection-start-column="20" selection-end-line="819" selection-end-column="20" />
+        <state relative-caret-position="425">
+          <caret line="684" column="23" selection-start-line="684" selection-start-column="23" selection-end-line="684" selection-end-column="23" />
           <folding>
             <element signature="n#style#0;n#i#0;n#button#0;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#button#1;n#footer#0;n#blockquote#0;n#!!top" expanded="true" />
@@ -620,51 +674,6 @@
             <element signature="n#style#0;n#i#0;n#button#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#button#2;n#div#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timeline.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8115">
-          <caret line="541" selection-start-line="541" selection-end-line="541" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MoodsPage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4545">
-          <caret line="303" selection-start-line="303" selection-end-line="328" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LandingPage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4200">
-          <caret line="280" column="29" selection-start-line="280" selection-start-column="29" selection-end-line="280" selection-end-column="41" />
-          <folding>
-            <element signature="n#style#0;n#i#0;n#button#1;n#div#2;n#div#0;n#div#0;n#div#5;n#div#2;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SignUp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="60" column="47" selection-start-line="60" selection-start-column="41" selection-end-line="60" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SignUp.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="70" column="46" lean-forward="true" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
         </state>
       </provider>
     </entry>
