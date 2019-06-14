@@ -403,7 +403,7 @@ function moodRt() {
 
 }
 function reload() {
-    var pathname = window.location.pathname.substring(40,48);
+    var pathname = window.location.pathname;
     if(pathname.includes("timeline"))
         timeline();
 
