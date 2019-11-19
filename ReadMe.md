@@ -1,1 +1,2 @@
-The main files in the project are the Jade, CoffeeScript and Sass files, HTML, JavaScript and CSS files are compiled from their respective source files and MAY NOT be comprehendable  
+# 4-mood Frontend 
+4 mood is a scalable social network that allow user to post, message and get notifications and posts regarding their moods and people they follow.
